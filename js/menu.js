@@ -366,24 +366,21 @@ function clickOnNode(folderId) {
 }
 
 function initializeDocument() {
-    // alert("");
-    if (doc.all || doc.all.length)
-        browserVersion = 1 //IE4
-    else if (doc.layers)
-        browserVersion = 2 //NS4
-    else
-        browserVersion = 0 //other
-
-    foldersTree.initialize(0, 1, "")
-    foldersTree.display()
-
+    if (doc.all || doc.all.length) {
+        browserVersion = 1; //IE4
+    } else if (doc.layers) {
+        browserVersion = 2; //NS4
+    } else {
+        browserVersion = 0; //other
+    }
+    foldersTree.initialize(0, 1, "");
+    foldersTree.display();
     if (browserVersion > 0) {
-        doc.write("<layer top=" + indexOfEntries[nEntries - 1].navObj.top + ">&nbsp;</layer>")
-
+        doc.write("<layer top=" + indexOfEntries[nEntries - 1].navObj.top + ">&nbsp;</layer>");
         // close the whole tree
-        clickOnNode(0)
+        clickOnNode(0);
         // open the root folder
-        clickOnNode(0)
+        clickOnNode(0);
     }
 }
 
