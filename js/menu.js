@@ -237,7 +237,7 @@ function Item(itemDescription, itemLink) // Constructor
     this.id = -1 //initialized in initalize()
     this.navObj = 0 //initialized in render()
     this.iconImg = 0 //initialized in render()
-// alert('desc= '+this.desc);
+    // alert('desc= '+this.desc);
     this.initialize = initializeItem
     this.createIndex = createEntryIndex
     this.hide = hideItem
