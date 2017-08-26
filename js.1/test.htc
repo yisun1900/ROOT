@@ -1,0 +1,137 @@
+<public:component>
+
+	<public:attach event="ondocumentready" onevent="doinit()" />
+	<public:property name="rownum" />
+	<public:property name="colnum" />
+
+<script>
+
+	var rowhead = null, colhead = null;
+
+	function doinit() 
+	{
+		rownum = (rownum==null?0:parseint(rownum, 10));
+		colnum = (colnum==null?0:parseint(colnum, 10));
+
+		var i, j;
+
+		//复制行表头
+		rowhead = element.clonenode(true);
+		for (i=rownum; i<rowhead.rows.length;)
+			rowhead.deleterow(rownum);
+			//alert(rowhead.outerhtml);
+		//复制列表头
+		colhead = element.clonenode(true);
+		for (i=0; i<rownum; i++)
+			colhead.deleterow(0);
+		for (i=0; i<colhead.rows.length; i++) 
+		{
+			rowitem = colhead.rows(i);
+			for (j=colnum; j<rowitem.cells.length;)
+			rowitem.deletecell(rowitem.cells.length - 1);
+		}
+		//alert(colhead.outerhtml);
+
+		//设置行表头属性
+		rowhead.id += rowhead.uniqueid;
+		rowhead.classname = "";
+		rowhead.style.position = "absolute";
+		rowhead.style.top = getpostop(element);
+		rowhead.style.left = getposleft(element);
+
+		//设置行标题排序
+		for (i=0; i<rownum; i++) 
+		{
+			rowitem = rowhead.rows(i);
+			for (j=0; j<rowitem.cells.length; j++) 
+			{
+				cellitem = rowitem.cells(j);
+				if (cellitem.rowspan==rownum-i) 
+				{
+					cellitem.style.cursor = "hand";
+					cellitem.sortasc = true;
+					cellitem.onclick = sorttable;
+				}
+			}
+		}
+
+		//计算、设置列表头属性
+		var colheadwidth = 0;
+		var rowitem = element.rows(rownum);
+		for (i=0; i<colhead.rows.length; i++)
+		{
+			colheadwidth = 0;
+			for (j=0; j<colnum; j++) 
+			{
+				colheadwidth += parseint(rowitem.cells(j).offsetwidth, 10);
+				colhead.rows(i).cells(j).style.width = rowitem.cells(j).offsetwidth;
+			}
+		} 
+
+		colhead.id += colhead.uniqueid;
+		colhead.classname = "";
+		colhead.style.width = colheadwidth;
+		colhead.style.position = "absolute";
+		colhead.style.top = getpostop(element.rows(rownum));
+		colhead.style.left = getposleft(element);
+
+		//添加表头对象
+		parent.document.body.appendchild(colhead);
+		parent.document.body.appendchild(rowhead);
+
+		//增加body滚动事件处理
+		parent.document.body.onscroll = bodyonscroll;
+	}
+
+
+	//body滚动事件处理
+	function bodyonscroll() 
+	{
+		var bodyscrolltop = parseint(parent.document.body.scrolltop, 10),
+		bodyscrollleft = parseint(parent.document.body.scrollleft, 10),
+		elementtop = getpostop(element),
+		elementleft = getposleft(element),
+		elementwidth = parseint(element.offsetwidth, 10),
+		elementheight = parseint(element.offsetheight, 10);
+		rowhead.style.top = elementtop + ((bodyscrolltop>elementtop && bodyscrolltop<elementtop + elementheight)?bodyscrolltop:0);
+		colhead.style.left = elementleft + ((bodyscrollleft>elementleft && bodyscrollleft<elementleft + elementwidth)?bodyscrollleft:0);
+	}
+
+	//获取html对象在窗口中的位置，左边距(对象无offsetparent返回值是null)
+	function getposleft(obj) 
+	{
+		return ((obj==null)?0:parseint(obj.offsetleft) + getposleft(obj.offsetparent));
+	}
+
+	//获取html对象在窗口中的位置，顶距((对象无offsetparent返回值是null)
+	function getpostop(obj) 
+	{
+		return (obj==null)?0:parseint(obj.offsettop) + getpostop(obj.offsetparent);
+	}
+
+	//排序
+	function sorttable() 
+	{
+		var objcol = event.srcelement;
+		if (objcol.tagname == "td")
+		{
+			var intcol = objcol.cellindex;
+			objcol.sortasc = !objcol.sortasc;
+			var i,j,boltmp;
+			for (i = rownum; i < element.rows.length; i++)
+			for (j = i + 1; j < element.rows.length; j++) 
+			{
+				boltmp = (element.rows(i).cells(intcol).innertext >= element.rows(j).cells(intcol).innertext);
+				if ((objcol.sortasc && !boltmp) || (!objcol.sortasc && boltmp)) 
+				{
+					element.moverow(j, i);
+					colhead.moverow(j - rownum, i - rownum);
+				}
+			}
+		}
+	}
+
+</script>
+
+</public:component>
+

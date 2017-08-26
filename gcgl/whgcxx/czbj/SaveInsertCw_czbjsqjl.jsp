@@ -1,0 +1,143 @@
+<%@ page contentType="text/html;charset=GBK" %>
+<%@ page import='ybl.common.*,java.sql.*,java.util.*' %>
+<jsp:useBean id="cf" scope="page" class="ybl.common.CommonFunction"/>
+<%@ include file="/getlogin.jsp" %>
+
+<%
+String ls=null;
+String bjjb=cf.GB2Uni(request.getParameter("bjjb"));
+String khbh=cf.GB2Uni(request.getParameter("khbh"));
+String sqr=cf.GB2Uni(request.getParameter("sqr"));
+String bz=cf.GB2Uni(request.getParameter("bz"));
+java.sql.Date sqsj=null;
+ls=request.getParameter("sqsj");
+try{
+	if (!(ls.equals("")))  sqsj=java.sql.Date.valueOf(ls.trim());
+}
+catch (java.lang.NullPointerException nulle){
+	out.println("<BR>变量sqsj不存在");
+	return;
+}
+catch (Exception e){
+	out.println("<BR>[授权时间]类型转换发生意外:"+e);
+	return;
+}
+
+Connection conn  = null;
+PreparedStatement ps=null;
+ResultSet rs=null;
+String ls_sql=null;
+try {
+	conn=cf.getConnection();
+
+	String zjxxh=null;
+
+	ls_sql="select zjxxh";
+	ls_sql+=" from  crm_khxx";
+	ls_sql+=" where  khbh='"+khbh+"'";
+	ps= conn.prepareStatement(ls_sql);
+	rs =ps.executeQuery();
+	if (rs.next())
+	{
+		zjxxh=rs.getString(1);
+	}
+	else{
+		rs.close();
+		ps.close();
+
+		out.println("错误！客户信息不存在");
+		return;
+	}
+	rs.close();
+	ps.close();
+
+	if (zjxxh!=null)
+	{
+		out.println("错误！客户有过增减项不能重做报价");
+		return;
+	}
+
+	int count=0;
+	ls_sql="select count(*)";
+	ls_sql+=" from  cw_czbjsqjl";
+	ls_sql+=" where  khbh='"+khbh+"' and wcbz='1'";
+	ps= conn.prepareStatement(ls_sql);
+	rs =ps.executeQuery();
+	if (rs.next())
+	{
+		count=rs.getInt(1);
+	}
+	rs.close();
+	ps.close();
+
+	if (count>0)
+	{
+		out.println("错误！客户[重做报价]已被授权");
+		return;
+	}
+
+	double zjjmje=0;
+	ls_sql="select zjjmje";
+	ls_sql+=" from  crm_khzk";
+	ls_sql+=" where  khbh='"+khbh+"'";
+	ps= conn.prepareStatement(ls_sql);
+	rs =ps.executeQuery();
+	if (rs.next())
+	{
+		zjjmje=rs.getDouble("zjjmje");
+	}
+	rs.close();
+	ps.close();
+
+	conn.setAutoCommit(false);
+
+	ls_sql="insert into cw_czbjsqjl (khbh,sqsj,khxm,fgsbh,sqr,wcbz,wcsj,wcr ,sfxyjjz,yjjzsj,gxqwdzgce    ,gxqzkl,gxqqye    ,gxqhdzsjz    ,gxqdjjbfb    ,gxqdjjje    ,gxqdjfxje    ,gxqzjjmje ,gxqzqgczjf    ,gxqzhgczjf    ,gxqcdzwjmje    ,gxqglfbfb    ,gxqzqguanlif    ,gxqglfjmje    ,gxqguanlif    ,gxqsuijinbfb    ,gxqzqsuijin    ,gxqsjjmje    ,gxqsuijin    ,gxqzqsjf    ,gxqsjf    ,gxqzqhtzcbj    ,gxqzhhtzcbj    ,gxqzqwjrqyexm    ,gxqzhwjrqyexm    ,gxqwjrqyexmsm,gxqzqqtsf    ,gxqzhqtsf    ,gxqqtsfsm,gxqhtjz    ,gxqsgcbj    ,gxqmle    ,gxqmll    ,gxqyjjz    ,gxqyjjzcs    ,gxqcbj    ,gxqgcjcbj                ,gxhwdzgce    ,gxhzkl    ,gxhqye    ,gxhhdzsjz    ,gxhdjjbfb    ,gxhdjjje    ,gxhdjfxje    ,gxhzjjmje ,gxhzqgczjf    ,gxhzhgczjf    ,gxhcdzwjmje    ,gxhglfbfb    ,gxhzqguanlif    ,gxhglfjmje    ,gxhguanlif    ,gxhsuijinbfb    ,gxhzqsuijin    ,gxhsjjmje    ,gxhsuijin    ,gxhzqsjf    ,gxhsjf    ,gxhzqhtzcbj    ,gxhzhhtzcbj    ,gxhzqwjrqyexm    ,gxhzhwjrqyexm    ,gxhwjrqyexmsm,gxhzqqtsf    ,gxhzhqtsf    ,gxhqtsfsm,gxhhtjz    ,gxhsgcbj    ,gxhmle    ,gxhmll    ,gxhyjjz    ,gxhyjjzcs    ,gxhcbj    ,gxhgcjcbj    ,bz) ";
+	ls_sql+=" select        crm_khxx.khbh,SYSDATE,khxm,fgsbh,?  ,'1' ,null,null,'Y'    ,null  ,NVL(wdzgce,0),zkl   ,NVL(qye,0),NVL(hdzsjz,0),NVL(djjbfb,0),NVL(djjje,0),NVL(djfxje,0),"+zjjmje+",NVL(zqgczjf,0),NVL(zhgczjf,0),NVL(cdzwjmje,0),NVL(glfbfb,0),NVL(zqguanlif,0),NVL(glfjmje,0),NVL(guanlif,0),NVL(suijinbfb,0),NVL(zqsuijin,0),NVL(sjjmje,0),NVL(suijin,0),NVL(zqsjf,0),NVL(sjf,0),NVL(zqhtzcbj,0),NVL(zhhtzcbj,0),NVL(zqwjrqyexm,0),NVL(zhwjrqyexm,0),wjrqyexmsm   ,NVL(zqqtsf,0),NVL(zhqtsf,0),qtsfsm   ,NVL(htjz,0),NVL(sgcbj,0),NVL(mle,0),NVL(mll,0),NVL(yjjz,0),NVL(yjjzcs,0),NVL(cbj,0),NVL(gcjcbj,0)            ,NVL(wdzgce,0),NVL(zkl,0),NVL(qye,0),NVL(hdzsjz,0),NVL(djjbfb,0),NVL(djjje,0),NVL(djfxje,0),"+zjjmje+",NVL(zqgczjf,0),NVL(zhgczjf,0),NVL(cdzwjmje,0),NVL(glfbfb,0),NVL(zqguanlif,0),NVL(glfjmje,0),NVL(guanlif,0),NVL(suijinbfb,0),NVL(zqsuijin,0),NVL(sjjmje,0),NVL(suijin,0),NVL(zqsjf,0),NVL(sjf,0),NVL(zqhtzcbj,0),NVL(zhhtzcbj,0),NVL(zqwjrqyexm,0),NVL(zhwjrqyexm,0),wjrqyexmsm   ,NVL(zqqtsf,0),NVL(zhqtsf,0),qtsfsm   ,NVL(htjz,0),NVL(sgcbj,0),NVL(mle,0),NVL(mll,0),NVL(yjjz,0),NVL(yjjzcs,0),NVL(cbj,0),NVL(gcjcbj,0),?";
+	ls_sql+=" from crm_khxx,crm_khqye ";
+	ls_sql+=" where crm_khxx.khbh=crm_khqye.khbh(+) and crm_khxx.khbh='"+khbh+"'";
+	ps= conn.prepareStatement(ls_sql);
+	ps.setString(1,sqr);
+	ps.setString(2,bz);
+	ps.executeUpdate();
+	ps.close();
+
+
+	//修改：电子报价总额
+	ls_sql="update crm_zxkhxx set sfzdzbj='Y'";
+	ls_sql+=" where  khbh='"+khbh+"'";
+	ps= conn.prepareStatement(ls_sql);
+	ps.executeUpdate();
+	ps.close();
+
+
+	conn.commit();
+
+	%>
+	<SCRIPT language=javascript >
+	<!--
+	alert("授权成功！");
+	window.close();
+	//-->
+	</SCRIPT>
+	<%
+
+}
+catch (Exception e) {
+	conn.rollback();
+	out.print("Exception: " + e);
+	out.print("<BR>SQL=" + ls_sql);
+	return;
+}
+finally 
+{
+	conn.setAutoCommit(true);
+	try{
+		if (rs!= null) rs.close(); 
+		if (ps!= null) ps.close(); 
+		if (conn != null) cf.close(conn); 
+	}
+	catch (Exception e){
+		if (conn != null) cf.close(conn); 
+	}
+}
+%>

@@ -1,0 +1,472 @@
+<%@ page contentType="text/html;charset=GBK" %>
+<%@ page import='ybl.upload.*,java.sql.*,java.io.*, jxl.*,jxl.write.*'%>
+<%@ include file="/getlogin.jsp" %>
+
+
+<html>
+<head>
+<title>导入数据 </title>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+</head>
+<body bgcolor="#FFFFFF">
+<%
+ybl.common.CommonFunction cf=new ybl.common.CommonFunction();
+
+String yhdlm=(String)session.getAttribute("yhdlm");
+String rootPath=getServletContext().getRealPath("");
+String loadName=null;
+String filename=null;
+java.io.FileOutputStream f=null;
+
+String[][] outStr=null; 
+String bgcolor=null;
+
+String bjbbh = null;
+String bjjbbm = null;
+String dqbm=null;
+String dqmc=null;
+String xmbh=null;
+String xmmc=null;
+
+String getbjjbbm=null;
+String bjjbmc=null;
+String glflbm=null;
+String glflmc=null;
+String lx=null;
+String lxstr=null;
+String glfxclbm=null;
+String glfxclmc=null;
+String xl=null;
+
+String xhlstr=null;
+double xhl=0;
+String jqsflstr=null;
+double jqsfl=0;
+String bsflstr=null;
+double bsfl=0;
+String tvocsflstr=null;
+double tvocsfl=0;
+String wlllbz=null;
+String wlllbzmc=null;
+String bz=null;
+
+String jldwbm="";
+String jldwmc="";
+String pp="";
+String xh="";
+String gg="";
+double dj=0;
+
+Connection conn  = null;
+PreparedStatement ps=null;
+ResultSet rs = null;
+String sql = null;
+
+try 
+{
+	conn=cf.getConnection();    //得到连接
+
+	ybl.upload.Upload up=new ybl.upload.Upload(request,response.getWriter());
+	up.initialize();
+
+	bjjbbm =up.getParameter("bjjbbm");
+	dqbm =up.getParameter("dqbm");
+	bjbbh =up.getParameter("bjbbh");
+
+	//获取文件内容
+	byte[] buffer=up.getFileBuffer("loadName");
+
+	//获取文件名称
+	filename=rootPath+"\\exec\\"+yhdlm+".xls";
+	//写文件
+	f=new java.io.FileOutputStream(filename);
+	f.write(buffer,0,buffer.length-2);
+	f.close();
+
+	sql=" select bjjbmc" ;
+	sql+=" from bdm_bjjbbm " ;
+	sql+=" where bjjbbm='"+bjjbbm+"'" ;
+	ps= conn.prepareStatement(sql);
+	rs=ps.executeQuery();
+	if(rs.next())
+	{         
+		bjjbmc = rs.getString("bjjbmc");			    
+	}
+	else{
+		out.println("错误！报价级别不存在");
+		return;
+	}
+	rs.close();
+	ps.close();
+
+	sql=" select dqmc " ;
+	sql+=" from dm_dqbm " ;
+	sql+=" where dqbm='"+dqbm+"'" ;
+	ps= conn.prepareStatement(sql);
+	rs=ps.executeQuery();
+	if(rs.next())
+	{         
+		dqmc = rs.getString("dqmc");			    
+	}
+	rs.close();
+	ps.close();
+
+
+	%> 
+<form method="post" action="SaveDisGlfx.jsp" name="editform" target="_blank">
+<div align="center">
+    导入工料分析
+    <p><font color="#FF0000"><b>请注意：</b></font><b>版本号</b><font color="#FF0000"><b>[<%=bjbbh%>]</b></font><b>；报价级别</b><font color="#FF0000"><b>[<%=bjjbmc%>]；</b></font><b>地区</b><font color="#FF0000"><b>[<%=dqmc%>]
+	<BR>系统自动把旧数据删除，用新导入的数据替换</b></font>
+  </div>
+	<input type="hidden" name="bjjbbm" value="<%=bjjbbm%>">
+	<input type="hidden" name="dqbm" value="<%=dqbm%>">
+  	<input type="hidden" name="bjbbh" value="<%=bjbbh%>">
+<table width="180%" border="0" style="FONT-SIZE:12" bgcolor="#999999" cellpadding="2" cellspacing="2">
+    <tr bgcolor="#CCCCCC" align="center"> 
+		<td width="2%">序号</td>
+		<td width="4%">项目编号</td>
+		<td width="11%">项目名称</td>
+
+		<td width="3%">工料分类</td>
+		<td width="4%">需到物流领料</td>
+		<td width="5%">材料编码</td>
+		<td width="10%">材料名称</td>
+		<td width="7%"><font color="#0000FF">品牌</font></td>
+		<td width="6%"><font color="#0000FF">型号</font></td>
+		<td width="8%"><font color="#0000FF">规格</font></td>
+		<td width="3%">计量单位</td>
+		<td width="4%">数量</td>
+		<td width="4%"><font color="#0000FF">单价</font></td>
+		<td width="17%" align="left">备注</td>
+		<td  width="3%">甲醛释放量</td>
+		<td  width="3%">苯释放量</td>
+		<td  width="3%">TVOC释放量</td>
+		<td  width="3%">类型</td>
+    </tr>
+    <%
+	//读文件
+	ybl.common.RWExce rwe=new ybl.common.RWExce();
+	outStr=rwe.readJxlExecel(filename); 
+
+	int row=0;
+
+	for (int i=1;i<outStr.length ;i++ )
+	{
+		row++;
+		if (i%2==1)
+		{
+			bgcolor="#FFFFFF";
+		}
+		else{
+			bgcolor="#E8E8FF";
+		}
+
+		int len=outStr[i].length;
+		if (len<13)
+		{
+			out.println("错误！请下载新版Excel模板");
+			return;
+		}
+
+		xmbh=outStr[i][0].trim();
+		xmmc=outStr[i][1].trim();
+		glflmc=outStr[i][2].trim();
+		wlllbzmc=outStr[i][3].trim();
+		glfxclbm=outStr[i][4].trim();
+		glfxclmc=outStr[i][5].trim();
+		jldwmc=outStr[i][6].trim();
+		xhlstr=outStr[i][7].trim();
+		bz=outStr[i][8].trim();
+		jqsflstr=outStr[i][9].trim();
+		bsflstr=outStr[i][10].trim();
+		tvocsflstr=outStr[i][11].trim();
+		lxstr=outStr[i][12].trim();
+
+
+		String yxmmc="";
+		if (xmbh.equals(""))
+		{
+			out.println("<BR>！！！序号["+row+"]项目编号["+xmbh+"]错误，[项目编号]为空");
+			return;
+		}
+		else{
+			sql=" select xmmc" ;
+			sql+=" from bj_jzbjb " ;
+			sql+=" where xmbh='"+xmbh+"' and dqbm='"+dqbm+"' and bjjbbm='"+bjjbbm+"' and bjbbh='"+bjbbh+"'" ;
+			ps= conn.prepareStatement(sql);
+			rs=ps.executeQuery();
+			if(rs.next())
+			{         
+				yxmmc = rs.getString("xmmc");			    
+			}
+			else{
+				out.println("<BR>错误！！！序号["+row+"]项目编号["+xmbh+"]，不存在的[项目编号]："+xmbh);
+				return;
+			}
+			rs.close();
+			ps.close();
+		}
+
+		if (xmmc.equals(""))
+		{
+			out.println("<BR>！！！序号["+row+"]项目编号["+xmbh+"]错误，[项目名称]为空");
+			return;
+		}
+		else{
+			if (!yxmmc.equals(xmmc))
+			{
+				xmmc=yxmmc;
+				out.println("<BR>警告！序号["+row+"]项目编号["+xmbh+"]，[项目名称]不正确，系统自动修正，正确名称：["+yxmmc+"]");
+			}
+		}
+
+
+
+		if (glflmc.equals(""))
+		{
+			out.println("<BR>！！！序号["+row+"]项目编号["+xmbh+"]错误，[工料分类]为空");
+			return;
+		}
+		else{
+			sql=" select glflbm" ;
+			sql+=" from bdm_glflbm " ;
+			sql+=" where glflmc='"+glflmc+"'" ;
+			ps= conn.prepareStatement(sql);
+			rs=ps.executeQuery();
+			if(rs.next())
+			{         
+				glflbm = rs.getString("glflbm");			    
+			}
+			else{
+				out.println("<BR>！！！序号["+row+"]项目编号["+xmbh+"]错误，不存在的[工料分类]："+glflmc);
+				return;
+			}
+			rs.close();
+			ps.close();
+
+			if (glflbm.equals("1"))//材料
+			{
+				if (wlllbzmc.equals("需要"))
+				{
+					wlllbz="Y";
+				}
+				else if (wlllbzmc.equals("否"))
+				{
+					wlllbz="N";
+				}
+				else{
+					wlllbz="N";
+				}
+			}
+			else{
+				wlllbz="";
+				wlllbzmc="";
+			}
+		}
+
+
+		if (glfxclmc.equals(""))
+		{
+			out.println("<BR>！！！序号["+row+"]项目编号["+xmbh+"]错误，[工料名称]为空");
+			return;
+		}
+
+
+		String getclmc="";
+		String getjldwbm="";
+		pp="";
+		xh="";
+		gg="";
+		dj=0;
+
+		if (glflbm.equals("1"))//材料
+		{
+			if (glfxclbm.equals(""))
+			{
+				out.println("<BR>错误！！！序号["+row+"]项目编号["+xmbh+"]，[材料编码]为空");
+				return;
+			}
+
+			sql=" select clmc,jldwbm,cbj,ppmc,xh,gg" ;
+			sql+=" FROM jxc_clbm,jxc_cljgb ";
+			sql+=" where jxc_clbm.clbm=jxc_cljgb.clbm ";
+			sql+=" and jxc_cljgb.dqbm='"+dqbm+"'";
+			sql+=" and jxc_clbm.nbbm='"+glfxclbm+"'" ;
+			ps= conn.prepareStatement(sql);
+			rs=ps.executeQuery();
+			if(rs.next())
+			{         
+				getclmc = rs.getString("clmc");			    
+				getjldwbm = rs.getString("jldwbm");			    
+				dj = rs.getDouble("cbj");			    
+				pp = rs.getString("ppmc");			    
+				xh = rs.getString("xh");			    
+				gg = rs.getString("gg");			    
+			}
+			else{
+				out.println("<BR>错误！！！序号["+row+"]项目编号["+xmbh+"]，不存在的[材料编码]："+glfxclbm);
+				return;
+			}
+			rs.close();
+			ps.close();
+
+			if (!getclmc.equals(glfxclmc))
+			{
+				glfxclmc=getclmc;
+				out.println("<BR>警告！序号["+row+"]项目编号["+xmbh+"]，[材料名称]不正确，系统自动修正，正确名称：["+getclmc+"]");
+			}
+			if (!getjldwbm.equals(jldwmc))
+			{
+				jldwmc=getjldwbm;
+				out.println("<BR>警告！序号["+row+"]项目编号["+xmbh+"]，[计量单位]不正确，系统自动修正，正确名称：["+getjldwbm+"]");
+			}
+		}
+
+
+		if (lxstr.equals("打印"))//1：打印；2：不打印
+		{
+			lx="1";
+		}
+		else if (lxstr.equals("不打印"))
+		{
+			lx="2";
+		}
+		else{
+			out.println("！！！项目编号["+xmbh+"]错误，[类型]只能为【打印、不打印】，目前为["+lxstr+"]");
+			return;
+		}
+
+		if (jldwmc.equals(""))
+		{
+			out.println("<BR>！！！序号["+row+"]项目编号["+xmbh+"]错误，[计量单位]为空");
+			return;
+		}
+		else{
+			sql=" select jldwbm" ;
+			sql+=" from jdm_jldwbm " ;
+			sql+=" where jldwmc='"+jldwmc+"'" ;
+			ps= conn.prepareStatement(sql);
+			rs=ps.executeQuery();
+			if(rs.next())
+			{         
+				jldwbm = rs.getString("jldwbm");			    
+			}
+			else{
+				out.println("<BR>！！！序号["+row+"]项目编号["+xmbh+"]错误，不存在的[计量单位]："+jldwmc);
+				return;
+			}
+			rs.close();
+			ps.close();
+		}
+
+		if (xhlstr.equals(""))
+		{
+			out.println("<BR>！！！序号["+row+"]项目编号["+xmbh+"]错误，[消耗量]为空");
+			return;
+		}
+		else{
+			xhl=Double.parseDouble(xhlstr);
+		}
+
+
+
+		if (jqsflstr.equals(""))
+		{
+			jqsfl=0;
+		}
+		else{
+			jqsfl=Double.parseDouble(jqsflstr);
+		}
+
+		if (bsflstr.equals(""))
+		{
+			bsfl=0;
+		}
+		else{
+			bsfl=Double.parseDouble(bsflstr);
+		}
+
+		if (tvocsflstr.equals(""))
+		{
+			tvocsfl=0;
+		}
+		else{
+			tvocsfl=Double.parseDouble(tvocsflstr);
+		}
+
+		%> 
+    <tr bgcolor="<%=bgcolor%>" align="center"> 
+       <td><%=i%>      </td>
+     <td><%=xmbh%>
+        <input name="xmbh" type="hidden" value="<%=xmbh%>" >      </td>
+      <td><%=xmmc%>      </td>
+      <td><%=glflmc%>
+        <input name="glflbm" type="hidden" value="<%=glflbm%>" >      </td>
+      <td><%=wlllbzmc%>
+        <input name="wlllbz" type="hidden" value="<%=wlllbz%>" >      </td>
+      <td><%=glfxclbm%>
+        <input name="glfxclbm" type="hidden" value="<%=glfxclbm%>" >      </td>
+      <td><%=glfxclmc%>
+        <input name="glfxclmc" type="hidden" value="<%=glfxclmc%>" >      </td>
+      <td><%=pp%></td>
+      <td><%=xh%></td>
+      <td><%=gg%></td>
+      <td><%=jldwmc%>
+        <input name="jldwbm" type="hidden" value="<%=jldwmc%>" >      </td>
+      <td><%=xhl%>
+        <input name="xhl" type="hidden" value="<%=xhl%>" >      </td>
+      <td><%=dj%></td>
+      <td  align="left"><%=bz%>
+        <input name="bz" type="hidden" value="<%=bz%>" >      </td>
+      <td><%=jqsfl%>
+        <input name="jqsfl" type="hidden" value="<%=jqsfl%>" >      </td>
+      <td><%=bsfl%>
+        <input name="bsfl" type="hidden" value="<%=bsfl%>" >      </td>
+      <td><%=tvocsfl%>
+        <input name="tvocsfl" type="hidden" value="<%=tvocsfl%>" >      </td>
+      <td><%=lxstr%>
+        <input name="lx" type="hidden" value="<%=lx%>" >      </td>
+    </tr>
+    <%
+	}
+
+}
+catch (Exception e) {
+	out.print("操作失败，Exception:" + e);
+	return;
+}
+finally 
+{
+	try{
+		f.close();
+		if (rs != null) rs.close(); 
+		if (ps != null) ps.close(); 
+		if (conn!=null) cf.close(conn);    //释放连接
+	}
+	catch (Exception e){
+		out.println("关闭连接发生以外,Exception:"+e.getMessage());
+	}
+}
+%> 
+    <tr bgcolor="#CCCCCC" > 
+      <td colspan="45"> 
+        <input type="button"  value="存盘" onClick="f_do(editform)" name="bc">
+        <input type="reset"  value="允许存盘" onClick="bc.disabled=false;">
+        <input type="reset"  value="重输">      </td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>
+<SCRIPT language=javascript src="/js/validate.js"></SCRIPT>
+<SCRIPT language=javascript >
+<!--
+function f_do(FormName)//参数FormName:Form的名称
+{
+	FormName.submit();
+	FormName.bc.disabled=true;
+	return true;
+}
+//-->
+</SCRIPT>

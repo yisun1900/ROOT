@@ -1,0 +1,22 @@
+    TD {FONT-SIZE: 12px;COLOR:#000000}
+ A:link{text-decoration:none;color:#000000};
+ A:visited{text-decoration:none;color:#000000};
+ A:hover{text-decoration:underline;color:#ff0000};
+.text1{FONT-SIZE: 12px; COLOR:#660000;}
+.text2{FONT-SIZE: 12px; COLOR:#ffffff;}
+.text3{FONT-SIZE: 12px; COLOR:#46B5FF;}
+.text4{FONT-SIZE: 12px; COLOR:#CD9B32;}
+.text5{FONT-SIZE: 16px; COLOR:#000000;}
+
+
+
+.box { FONT-SIZE: 12px; HEIGHT: 18px }
+.box2{  font-size: 9pt; color: #660000; background-color: #FFFFDD; border-color: #000000;  border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px;padding-top:1px}
+.box2_1{  font-size: 9pt; color: #660000; background-color: #D1EFEC; border: #660000; border-style: solid; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px;padding-top:1px;height:14px}
+.box3{  font-size: 9pt; color: #660000; background-color: #E3E9C9; border: #660000; border-style: solid; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px;padding-top:1px;height:14px}
+.box3_1{  font-size: 9pt; color: #660000; background-color: #E3E9C9; border: #660000; border-style: solid; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px;padding-top:1px;}
+.box4{  font-size: 9pt; color: #660000; background-color: #CCCCCC; border: #660000; border-style: solid; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px;padding-top:1px;}
+.box5{  font-size: 9pt; color: #660000; background-color: #ffffff; border: #000000; border-style: solid; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px;padding-top:1px;height:16px}
+.box5_1{  font-size: 9pt; color: #660000; background-color: #E3E9C9; border: #3D1CDB1;  border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px;padding-top:1px;height:16px}
+.input2 {border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; FONT-SIZE: 9pt; FONT-FAMILY: "Arial", "Helvetica", "sans-serif"; HEIGHT: 18px; BACKGROUND-COLOR: #ffffff}
+.tx {border-color: black black #000000; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px; font-size: 9pt; background-color: #eeeeee; color: #0000FF}

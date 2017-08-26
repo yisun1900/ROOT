@@ -1,0 +1,21 @@
+	}
+	rs.close();
+	ps.close();
+}
+catch (Exception e) {
+	out.print("<BR>³ö´í:" + e);
+	out.print("<BR>SQL=" + ls_sql);
+	return;
+}
+finally 
+{
+	try{
+		if (rs != null) rs.close(); 
+		if (ps != null) ps.close(); 
+		if (conn != null) cf.close(conn); 
+	}
+	catch (Exception e){
+		if (conn != null) cf.close(conn); 
+	}
+}
+%>

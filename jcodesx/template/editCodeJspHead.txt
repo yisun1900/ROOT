@@ -1,0 +1,5 @@
+Connection conn  = null;
+PreparedStatement ps=null;
+String ls_sql=null;
+try {
+	conn=cf.getConnection();

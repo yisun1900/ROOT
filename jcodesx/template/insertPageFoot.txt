@@ -1,0 +1,10 @@
+    <tr align="center"> 
+      <td colspan="4"> 
+	<input type="button"  value="´æÅÌ" onClick="f_do(insertform)">
+	<input type="reset"  value="ÖØÊä" name="reset">
+      </td>
+    </tr>
+</table>
+</form>
+</body>
+</html>

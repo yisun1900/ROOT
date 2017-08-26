@@ -1,0 +1,79 @@
+<%@ page contentType="text/html;charset=GBK" %>
+<%@ page import='ybl.common.*,java.sql.*,java.util.*' %>
+<jsp:useBean id="cf" scope="page" class="ybl.common.CommonFunction"/>
+<%@ include file="/getlogin.jsp" %>
+
+<%
+	ybl.common.PageObject pageObj=new ybl.common.PageObject();
+	
+	String ls_sql=null;
+	String day=request.getParameter("day");
+	String qssj=request.getParameter("qssj");
+	String jzsj=request.getParameter("jzsj");
+
+
+
+	ls_sql=" select '',crm_tsjl.tsjlh,crm_tsjl.khbh,crm_khxx.khxm,crm_khxx.fwdz,crm_khxx.sjs,sgdmc,crm_khxx.zjxm,slfsmc,tslxmc,tsyymc,crm_tsjl.slsj,crm_tshfjl.hfsj,yhmc,DECODE(crm_tsjl.clzt,0,'非客服登记',1,'客服受理',2,'在处理',3,'结案')";
+	ls_sql+=" from crm_tshfjl,crm_tsjlhfmx,crm_tsjl,crm_khxx,crm_tsbm,dm_slfsbm,dm_tslxbm,dm_tsyybm,sq_sgd,sq_yhxx";
+	ls_sql+=" where crm_tshfjl.hfjlh=crm_tsjlhfmx.hfjlh and crm_tsjlhfmx.tsjlh=crm_tsjl.tsjlh and crm_tsjl.tsjlh=crm_tsbm.tsjlh and crm_tsjl.slsj>=TO_DATE('"+qssj+"','YYYY-MM-DD') and crm_tsjl.lx='1'";
+    ls_sql+=" and crm_tsbm.tsyybm=dm_tsyybm.tsyybm and crm_tsjl.slfsbm=dm_slfsbm.slfsbm and crm_tsbm.tslxbm=dm_tslxbm.tslxbm ";
+	ls_sql+=" and crm_tsjl.khbh=crm_khxx.khbh";
+	ls_sql+=" and crm_tsjl.slsj<=TO_DATE('"+jzsj+" 23:59:59','YYYY-MM-DD HH24:MI:SS')";
+	ls_sql+=" and crm_khxx.sgd=sq_sgd.sgd(+) and crm_tsjl.slr=sq_yhxx.yhdlm(+)";
+	ls_sql+=" and crm_tshfjl.hfsj=(select min(crm_tshfjl.hfsj) from crm_tshfjl,crm_tsjlhfmx where crm_tshfjl.hfjlh=crm_tsjlhfmx.hfjlh and crm_tsjl.tsjlh=crm_tsjlhfmx.tsjlh)";
+	ls_sql+=" and ROUND(crm_tshfjl.hfsj-crm_tsjl.slsj)="+day;
+	ls_sql+=" order by crm_tsjl.slsj,crm_tsjl.tsjlh";
+
+    pageObj.sql=ls_sql;
+//进行对象初始化
+	pageObj.initPage("","","","");
+	pageObj.setPageRow(50000);//设置每页显示记录数
+
+//设置列超级连接
+	Hashtable coluParmHash=new Hashtable();
+	ColuParm coluParm=null;
+
+	coluParm=new ColuParm();//生成一个列参数对象
+	String[] coluKey={"khbh"};//设置列参数：coluParm.key的主键
+	coluParm.key=coluKey;//设置列参数：coluParm.key的主键
+	coluParm.link="/khxx/ViewCrm_khxx.jsp";//为列参数：coluParm.link设置超级链接
+	coluParm.bolt="target='_blank'";//为列参数：coluParm.link设置超级链接
+	coluParmHash.put("khbh",coluParm);//列参数对象加入Hash表
+	pageObj.setColuLink(coluParmHash);//列参数对象加入Hash表
+
+%>
+
+<html>
+<head>
+</head>
+<body bgcolor="#ffffff" text="#000000" style='FONT-SIZE: 12px'>
+<CENTER >
+  <B><font size="2">投诉<%=day%>天后首次回访明细
+  <BR>(受理时间：<%=qssj%>--<%=jzsj%>)</font></b>
+</CENTER>
+<table border="1" width="100%" cellspacing="0" cellpadding="1"  bgcolor="#000000" style='FONT-SIZE: 12px'>
+<tr bgcolor="#CCCCCC"  align="center">
+	<td  width="3%">序号</td>
+	<td  width="6%">投诉记录号</td>
+	<td  width="6%">客户编号</td>
+	<td  width="5%">姓名</td>
+	<td  width="18%">房屋地址</td>
+	<td  width="5%">设计师</td>
+	<td  width="5%">施工队</td>
+	<td  width="5%">质检员</td>
+	<td  width="5%">受理方式</td>
+	<td  width="7%">大类</td>
+	<td  width="11%">小类</td>
+	<td  width="7%">受理时间</td>
+	<td  width="7%">首次回访</td>
+	<td  width="5%">受理人</td>
+	<td  width="5%">处理状态</td>
+</tr>
+<%
+	pageObj.out=out;
+	pageObj.getDate(1);
+	pageObj.printDate(true);
+%> 
+</table>
+</body>
+</html>

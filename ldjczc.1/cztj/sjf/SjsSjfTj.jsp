@@ -1,0 +1,625 @@
+<%@ page contentType="text/html;charset=GBK" %>
+<%@ page import='ybl.common.*,java.sql.*,java.util.*' %>
+<jsp:useBean id="cf" scope="page" class="ybl.common.CommonFunction"/>
+<%@ include file="/getlogin.jsp" %>
+
+
+
+<%
+	String xtrzyhdlm=(String)session.getAttribute("yhdlm");
+	String yhqx=cf.executeQuery("select count(*)  from v_sqxx where yhdlm='"+xtrzyhdlm+"' and cdbh='17030404'");
+	if (yhqx.equals("0"))
+	{
+		String xtrzip=request.getRemoteHost();
+		String xtrzyhmc=(String)session.getAttribute("yhmc");
+
+		String sql="insert into sq_ckxxrz ( xh,ip,yhdlm,yhmc,dlsj,bz ) ";
+		sql+=" values ( (select NVL(max(xh),0)+1 from sq_ckxxrz),'"+xtrzip+"','"+xtrzyhdlm+"','"+xtrzyhmc+"',SYSDATE,'警告！非法侵入[设计师设计费统计]："+xtrzyhmc+"') ";
+		cf.executeUpdate(sql);
+
+		session.setAttribute("yhdlm",null);
+		return;
+	}
+	else{
+		String xtrzip=request.getRemoteHost();
+		String xtrzyhmc=(String)session.getAttribute("yhmc");
+
+		String sql="insert into sq_ckxxrz ( xh,ip,yhdlm,yhmc,dlsj,bz ) ";
+		sql+=" values ( (select NVL(max(xh),0)+1 from sq_ckxxrz),'"+xtrzip+"','"+xtrzyhdlm+"','"+xtrzyhmc+"',SYSDATE,'进入[设计师设计费统计]："+xtrzyhmc+"') ";
+		cf.executeUpdate(sql);
+	}
+%>
+
+
+<%
+ybl.common.PageObject pageObj=new ybl.common.PageObject();
+String xsfg=request.getParameter("xsfg");
+if (xsfg.equals("2"))
+{
+	pageObj.setType("EXCEL",response);
+}
+
+String ygbh=(String)session.getAttribute("ygbh");
+String kfgssq=(String)session.getAttribute("kfgssq");//1：按分公司授权；2：按店面授权；3：不授权
+
+String sjfw=request.getParameter("sjfw");
+String sjfw2=request.getParameter("sjfw2");
+
+String fgs=cf.fillNull(request.getParameter("fgs"));
+String dwbh=cf.fillNull(request.getParameter("dwbh"));
+String sjs=cf.GB2Uni(request.getParameter("sjs"));
+
+
+Connection conn  = null;
+PreparedStatement ps=null;
+ResultSet rs=null;
+PreparedStatement ps1=null;
+ResultSet rs1=null;
+PreparedStatement ps2=null;
+ResultSet rs2=null;
+String ls_sql=null;
+try {
+	conn=cf.getConnection();
+
+%>
+
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+</head>
+<body bgcolor="#ffffff" text="#000000" style='FONT-SIZE: 14px'>
+
+<CENTER >
+  <B>设计师设计费统计</B><BR>
+  <b>(时间范围：<%=sjfw%>--<%=sjfw2%>)</b><BR>
+</CENTER>
+<table width="100%" border="0" style="FONT-SIZE:12" bgcolor="#999999" cellpadding="2" cellspacing="2">
+<TR bgcolor="#CCCCCC"  align="center"  > 
+  <td  width="4%" >序号</td>
+  <td  width="15%" >店面</td>
+  <td  width="8%" >设计师</td>
+
+  <td  width="7%" ><font color="#FF0000">客户数</font></td>
+  <td  width="14%" ><font color="#FF0000">实收设计费金额</font></td>
+  <td  width="14%" >设计合同金额</td>
+
+
+
+  <td  width="8%" >房屋面积</td>
+  <td  width="8%" >平米收设计费</td>
+  <td  width="8%" >户均收设计费</td>
+
+  <td  width="7%" ><font color="#0000FF">入店客户数</font></td>
+  <td  width="7%" ><font color="#0000FF">入店客户收设计费比例</font></td>
+  </tr>
+<%
+	//实收设计费
+	int zjkhsl=0;
+	double zjsjf=0;
+	double zjsjhtje=0;
+	long zjfwmj=0;
+
+	int zjrdkhs=0;
+	//入店客户数
+
+
+	int row=0;
+
+	String getfgsbh=null;
+	String fgsmc=null;
+	String getdwbh=null;
+	String dmmc=null;
+	String cxbz="";
+	String kdsj="";
+	String gdsj="";
+
+	ls_sql =" SELECT sq_dwxx.ssfgs,b.dwmc fgsmc,sq_dwxx.dwbh,sq_dwxx.dwmc,sq_dwxx.kdsj,sq_dwxx.gdsj,sq_dwxx.cxbz ";
+	ls_sql+=" FROM sq_dwxx,sq_dwxx b";
+	ls_sql+=" where  sq_dwxx.ssfgs=b.dwbh(+) and sq_dwxx.dwlx='F2'";
+	ls_sql+=" and sq_dwxx.ssfgs='"+fgs+"'";
+
+	if (!(dwbh.equals("")))
+	{
+		ls_sql+=" and  sq_dwxx.dwbh='"+dwbh+"'";
+	}
+	if (!(sjs.equals("")))
+	{
+		ls_sql+=" and  sq_dwxx.dwbh in(select dwbh from sq_yhxx where ssfgs='"+fgs+"' and yhmc='"+sjs+"' and zwbm in('23','04'))";
+	}
+
+	ls_sql+=" and (sq_dwxx.cxbz='N' or sq_dwxx.gdsj+62>TO_DATE('"+sjfw+" 23:59:59','YYYY-MM-DD HH24:MI:SS'))";
+
+	ls_sql+=" order by sq_dwxx.ssfgs,sq_dwxx.dwbh";
+	ps2= conn.prepareStatement(ls_sql);
+	rs2 =ps2.executeQuery();
+	while (rs2.next())
+	{
+		getfgsbh=rs2.getString("ssfgs");
+		fgsmc=rs2.getString("fgsmc");
+		getdwbh=rs2.getString("dwbh");
+		dmmc=rs2.getString("dwmc");
+		cxbz=rs2.getString("cxbz");
+		kdsj=cf.fillNull(rs2.getDate("kdsj"));
+		gdsj=cf.fillNull(rs2.getDate("gdsj"));
+
+		if (cxbz.equals("Y"))//Y：已撤销；N：未撤销
+		{
+			dmmc="<font color=\"#FF0033\">"+dmmc+"<BR>("+kdsj+"至"+gdsj+")</font>";
+		}
+		else{
+			if (!kdsj.equals(""))
+			{
+				dmmc=dmmc+"<BR>(开店:"+kdsj+")";
+			}
+		}
+
+		//实收设计费
+		int xjkhsl=0;
+		double xjsjf=0;
+		double xjsjhtje=0;
+		long xjfwmj=0;
+
+		//入店客户数
+		int xjrdkhs=0;
+
+
+		String sqlsjs="";
+
+		String getsjs="";
+		String sfzszg="";
+		String rzsj="";
+		String lzrq="";
+		ls_sql =" SELECT yhmc,sfzszg,rzsj,lzrq";
+		ls_sql+=" FROM sq_yhxx";
+		ls_sql+=" where zwbm in('04','23')";
+		ls_sql+=" and dwbh='"+getdwbh+"'";
+		if (!(sjs.equals("")))
+		{
+			ls_sql+=" and yhmc='"+sjs+"'";
+		}
+		ls_sql+=" and (sfzszg in('Y','N') or lzrq+62>TO_DATE('"+sjfw+" 23:59:59','YYYY-MM-DD HH24:MI:SS'))";
+		ls_sql+=" order by yhmc";
+		ps1= conn.prepareStatement(ls_sql);
+		rs1 =ps1.executeQuery();
+		while (rs1.next())
+		{
+			getsjs=rs1.getString("yhmc");
+			sfzszg=rs1.getString("sfzszg");
+			rzsj=cf.fillNull(rs1.getDate("rzsj"));
+			lzrq=cf.fillNull(rs1.getDate("lzrq"));
+
+			sqlsjs+=",'"+getsjs+"'";
+
+			//实收款
+			int khsl=0;
+			double sjf=0;
+			double sjhtje=0;
+			long fwmj=0;
+			ls_sql =" SELECT count(distinct cw_khfkjl.khbh) khsl,sum(cw_khfkjl.fkje) sjf,sum(sjhtje) sjhtje,sum(fwmj) fwmj";
+			ls_sql+=" FROM cw_khfkjl,crm_zxkhxx";
+			ls_sql+=" where cw_khfkjl.khbh=crm_zxkhxx.khbh";
+
+			ls_sql+=" and cw_khfkjl.scbz='N' ";
+			ls_sql+=" and cw_khfkjl.fklxbm in('53')";//53：设计费
+			ls_sql+=" and (  skdd='1' OR (skdd='2' and dsksjbz='Y')  )";
+
+			ls_sql+=" and crm_zxkhxx.zxdm='"+getdwbh+"' and crm_zxkhxx.sjs='"+getsjs+"'";
+
+			ls_sql+=" and cw_khfkjl.sksj>=TO_DATE('"+sjfw+"','YYYY-MM-DD')";
+			ls_sql+=" and cw_khfkjl.sksj<=TO_DATE('"+sjfw2+" 23:59:59','YYYY-MM-DD HH24:MI:SS')";
+			ps= conn.prepareStatement(ls_sql);
+			rs =ps.executeQuery();
+			if (rs.next())
+			{
+				khsl=rs.getInt("khsl");
+				sjf=rs.getDouble("sjf");
+				sjhtje=rs.getDouble("sjhtje");
+				fwmj=rs.getLong("fwmj");
+			}
+			rs.close();
+			ps.close();
+			
+
+			xjkhsl+=khsl;
+			xjsjf+=sjf;
+			xjsjhtje+=sjhtje;
+			xjfwmj+=fwmj;
+
+			zjkhsl+=khsl;
+			zjsjf+=sjf;
+			zjsjhtje+=sjhtje;
+			zjfwmj+=fwmj;
+
+			int pmjj=0;
+			int pjde=0;
+
+			if (fwmj==0)
+			{
+				pmjj=0;
+			}
+			else{
+				pmjj=(int)(sjf/fwmj);
+			}
+
+			if (khsl==0)
+			{
+				pjde=0;
+			}
+			else{
+				pjde=(int)(sjf/khsl);
+			}
+
+			
+			//入店客户数
+			int rdkhs=0;
+			ls_sql =" SELECT count(*)";
+			ls_sql+=" FROM crm_zxkhxx ";
+			ls_sql+=" where crm_zxkhxx.zxdm='"+getdwbh+"' and crm_zxkhxx.sjs='"+getsjs+"'";
+			ls_sql+=" and crm_zxkhxx.yzxxbz='Y'";//Y：有效信息；N：无效信息
+			ls_sql+=" and crm_zxkhxx.lrsj>=TO_DATE('"+sjfw+"','YYYY-MM-DD')";
+			ls_sql+=" and crm_zxkhxx.lrsj<=TO_DATE('"+sjfw2+" 23:59:59','YYYY-MM-DD HH24:MI:SS')";
+			ps= conn.prepareStatement(ls_sql);
+			rs =ps.executeQuery();
+			if (rs.next())
+			{
+				rdkhs=rs.getInt(1);
+			}
+			rs.close();
+			ps.close();
+			
+			xjrdkhs+=rdkhs;
+			zjrdkhs+=rdkhs;
+
+			//入店客户收设计费比例
+			double rdsjfbl=0;
+			if (rdkhs==0)
+			{
+				rdsjfbl=0;
+			}
+			else{
+				rdsjfbl=cf.round(khsl*100.0/rdkhs,2);
+			}
+
+			
+			//撤店无数据不显示
+			if (   (cxbz.equals("N") && sfzszg.equals("Y")) || (cxbz.equals("N") && sfzszg.equals("N")) || (khsl+rdkhs!=0)   )
+			{
+				row++;
+
+				%>
+				<tr align="right"  bgcolor="#FFFFFF" onMouseOver="inTr(this)" onMouseOut="outTr(this)"  onclick="onclickTr(this)">
+					<td align="center"><%=row%></td>
+					<td align="center"><%=dmmc%></td>
+					<td align="center"><%=getsjs%></td>
+
+					<td>
+						<A HREF="ViewSjssjfMx.jsp?sjfw=<%=sjfw%>&sjfw2=<%=sjfw2%>&dwbh=<%=getdwbh%>&sjs=<%=getsjs%>" target="_blank"><%=khsl%></A>			
+					</td>
+					<td><%=cf.formatDouble(sjf)%></td>
+					<td><%=cf.formatDouble(sjhtje)%></td>
+					
+
+					<td><%=fwmj%></td>
+					<td><%=pmjj%></td>
+
+					<td><%=pjde%></td>
+					
+					<td>
+						<A HREF="ViewSjsRdkhMx.jsp?sjfw=<%=sjfw%>&sjfw2=<%=sjfw2%>&dwbh=<%=getdwbh%>&sjs=<%=getsjs%>" target="_blank"><%=rdkhs%></A>			
+					</td>
+					<td><%=rdsjfbl%>%</td>
+				</tr>
+				<%	
+			}
+		}
+		rs1.close();
+		ps1.close();
+
+
+
+		ls_sql =" SELECT distinct sjs";
+		ls_sql+=" FROM crm_zxkhxx ";
+		ls_sql+=" where crm_zxkhxx.zxdm='"+getdwbh+"'";
+		if (!sqlsjs.equals(""))
+		{
+			ls_sql+=" and crm_zxkhxx.sjs not in("+sqlsjs.substring(1)+")";
+		}
+		ls_sql+=" and crm_zxkhxx.qsjhtbz='Y'";//N：未签；Y：签合同
+		ls_sql+=" and crm_zxkhxx.qsjhtsj>=TO_DATE('"+sjfw+"','YYYY-MM-DD')";
+		ls_sql+=" and crm_zxkhxx.qsjhtsj<=TO_DATE('"+sjfw2+" 23:59:59','YYYY-MM-DD HH24:MI:SS')";
+		ls_sql+=" order by sjs";
+		ps1= conn.prepareStatement(ls_sql);
+		rs1 =ps1.executeQuery();
+		while (rs1.next())
+		{
+			getsjs=rs1.getString("sjs");
+
+			//实收款
+			int khsl=0;
+			double sjf=0;
+			double sjhtje=0;
+			long fwmj=0;
+			ls_sql =" SELECT count(distinct cw_khfkjl.khbh) khsl,sum(cw_khfkjl.fkje) sjf,sum(sjhtje) sjhtje,sum(fwmj) fwmj";
+			ls_sql+=" FROM cw_khfkjl,crm_zxkhxx";
+			ls_sql+=" where cw_khfkjl.khbh=crm_zxkhxx.khbh";
+
+			ls_sql+=" and cw_khfkjl.scbz='N' ";
+			ls_sql+=" and cw_khfkjl.fklxbm in('53')";//53：设计费
+			ls_sql+=" and (  skdd='1' OR (skdd='2' and dsksjbz='Y')  )";
+
+			ls_sql+=" and crm_zxkhxx.zxdm='"+getdwbh+"' and crm_zxkhxx.sjs='"+getsjs+"'";
+
+			ls_sql+=" and cw_khfkjl.sksj>=TO_DATE('"+sjfw+"','YYYY-MM-DD')";
+			ls_sql+=" and cw_khfkjl.sksj<=TO_DATE('"+sjfw2+" 23:59:59','YYYY-MM-DD HH24:MI:SS')";
+			ps= conn.prepareStatement(ls_sql);
+			rs =ps.executeQuery();
+			if (rs.next())
+			{
+				khsl=rs.getInt("khsl");
+				sjf=rs.getDouble("sjf");
+				sjhtje=rs.getDouble("sjhtje");
+				fwmj=rs.getLong("fwmj");
+			}
+			rs.close();
+			ps.close();
+			
+
+			xjkhsl+=khsl;
+			xjsjf+=sjf;
+			xjsjhtje+=sjhtje;
+			xjfwmj+=fwmj;
+
+			zjkhsl+=khsl;
+			zjsjf+=sjf;
+			zjsjhtje+=sjhtje;
+			zjfwmj+=fwmj;
+
+			int pmjj=0;
+			int pjde=0;
+
+			if (fwmj==0)
+			{
+				pmjj=0;
+			}
+			else{
+				pmjj=(int)(sjf/fwmj);
+			}
+
+			if (khsl==0)
+			{
+				pjde=0;
+			}
+			else{
+				pjde=(int)(sjf/khsl);
+			}
+
+			
+			//入店客户数
+			int rdkhs=0;
+			ls_sql =" SELECT count(*)";
+			ls_sql+=" FROM crm_zxkhxx ";
+			ls_sql+=" where crm_zxkhxx.zxdm='"+getdwbh+"' and crm_zxkhxx.sjs='"+getsjs+"'";
+			ls_sql+=" and crm_zxkhxx.yzxxbz='Y'";//Y：有效信息；N：无效信息
+			ls_sql+=" and crm_zxkhxx.lrsj>=TO_DATE('"+sjfw+"','YYYY-MM-DD')";
+			ls_sql+=" and crm_zxkhxx.lrsj<=TO_DATE('"+sjfw2+" 23:59:59','YYYY-MM-DD HH24:MI:SS')";
+			ps= conn.prepareStatement(ls_sql);
+			rs =ps.executeQuery();
+			if (rs.next())
+			{
+				rdkhs=rs.getInt(1);
+			}
+			rs.close();
+			ps.close();
+			
+			xjrdkhs+=rdkhs;
+			zjrdkhs+=rdkhs;
+
+			//入店客户收设计费比例
+			double rdsjfbl=0;
+			if (rdkhs==0)
+			{
+				rdsjfbl=0;
+			}
+			else{
+				rdsjfbl=cf.round(khsl*100.0/rdkhs,2);
+			}
+			
+			String zhdwmc="(不存在)";
+			ls_sql =" SELECT dwmc";
+			ls_sql+=" FROM sq_yhxx,sq_dwxx";
+			ls_sql+=" where zwbm in('04','23')";
+			ls_sql+=" and sq_yhxx.ssfgs='"+getfgsbh+"'";
+			ls_sql+=" and yhmc='"+getsjs+"'";
+			ls_sql+=" and sq_yhxx.dwbh=sq_dwxx.dwbh";
+			ps= conn.prepareStatement(ls_sql);
+			rs =ps.executeQuery();
+			if (rs.next())
+			{
+				zhdwmc=rs.getString("dwmc");
+			}
+			rs.close();
+			ps.close();
+
+			row++;
+
+			%>
+			<tr align="right"  bgcolor="#FFFFFF" onMouseOver="inTr(this)" onMouseOut="outTr(this)"  onclick="onclickTr(this)">
+				<td align="center"><%=row%></td>
+				<td align="center"><%=dmmc%></td>
+				<td align="center"><%=getsjs%><BR>转店:<%=zhdwmc%></td>
+
+					<td>
+						<A HREF="ViewSjssjfMx.jsp?sjfw=<%=sjfw%>&sjfw2=<%=sjfw2%>&dwbh=<%=getdwbh%>&sjs=<%=getsjs%>" target="_blank"><%=khsl%></A>			
+					</td>
+					<td><%=cf.formatDouble(sjf)%></td>
+					<td><%=cf.formatDouble(sjhtje)%></td>
+					
+
+					<td><%=fwmj%></td>
+					<td><%=pmjj%></td>
+
+					<td><%=pjde%></td>
+					
+					<td>
+						<A HREF="ViewSjsRdkhMx.jsp?sjfw=<%=sjfw%>&sjfw2=<%=sjfw2%>&dwbh=<%=getdwbh%>&sjs=<%=getsjs%>" target="_blank"><%=rdkhs%></A>			
+					</td>
+					<td><%=rdsjfbl%>%</td>
+			</tr>
+			<%	
+		}
+		rs1.close();
+		ps1.close();
+
+
+		int pmjj=0;
+		int pjde=0;
+
+		if (xjfwmj==0)
+		{
+			pmjj=0;
+		}
+		else{
+			pmjj=(int)(xjsjhtje/xjfwmj);
+		}
+		if (xjkhsl==0)
+		{
+			pjde=0;
+		}
+		else{
+			pjde=(int)(xjsjf/xjkhsl);
+		}
+
+		//入店客户收设计费比例
+		double rdsjfbl=0;
+		if (xjrdkhs==0)
+		{
+			rdsjfbl=0;
+		}
+		else{
+			rdsjfbl=cf.round(xjkhsl*100.0/xjrdkhs,2);
+		}
+
+		%>
+		<tr align="right"  bgcolor="#FFFFFF" onMouseOver="inTr(this)" onMouseOut="outTr(this)"  onclick="onclickTr(this)">
+			<td align="center" colspan="3"><font color="#ff0000">[<%=dmmc%>]小计</td>
+
+			<td><B><%=xjkhsl%></B></td>
+			<td><B><%=cf.formatDouble(xjsjf)%></B></td>
+			<td><B><%=cf.formatDouble(xjsjhtje)%></B></td>
+			
+
+			<td><B><%=xjfwmj%></B></td>
+			<td><B><%=pmjj%></B></td>
+			<td><B><%=pjde%></B></td>
+			
+			<td><B><%=xjrdkhs%></B></td>
+			<td><B><%=rdsjfbl%>%</B></td>
+		</tr>
+		<%
+	}
+	rs2.close();
+	ps2.close();
+
+
+	int pmjj=0;
+	int pjde=0;
+
+	if (zjfwmj==0)
+	{
+		pmjj=0;
+	}
+	else{
+		pmjj=(int)(zjsjhtje/zjfwmj);
+	}
+	if (zjkhsl==0)
+	{
+		pjde=0;
+	}
+	else{
+		pjde=(int)(zjsjf/zjkhsl);
+	}
+
+	//入店客户收设计费比例
+	double rdsjfbl=0;
+	if (zjrdkhs==0)
+	{
+		rdsjfbl=0;
+	}
+	else{
+		rdsjfbl=cf.round(zjkhsl*100.0/zjrdkhs,2);
+	}
+%>
+<tr align="right"  bgcolor="#FFFFFF" onMouseOver="inTr(this)" onMouseOut="outTr(this)"  onclick="onclickTr(this)">
+	<td align="center" colspan="3"><B>总 计</B></td>
+
+	<td><B><%=zjkhsl%></B></td>
+	<td><B><%=cf.formatDouble(zjsjf)%></B></td>
+	<td><B><%=cf.formatDouble(zjsjhtje)%></B></td>
+	
+
+	<td><B><%=zjfwmj%></B></td>
+	<td><B><%=pmjj%></B></td>
+	<td><B><%=pjde%></B></td>
+	
+	<td><B><%=zjrdkhs%></B></td>
+	<td><B><%=rdsjfbl%>%</B></td>
+</tr>
+</table>
+
+
+</body>
+</html>
+<%
+}
+catch (Exception e) {
+	out.print("Exception: " + e);
+	out.print("<BR>" + ls_sql);
+	return;
+}
+finally 
+{
+	try{
+		if (rs!= null) rs.close(); 
+		if (ps!= null) ps.close(); 
+		if (rs1!= null) rs1.close(); 
+		if (ps1!= null) ps1.close(); 
+		if (rs2!= null) rs2.close(); 
+		if (ps2!= null) ps2.close(); 
+		if (conn != null) cf.close(conn); 
+	}
+	catch (Exception e){
+		if (conn != null) cf.close(conn); 
+	}
+}
+%>
+
+<script>
+
+function onclickTr(obj)
+{
+	if (obj.style.background=='#ff33ff')
+	{
+		obj.style.background='#FFFFFF';
+	}
+	else
+	{
+		obj.style.background='#FF33FF';
+	}
+}
+function inTr(obj)
+{
+	if (obj.style.background!='#ff33ff')
+	{
+		obj.style.background='#FFFF33';
+	}
+}
+function outTr(obj)
+{
+	if (obj.style.background=='#ffff33')
+	{
+		obj.style.background='#FFFFFF';
+	}
+}
+
+</script> 

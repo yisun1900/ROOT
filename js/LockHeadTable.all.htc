@@ -1,0 +1,116 @@
+<PUBLIC:COMPONENT>
+
+	<PUBLIC:PROPERTY NAME="ROWHEADNUM" />
+	<PUBLIC:PROPERTY NAME="COLHEADNUM" />
+	<PUBLIC:PROPERTY NAME="ROWHEADSTYLE" />
+	<PUBLIC:PROPERTY NAME="COLHEADSTYLE" />
+	<PUBLIC:PROPERTY NAME="ROWSTYLE" />
+	<PUBLIC:PROPERTY NAME="FOCUSSTYLE" />
+
+<script>
+
+	//初始化
+	ROWHEADNUM = (ROWHEADNUM==null?0:parseInt(ROWHEADNUM, 10));
+	COLHEADNUM = (COLHEADNUM==null?0:parseInt(COLHEADNUM, 10));
+	ROWHEADSTYLE = "background-image: url(/images/bg.normal.gif);";
+	COLHEADSTYLE = (COLHEADSTYLE==null?"":COLHEADSTYLE);
+
+	arrRowStyle = (ROWSTYLE==null?new Array(""):ROWSTYLE.split("|")); 
+	//设置行表头
+	var i, j, rowItem, cellItem;
+	rowHead = element.cloneNode(true);
+	for (i=0; i<ROWHEADNUM; i++) 
+	{
+		rowItem = element.rows(i);
+		rowItem.style.cssText = 'z-index:10; position:relative; top:expression(this.offsetParent.scrollTop);' + ROWHEADSTYLE;
+	}
+
+	//设置列表头
+	for (i=0; i<element.rows.length; i++) 
+	{
+		rowItem = element.rows(i);
+		if (i>=ROWHEADNUM)
+		{
+			rowItem.style.cssText = "position:relative;" + arrRowStyle[(i - ROWHEADNUM) % arrRowStyle.length];
+			if (FOCUSSTYLE!=null)
+			{
+				rowItem.onmouseover = function () { this.style.cssText = "position:relative;" + FOCUSSTYLE;}
+				rowItem.onmouseout = function () { this.style.cssText = "position:relative;" + arrRowStyle[(this.rowIndex - ROWHEADNUM) % arrRowStyle.length];}
+			}
+		}
+
+		for (j=0; j<COLHEADNUM; j+=cellItem.colSpan) 
+		{
+			cellItem = rowItem.cells(j);
+			cellItem.style.cssText = 'position:relative; left:expression(this.parentElement.offsetParent.scrollLeft);'
+				+ (i<ROWHEADNUM?'':COLHEADSTYLE);
+		}
+	}
+
+	//设置行标题排序
+	for (i=0; i<ROWHEADNUM; i++) 
+	{
+		rowItem = element.rows(i);
+		for (j=0; j<rowItem.cells.length; j++) 
+		{
+			cellItem = rowItem.cells(j);
+			if (cellItem.rowSpan==ROWHEADNUM-i) 
+			{
+				cellItem.style.cursor = "hand";
+				cellItem.sortAsc = true;
+				cellItem.onclick = sortTable;
+			}
+		}
+	}
+
+	//body滚动事件处理
+	function bodyonscroll() 
+	{
+		var bodyscrolltop = parseint(parent.document.body.scrolltop, 10),
+		bodyscrollleft = parseint(parent.document.body.scrollleft, 10),
+		elementtop = getpostop(element),
+		elementleft = getposleft(element),
+		elementwidth = parseint(element.offsetwidth, 10),
+		elementheight = parseint(element.offsetheight, 10);
+		rowhead.style.top = elementtop + ((bodyscrolltop>elementtop && bodyscrolltop<elementtop + elementheight)?bodyscrolltop:0);
+		colhead.style.left = elementleft + ((bodyscrollleft>elementleft && bodyscrollleft<elementleft + elementwidth)?bodyscrollleft:0);
+	}
+
+	//排序
+	function sortTable() 
+	{
+		var objCol = event.srcElement;
+		if (objCol.tagName == "TD")
+		{
+			var intCol = objCol.cellIndex;
+			objCol.sortAsc = !objCol.sortAsc;
+
+			sort_type = 'Num';
+			if (isNaN(parseInt(element.rows(ROWHEADNUM).cells(intCol).innerText, 10)))
+			sort_type = 'Asc';
+
+			var i,j,boltmp;
+			for (i = ROWHEADNUM; i < element.rows.length; i++)
+			for (j = i + 1; j < element.rows.length; j++) 
+			{
+				switch (sort_type) 
+				{
+					case 'Num':
+						boltmp = (parseInt(element.rows(i).cells(intCol).innerText, 10) >= parseInt(element.rows(j).cells(intCol).innerText, 10));
+						break;
+					case 'Asc':
+						default:
+						boltmp = (element.rows(i).cells(intCol).innerText >= element.rows(j).cells(intCol).innerText);
+				}
+
+				if ((objCol.sortAsc && !boltmp) || (!objCol.sortAsc && boltmp)) 
+				{
+					element.moveRow(j, i);
+				}
+			}
+		}
+	}
+
+</script>
+
+</PUBLIC:COMPONENT>

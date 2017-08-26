@@ -1,0 +1,135 @@
+
+
+<html>
+<head>
+<title>优铂利ERP</title>
+<style type="text/css">
+.3dfont { FILTER: glow(color=ffffff,strength=5) shadow(color=cccccc,direction:120); POSITION: relative; WIDTH: 100% }
+			.ubl_bk{
+				background-image: url(c.jpg); 
+				background-repeat: no-repeat; 
+				background-size: cover;
+			}
+			.ubl_title_div{
+				padding-bottom: 20px;
+			}
+			.ubl_main_div{
+				position: absolute;
+				text-align: center;
+				top: 50%;
+				left: 36.5%;
+			}
+			.ubl_form{
+				background-color: #cfcfcf;
+				border-radius: 3px;
+				padding: 8px;
+			}
+			.ubl_username_input{
+				border-radius: 3px;
+    				width: 120px;
+    				padding-left:22px;
+				background:#FFFFFF url(images/admin.ico)  left no-repeat;
+			}
+			.ubl_password_input{
+				border-radius: 3px;
+    				width: 120px; 
+    				padding-left:19px;
+				background:#FFFFFF url(images/password.ico)  left no-repeat;
+			}
+			.ubl_title_1{
+				color: #e3e3e3;
+    				font-size: 30px;
+			}
+			.ubl_title_2{
+				color: #42a3c7;
+    				font-size: 20px;
+			} 
+</style>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+		<link rel="stylesheet" href="/css/default.css" type="text/css">
+		<link rel="stylesheet" href="/css/buttons.css" type="text/css">
+<SCRIPT language=javascript src="./js/validate.js"></SCRIPT>
+<SCRIPT language=javascript >
+<!--
+
+
+function submit_onclick()//参数FormName:Form的名称
+{
+	if(	loginform.yhdlm.value=="") {
+		alert("请输入[用户名]！");
+		loginform.yhdlm.focus();
+		return false;
+	}
+	if(	loginform.yhkl.value=="") {
+		alert("请输入[密 码]！");
+		loginform.yhkl.focus();
+		return false;
+	}
+   
+	loginform.submit();
+	return true;
+}
+function nextFocus(itemname)
+{
+	if (event.keyCode==13)
+	{
+		if (itemname=="yhdlm"){
+			if(	loginform.yhdlm.value=="") {
+				alert("请输入[用户名]！");
+				loginform.yhdlm.focus();
+				return false;
+			}
+			else{
+				loginform.yhkl.focus();
+			}
+		}
+		else if(itemname=="yhkl"){
+			submit_onclick();
+		}
+	}
+}
+//-->
+</SCRIPT>
+
+
+<style type="text/css">
+<!--
+.style1 {color: #D6D3CE}
+-->
+</style>
+</head>  
+	<body onload="loginform.yhdlm.focus();" class="ubl_bk">
+		<div class="ubl_main_div">
+			<div class="ubl_title_div">
+				<label><strong class="ubl_title_1">优铂利</strong><i class="ubl_title_2">ERP家装管理系统</i></label>
+			</div>
+			<form class="ubl_form" name="loginform" method="post" action="login.jsp">
+				<table>
+					<tr>
+						<td>
+							<input class="ubl_username_input" name="yhdlm" size=18 maxlength="16" onKeyup="nextFocus(this.name)">
+						</td>
+						<td>
+							<input class="ubl_password_input" name="yhkl" type="password" size="19" maxlength="50" onKeyup="nextFocus(this.name)">
+						</td>
+						<td>
+							<button class="button button-glow button-rounded button-raised button-primary button-tiny" onClick="submit_onclick()">登&nbsp;&nbsp;录</button> 
+						</td>
+					</tr>
+				</table>
+			</form>
+		</div>
+	</body>
+</html>
+
+<SCRIPT language=javascript >
+<!--
+if (is360)
+{
+	alert("错误！不能使用360浏览器");
+	document.loginform.login.disabled=true;
+}
+
+//-->
+</SCRIPT>
+

@@ -1,0 +1,223 @@
+<%@ page contentType="text/html;charset=GBK" %>
+<%@ page import='ybl.common.*,java.sql.*,java.util.*' %>
+<jsp:useBean id="cf" scope="page" class="ybl.common.CommonFunction"/>
+<%@ include file="/getlogin.jsp" %>
+
+<html>
+<head>
+<title>录入数据</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<style type="text/css">
+<!--
+.STYLE1 {color: #FF0000;
+	font-weight: bold;
+	font-size: 16px;
+}
+-->
+</style>
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<%
+String yhmc=(String)session.getAttribute("yhmc");
+String lrbm=(String)session.getAttribute("dwbh");
+
+Connection conn  = null;
+PreparedStatement ps=null;
+ResultSet rs=null;
+String ls_sql=null;
+
+
+String bmmc=null;//部门名称
+String bmrs=null;//部门人数
+
+int zqs=0;
+String date_ss=null;//上周开始时间
+String date_se=null;//上周结束时间
+String date_bs=null;//本周开始时间
+String date_be=null;//本周结束时间
+
+
+try {
+	conn=cf.getConnection();
+
+	//查询日期
+	ls_sql="SELECT zqs,yy_rqsd_szs,yy_rqsd_sze,yy_rqsd_bzs,yy_rqsd_bze ";
+	ls_sql+=" FROM yy_rqsd ";
+	ls_sql+=" order by yy_rqsd_bzs desc";
+	ps= conn.prepareStatement(ls_sql);
+	rs =ps.executeQuery();
+	if(rs.next())
+	{
+		zqs=rs.getInt("zqs");
+		date_ss=cf.fillNull(rs.getDate("yy_rqsd_szs"));
+		date_se=cf.fillNull(rs.getDate("yy_rqsd_sze"));
+		date_bs=cf.fillNull(rs.getDate("yy_rqsd_bzs"));
+		date_be=cf.fillNull(rs.getDate("yy_rqsd_bze"));
+	}
+	rs.close();
+	ps.close();
+
+  	//是否之前已经录入过 
+	int count=0;
+    ls_sql="SELECT count(*)";
+	ls_sql+=" FROM YY_JJB ";
+	ls_sql+=" where zqs='"+zqs+"' and ssbm='"+lrbm+"'";
+	ps= conn.prepareStatement(ls_sql);
+	rs =ps.executeQuery();
+	if(rs.next())
+	{
+		count=rs.getInt(1);
+    }
+    rs.close();
+	ps.close();
+
+	if (count>0)
+	{
+		out.println("你已经录入了数据，请到【维护】中进行修改或增加！");
+		return;
+	}
+	
+ 		
+    //查询所属所属部门
+	ls_sql="SELECT dwmc";
+	ls_sql+=" FROM sq_dwxx ";
+	ls_sql+=" where dwbh='"+lrbm+"'";
+	ps= conn.prepareStatement(ls_sql);
+	rs =ps.executeQuery();
+	if (rs.next())
+	{
+		bmmc=rs.getString("dwmc");
+	}
+	rs.close();
+	ps.close();
+	
+	//查询部门人数
+	ls_sql="SELECT count(*) rs";
+	ls_sql+=" FROM sq_yhxx";
+	ls_sql+=" where sq_yhxx.sfzszg in('Y','N') and  dwbh='"+lrbm+"'";
+	ps= conn.prepareStatement(ls_sql);
+	rs =ps.executeQuery();
+	if(rs.next())
+	{
+		bmrs=rs.getString("rs");
+	}
+	rs.close();
+	ps.close();
+
+%>
+
+	<form method="POST" name="listform" action="SaveInsertYy_jjb.jsp" target="_blank" >
+<table width="100%" border="1" style="FONT-SIZE:12"  cellpadding="1" cellspacing="0">
+	<tr>
+	  <td height="37" colspan="13" align="center">
+	  <input type="button" value="存盘"  width="200" onClick="cf_submit(listform)" name="save">
+	  <span class="STYLE1">（注意：所有数据要求一次录完，不能空）</span> 
+	    <p>    
+			<input type="button" value="Excel导入" onClick="window.open('LoadData.jsp')"  >
+			<A HREF="家居部导入.xls"><B>下载【导入Excel】模板</B></A>
+		</p>
+	  </td>
+	</tr>
+  <tr>
+    <td height="25" colspan="13" align="center">家居部周录入表（周期数：<%=zqs%>）
+	<input type="hidden" name="yy_jjb_lrr" value="<%=yhmc%>">
+	<input type="hidden" name="zqs" value="<%=zqs%>">		</td>
+  </tr>
+  <tr>
+    <td  height="28" align="center">上周日期</td>
+    <td colspan="3" align="center"><%=date_ss%>至<%=date_se%></td>
+    <td align="center">本周日期</td>
+    <td colspan="4"  align="center"><%=date_bs%>至<%=date_be%></td>
+    </tr>
+  <tr>
+    <td height="28" align="center">部门名称</td>
+    <td align="center"><%=bmmc%></td>
+    <td colspan="2" align="center">家装顾问人数</td>
+    <td align="center"><%=bmrs%></td>
+    <td colspan="3" align="center">单位：个</td>
+    </tr>
+  
+  <tr align="center">
+    <td width="121" height="20" >姓名</td>
+    <td width="106" >去年同期月度主材产值</td>
+    <td width="118" >本月计划</td>
+    <td width="118" >本月累计</td>
+    <td width="118">所属店面本月累计工程产值</td>
+    <td width="118" >上周计划</td>
+    <td width="118" >上周完成</td>
+    <td width="124" >本周预计</td>
+    </tr>
+  <%
+	String yy_jjb_ygmc=null;
+	String ssfgs=null;
+	String ssbm=null;
+	
+	ls_sql="SELECT ssfgs,dwbh,yhmc";
+	ls_sql+=" FROM sq_yhxx";
+	ls_sql+=" where sq_yhxx.sfzszg in('Y','N') and  dwbh='"+lrbm+"'";
+	ps= conn.prepareStatement(ls_sql);
+	rs =ps.executeQuery();
+	while(rs.next())
+	{
+		yy_jjb_ygmc=rs.getString("yhmc");
+		ssfgs=rs.getString("ssfgs");
+		ssbm=rs.getString("dwbh");
+
+		%>
+		<tr align="center">
+			<td ><%=yy_jjb_ygmc%>
+				<input type="hidden" name="yy_jjb_ygmc" value="<%=yy_jjb_ygmc%>">
+				<input type="hidden" name="ssfgs" value="<%=ssfgs%>">
+				<input type="hidden" name="ssbm" value="<%=ssbm%>">			</td>
+			<td ><input type="text" name="yy_jjbqntq " size="9" value="" style="border-color: #FFFFFF #FFFFFF #000000;border-style:solid" onChange="calValue(insertform)"></td>
+			<td ><input type="text" name="yy_jjbbyjh" size="9" value="" style="border-color: #FFFFFF #FFFFFF #000000;border-style:solid"  ></td>
+			<td ><input type="text" name="yy_jjbylj" size="9" value="" style="border-color: #FFFFFF #FFFFFF #000000;border-style:solid"  ></td>
+			<td ><input type="text" name="yy_jjbdmbylj" size="9" value="" style="border-color: #FFFFFF #FFFFFF #000000;border-style:solid"  ></td>
+			<td ><input type="text" name="yy_jjbszjh" size="9" value="" style="border-color: #FFFFFF #FFFFFF #000000;border-style:solid"  ></td>
+			<td ><input type="text" name="yy_jjbszwc" size="9" value="" style="border-color: #FFFFFF #FFFFFF #000000;border-style:solid"  ></td>
+			<td ><input type="text" name="yy_jjbbzyj" size="9" value="" style="border-color: #FFFFFF #FFFFFF #000000;border-style:solid"  ></td>
+		</tr>
+		<% 
+	}
+	rs.close();
+	ps.close();
+		
+	%>
+</table>
+</form>
+<%
+}
+catch (Exception e) {
+	out.print("Exception: " + e);
+	out.print("sql: " + ls_sql);
+	return;
+}
+finally 
+{
+	try{
+		if (rs!= null) rs.close(); 
+		if (ps!= null) ps.close(); 
+		if (conn != null) cf.close(conn); 
+	}
+	catch (Exception e){
+		if (conn != null) cf.close(conn); 
+	}
+}
+%>
+
+</html>
+
+<SCRIPT language=javascript src="/js/validate.js"></SCRIPT>
+<script  LANGUAGE="javascript">
+<!--
+function cf_submit(formName)
+{
+	formName.submit();
+	return true;
+} 
+
+//-->
+</script>
+

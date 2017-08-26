@@ -1,0 +1,10 @@
+CREATE TABLE imbj_dzbj
+        (
+	xh NUMBER(8) not null primary key,
+	XMBH VARCHAR2(16) ,
+	XMMC VARCHAR2(100) ,
+	SMBM VARCHAR2(40) ,
+	JLDWBM VARCHAR2(20) ,
+	dj NUMBER(16,2) ,
+	GYCL VARCHAR2(1000)) ;
+ 

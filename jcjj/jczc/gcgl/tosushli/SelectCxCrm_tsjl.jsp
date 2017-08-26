@@ -1,0 +1,560 @@
+<%@ page contentType="text/html;charset=GBK" %>
+<jsp:useBean id="cf" scope="page" class="ybl.common.CommonFunction"/>
+<jsp:setProperty name="cf" property="*" />
+<%@ include file="/getlogin.jsp" %>
+
+
+<html>
+<head>
+<title>请输入查询条件</title>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+</head>
+<%
+	String dwbh=(String)session.getAttribute("dwbh");
+	String yhjs=(String)session.getAttribute("yhjs");
+	String ssfgs=(String)session.getAttribute("ssfgs");
+	String dwstr=cf.getItemData("select dwbh,dwmc,ssdw from sq_dwxx where dwlx='F2' order by ssdw,dwbh");
+	String tsxlstr=cf.getItemData("select tsxlbm,tsxlmc,tslxbm from dm_tsxlbm order by tslxbm,tsxlbm");
+	String tsyystr=cf.getItemData("select tsyybm,tsyymc,tsxlbm from dm_tsyybm order by tsxlbm,tsyybm");
+%>
+
+<body bgcolor="#FFFFFF">
+<table width="100%">
+  <tr> 
+    <td width="100%" > 
+      <div align="center"> 
+        <form method="post" action="" name="selectform">
+          <table width="100%" border="0" style="FONT-SIZE:12" bgcolor="#999999" cellpadding="2" cellspacing="2">
+            <tr bgcolor="#FFFFCC"> 
+              <td width="19%" bgcolor="#FFFFCC"> 
+                <div align="right">分公司</div>
+              </td>
+              <td width="31%"> <%
+	if (yhjs.equals("A0") || yhjs.equals("A1"))
+	{
+        out.println("        <select name=\"fgs\" style=\"FONT-SIZE:12PX;WIDTH:152PX\" onChange=\"selectItem(fgs,crm_khxx_dwbh,"+dwstr+");\">");
+		out.println("<option value=\"\"></option>");
+		cf.selectItem(out,"select dwbh,dwmc from sq_dwxx where dwlx='F0' order by dwbh","");
+        out.println("        </select>");
+	}
+	else{
+        out.println("        <select name=\"fgs\" style=\"FONT-SIZE:12PX;WIDTH:152PX\" >");
+		cf.selectItem(out,"select dwbh,dwmc from sq_dwxx where dwbh='"+ssfgs+"'","");
+        out.println("        </select>");
+	}
+%> </td>
+              <td width="17%"> 
+                <div align="right">签约店面</div>
+              </td>
+              <td width="33%"> 
+                <select name="crm_khxx_dwbh" style="FONT-SIZE:12PX;WIDTH:152PX">
+                  <%
+	if (yhjs.equals("A0") || yhjs.equals("A1"))
+	{
+		out.println("<option value=\"\"></option>");
+//		cf.selectItem(out,"select dwbh,dwmc from sq_dwxx where dwlx='F2' order by dwbh","");
+	}
+	else if (yhjs.equals("F0") || yhjs.equals("F1"))
+	{
+		out.println("<option value=\"\"></option>");
+		cf.selectItem(out,"select dwbh,dwmc from sq_dwxx where dwlx='F2' and ssdw='"+ssfgs+"' order by dwbh","");
+	}
+	else if (yhjs.equals("F2"))
+	{
+		cf.selectItem(out,"select dwbh,dwmc from sq_dwxx where dwbh='"+dwbh+"'","");
+	}
+%> 
+                </select>
+              </td>
+            </tr>
+            <tr bgcolor="#FFFFCC"> 
+              <td width="19%" align="right">客户编号</td>
+              <td width="31%"> 
+                <input type="text" name="crm_tsjl_khbh" size="20" maxlength="20" >
+              </td>
+              <td width="17%" align="right">合同号</td>
+              <td width="33%"> 
+                <input type="text" name="crm_khxx_hth" size="20" maxlength="20" >
+              </td>
+            </tr>
+            <tr bgcolor="#FFFFCC"> 
+              <td width="19%"> 
+                <div align="right">客户姓名</div>
+              </td>
+              <td width="31%"> 
+                <input type="text" name="crm_khxx_khxm" size="20" maxlength="50" >
+              </td>
+              <td width="17%"> 
+                <div align="right">联系方式</div>
+              </td>
+              <td width="33%"> 
+                <input type="text" name="crm_khxx_lxfs" size="20" maxlength="100" >
+              </td>
+            </tr>
+            <tr bgcolor="#FFFFCC"> 
+              <td width="19%" bgcolor="#FFFFCC" align="right">房屋地址</td>
+              <td colspan="3"> 
+                <input type="text" name="crm_khxx_fwdz" size="73" maxlength="100" >
+              </td>
+            </tr>
+            <tr bgcolor="#FFFFCC"> 
+              <td width="19%"> 
+                <div align="right">签约日期</div>
+              </td>
+              <td width="31%"> 
+                <input type="text" name="crm_khxx_qyrq" size="20" maxlength="10" >
+              </td>
+              <td width="17%"> 
+                <div align="right">设计师</div>
+              </td>
+              <td width="33%"> 
+                <input type="text" name="crm_khxx_sjs" size="20" maxlength="20" >
+              </td>
+            </tr>
+            <tr bgcolor="#FFFFCC"> 
+              <td width="19%" bgcolor="#FFFFCC"> 
+                <div align="right">施工队</div>
+              </td>
+              <td width="31%"> 
+                <select name="crm_khxx_sgd" style="FONT-SIZE:12PX;WIDTH:152PX">
+                  <option value=""></option>
+                  <%
+					if (yhjs.equals("A0") || yhjs.equals("A1"))
+					{
+//						cf.selectItem(out,"select sgd,sgdmc||'（'||dh||'）' from sq_sgd order by sgdmc","");
+					}
+					else{
+						cf.selectItem(out,"select sgd,sgdmc||'（'||dh||'）' from sq_sgd where ssdw='"+ssfgs+"' order by sgdmc","");
+					}
+%> 
+                </select>
+              </td>
+              <td width="17%"> 
+                <div align="right">质检</div>
+              </td>
+              <td width="33%"> 
+                <input type="text" name="crm_khxx_zjxm" size="20" maxlength="20" >
+              </td>
+            </tr>
+            <tr bgcolor="#FFFFCC"> 
+              <td width="19%"> 
+                <div align="right">工程进度</div>
+              </td>
+              <td width="31%"> 
+                <select name="gcjdbm" style="FONT-SIZE:12PX;WIDTH:152PX">
+                  <option value=""></option>
+                  <%
+	cf.selectItem(out,"select gcjdbm,gcjdmc from dm_gcjdbm order by gcjdbm","");
+%> 
+                </select>
+              </td>
+              <td width="17%"> 
+                <div align="right">是否需回访</div>
+              </td>
+              <td width="33%"> 
+                <input type="radio" name="sfxhf" value="Y" >需回访
+                <input type="radio" name="sfxhf" value="N" >不需回访
+              </td>
+            </tr>
+            <tr bgcolor="#FFFFCC"> 
+              <td width="19%" align="right">回访类型</td>
+              <td width="31%"> 
+                <select name="hflxbm" style="FONT-SIZE:12PX;WIDTH:152PX">
+                  <option value=""></option>
+                  <%
+	cf.selectItem(out,"select hflxbm,hflxmc from dm_hflxbm where hfdl='2' order by hflxbm","");
+%> 
+                </select>
+              </td>
+              <td width="17%" align="right">客户类型</td>
+              <td width="33%"> 
+                <select name="khlxbm" style="FONT-SIZE:12PX;WIDTH:152PX">
+                  <option value=""></option>
+                  <%
+	cf.selectItem(out,"select khlxbm,khlxmc from dm_khlxbm order by khlxbm","");
+%> 
+                </select>
+              </td>
+            </tr>
+            <tr bgcolor="#E8E8FF"> 
+              <td width="19%"> 
+                <div align="right">投诉记录号</div>
+              </td>
+              <td width="31%"> 
+                <input type="text" name="crm_tsjl_tsjlh" size="20" maxlength="9" >
+              </td>
+              <td width="17%"> 
+                <div align="right">类型</div>
+              </td>
+              <td width="33%"> 
+                <input type="radio" name="crm_tsjl_lx" value="1">
+                投诉 
+                <input type="radio" name="crm_tsjl_lx" value="2">
+                报修 </td>
+            </tr>
+            <tr bgcolor="#E8E8FF"> 
+              <td width="19%"> 
+                <div align="right">严重程度</div>
+              </td>
+              <td width="31%"> 
+                <select name="crm_tsjl_yzcdbm" style="FONT-SIZE:12PX;WIDTH:152PX">
+                  <option value=""></option>
+                  <%
+	cf.selectItem(out,"select yzcdbm,yzcdmc from dm_yzcdbm order by yzcdbm","");
+%> 
+                </select>
+              </td>
+              <td width="17%"> 
+                <div align="right">受理方式</div>
+              </td>
+              <td width="33%"> 
+                <select name="crm_tsjl_slfsbm" style="FONT-SIZE:12PX;WIDTH:152PX">
+                  <option value=""></option>
+                  <%
+	cf.selectItem(out,"select slfsbm,slfsmc from dm_slfsbm order by slfsbm","");
+%> 
+                </select>
+              </td>
+            </tr>
+            <tr bgcolor="#E8E8FF"> 
+              <td width="19%"> 
+                <div align="right">是否需回访</div>
+              </td>
+              <td width="31%"> 
+                <select name="crm_tsjl_sfxhf" style="FONT-SIZE:12PX;WIDTH:152PX">
+                  <option value=""></option>
+                  <%
+	cf.selectToken(out,"Y+需回访&N+不需回访","");
+%> 
+                </select>
+              </td>
+              <td width="17%"> 
+                <div align="right">是否特殊情况</div>
+              </td>
+              <td width="33%"> 
+                <input type="radio" name="sftsqk" value="Y">
+                是 
+                <input type="radio" name="sftsqk" value="N">
+                否 </td>
+            </tr>
+            <tr bgcolor="#E8E8FF"> 
+              <td width="19%"> 
+                <div align="right">需回访时间 从</div>
+              </td>
+              <td width="31%" bgcolor="#E8E8FF"> 
+                <input type="text" name="crm_tsjl_hfsj" size="20" maxlength="10" >
+              </td>
+              <td width="17%"> 
+                <div align="right">到</div>
+              </td>
+              <td width="33%"> 
+                <input type="text" name="crm_tsjl_hfsj2" size="20" maxlength="10" >
+              </td>
+            </tr>
+            <tr bgcolor="#E8E8FF"> 
+              <td width="19%" align="right">客户要求解决时间 从</td>
+              <td width="31%"> 
+                <input type="text" name="crm_tsjl_yqjjsj" size="20" maxlength="10" >
+              </td>
+              <td width="17%" align="right">到</td>
+              <td width="33%"> 
+                <input type="text" name="crm_tsjl_yqjjsj2" size="20" maxlength="10" >
+              </td>
+            </tr>
+            <tr bgcolor="#E8E8FF"> 
+              <td width="19%" align="right">受理时间 从</td>
+              <td width="31%"> 
+                <input type="text" name="crm_tsjl_slsj" size="20" maxlength="10" >
+              </td>
+              <td width="17%" align="right">到</td>
+              <td width="33%"> 
+                <input type="text" name="crm_tsjl_slsj2" size="20" maxlength="10" >
+              </td>
+            </tr>
+            <tr bgcolor="#E8E8FF"> 
+              <td width="19%"> 
+                <div align="right">受理人</div>
+              </td>
+              <td width="31%" bgcolor="#E8E8FF"> 
+                <input type="text" name="crm_tsjl_slr" size="20" maxlength="16" >
+              </td>
+              <td width="17%"> 
+                <div align="right">受理部门</div>
+              </td>
+              <td width="33%"> 
+                <select name="crm_tsjl_slbm" style="FONT-SIZE:12PX;WIDTH:152PX">
+                  <%
+	if (yhjs.equals("A0") || yhjs.equals("A1"))
+	{
+		out.println("<option value=\"\"></option>");
+//		cf.selectItem(out,"select dwbh,dwmc from sq_dwxx where dwlx='F2' order by dwbh","");
+	}
+	else 
+	{
+		out.println("<option value=\"\"></option>");
+		cf.selectItem(out,"select dwbh,dwmc from sq_dwxx where dwlx in('A0','A1','F0','F1','F2') and ssdw='"+ssfgs+"' order by dwbh","");
+	}
+%> 
+                </select>
+              </td>
+            </tr>
+            <tr bgcolor="#E8E8FF"> 
+              <td width="19%" align="right">结案时间 从</td>
+              <td width="31%"> 
+                <input type="text" name="crm_tsjl_jasj" size="20" maxlength="10" >
+              </td>
+              <td width="17%" bgcolor="#E8E8FF" align="right">到</td>
+              <td width="33%"> 
+                <input type="text" name="crm_tsjl_jasj2" size="20" maxlength="10" >
+              </td>
+            </tr>
+            <tr bgcolor="#E8E8FF"> 
+              <td width="19%"> 
+                <div align="right">是否分配施工队</div>
+              </td>
+              <td width="31%"> 
+                <select name="sffpsgd" style="FONT-SIZE:12PX;WIDTH:152PX">
+                  <option value=""></option>
+                  <option value="N">未分配</option>
+                  <option value="Y">已分配</option>
+                </select>
+              </td>
+              <td width="17%"> 
+                <div align="right">维修施工队</div>
+              </td>
+              <td width="33%"> 
+                <input type="text" name="wxsgd" size="20" maxlength="30" >
+              </td>
+            </tr>
+            <tr bgcolor="#CCCCFF"> 
+              <td width="19%"> 
+                <div align="right">投诉报修大类</div>
+              </td>
+              <td width="31%"> 
+                <select name="crm_tsbm_tslxbm" style="FONT-SIZE:12PX;WIDTH:152PX" onChange="selectItem(crm_tsbm_tslxbm,crm_tsbm_tsxlbm,<%=tsxlstr%>)">
+                  <option value=""></option>
+                  <%
+	cf.selectItem(out,"select tslxbm,tslxmc from dm_tslxbm order by tslxbm","");
+%> 
+                </select>
+              </td>
+              <td width="17%"> 
+                <div align="right">投诉报修小类</div>
+              </td>
+              <td width="33%"> 
+                <select name="crm_tsbm_tsxlbm" style="FONT-SIZE:12PX;WIDTH:152PX" onChange="selectItem(crm_tsbm_tsxlbm,crm_tsbm_tsyybm,<%=tsyystr%>)">
+                  <option value=""></option>
+                  <%
+//	cf.selectItem(out,"select tsxlbm,tsxlmc from dm_tsxlbm order by tsxlbm","");
+%> 
+                </select>
+              </td>
+            </tr>
+            <tr bgcolor="#CCCCFF"> 
+              <td width="19%"> 
+                <div align="right">投诉报修原因</div>
+              </td>
+              <td width="31%"> 
+                <select name="crm_tsbm_tsyybm" style="FONT-SIZE:12PX;WIDTH:152PX">
+                  <option value=""></option>
+                  <%
+//	cf.selectItem(out,"select tsyybm,tsyymc from dm_tsyybm order by tsyybm","");
+%> 
+                </select>
+              </td>
+              <td width="17%"> 
+                <div align="right">投诉品牌</div>
+              </td>
+              <td width="33%"> 
+                <select name="crm_tspp_tspp" style="FONT-SIZE:12PX;WIDTH:152PX">
+                  <option value=""></option>
+                  <%
+	cf.selectItem(out,"select gysbh,gysmc from sq_gysxx order by gysmc","");
+%> 
+                </select>
+              </td>
+            </tr>
+            <tr bgcolor="#CCCCFF"> 
+              <td width="19%"> 
+                <div align="right">客服回访结果</div>
+              </td>
+              <td width="31%"> 
+                <select name="hfjgbm" style="FONT-SIZE:12PX;WIDTH:152PX">
+                  <option value=""></option>
+                  <%
+	cf.selectItem(out,"select hfjgbm,hfjgmc from dm_hfjgbm order by hfjgbm","");
+%> 
+                </select>
+              </td>
+              <td width="17%"> 
+                <div align="right">是否及时联系</div>
+              </td>
+              <td width="33%"> 
+                <select name="crm_tsbm_sfjslx" style="FONT-SIZE:12PX;WIDTH:152PX">
+                  <option value=""></option>
+                  <%
+	cf.selectToken(out,"Y+及时联系&N+未及时联系&W+情况未知","");
+%> 
+                </select>
+              </td>
+            </tr>
+            <tr bgcolor="#CCCCFF"> 
+              <td width="19%"> 
+                <div align="right">结案客户是否满意</div>
+              </td>
+              <td width="31%"> 
+                <select name="crm_tsbm_zzjgbm" style="FONT-SIZE:12PX;WIDTH:152PX">
+                  <option value=""></option>
+                  <%
+	cf.selectItem(out,"select zzjgbm,zzjgmc from dm_zzjgbm order by zzjgbm","");
+%> 
+                </select>
+              </td>
+              <td width="17%"> 
+                <div align="right">解决问题及时性</div>
+              </td>
+              <td width="33%"> 
+                <select name="crm_tsbm_jsxbm" style="FONT-SIZE:12PX;WIDTH:152PX">
+                  <option value=""></option>
+                  <%
+	cf.selectItem(out,"select jsxbm,jsxmc from dm_jsxbm order by jsxbm","");
+%> 
+                </select>
+              </td>
+            </tr>
+            <tr bgcolor="#CCCCFF"> 
+              <td width="19%" align="right">责任部门</td>
+              <td width="31%"> 
+                <select name="crm_tsbm_dwbh" style="FONT-SIZE:12PX;WIDTH:152PX">
+                  <%
+	if (yhjs.equals("A0") || yhjs.equals("A1"))
+	{
+		out.println("<option value=\"\"></option>");
+//		cf.selectItem(out,"select dwbh,dwmc from sq_dwxx where dwlx='F2' order by dwbh","");
+	}
+	else if (yhjs.equals("F0") || yhjs.equals("F1"))
+	{
+		out.println("<option value=\"\"></option>");
+		cf.selectItem(out,"select dwbh,dwmc from sq_dwxx where dwlx in('A0','A1','F0','F1','F2') and ssdw='"+ssfgs+"' order by dwbh","");
+	}
+	else if (yhjs.equals("F2"))
+	{
+		cf.selectItem(out,"select dwbh,dwmc from sq_dwxx where dwbh='"+dwbh+"'","");
+	}
+%> 
+                </select>
+              </td>
+              <td width="17%" align="right">责任部门处理情况</td>
+              <td width="33%"> 
+                <select name="crm_tsbm_clzt" style="FONT-SIZE:12PX;WIDTH:152PX">
+                  <option value=""></option>
+                  <%
+	cf.selectToken(out,"0+未通知&1+已通知未处理&2+在处理&3+已解决","");
+%> 
+                </select>
+              </td>
+            </tr>
+            <tr bgcolor="#E8E8FF"> 
+              <td width="19%"> 
+                <div align="right">结案状态</div>
+              </td>
+              <td width="31%"> 
+                <select name="crm_tsjl_clzt" style="FONT-SIZE:12PX;WIDTH:152PX">
+                  <option value=""></option>
+                  <%
+	cf.selectToken(out,"0+非客服登记&1+客服受理&2+在处理&3+结案&9+不立案","");
+%> 
+                </select>
+              </td>
+              <td width="17%"> 
+                <div align="right">公司处理状态</div>
+              </td>
+              <td width="33%"> 
+                <select name="crm_tsjl_zrbmclzt" style="FONT-SIZE:12PX;WIDTH:152PX">
+                  <option value=""></option>
+                  <%
+	cf.selectToken(out,"1+未处理&2+在处理&3+已解决","");
+%> 
+                </select>
+              </td>
+            </tr>
+            <tr bgcolor="#FFFFFF"> 
+              <td width="19%" align="right">排序标准</td>
+              <td width="31%"> 
+                <select name="px" style="FONT-SIZE:12PX;WIDTH:152PX">
+                  <option value="crm_khxx.khbh">客户姓名</option>
+                  <option value="crm_tsjl.yzcdbm desc">严重程度</option>
+                  <option value="crm_tspp.tspp">投诉报修品牌</option>
+                  <option value="crm_tsjl.slsj">受理时间</option>
+                  <option value="crm_khxx.sgd">施工队</option>
+                  <option value="crm_khxx.sjs">设计师</option>
+                  <option value="crm_khxx.zjxm">质检员</option>
+                </select>
+              </td>
+              <td width="17%" align="right">显示风格</td>
+              <td width="33%"> 
+                <input type="radio" name="xsfg" value="1" checked>
+                网页 
+                <input type="radio" name="xsfg" value="2">
+                EXCEL </td>
+            </tr>
+            <tr align="center"> 
+              <td colspan="4"> 
+                <input type="button"  value="查询" onClick="f_do(selectform,'cx')">
+                <input type="reset"  value="重输">
+              </td>
+            </tr>
+          </table>
+        </form>
+      </div>
+    </td>
+  </tr>
+</table>
+</body>
+</html>
+<SCRIPT language=javascript src="/js/validate.js"></SCRIPT>
+<SCRIPT language=javascript >
+<!--
+function f_do(FormName,lx)//参数FormName:Form的名称
+{
+	if(!(isDatetime(FormName.crm_tsjl_yqjjsj, "客户要求解决时间"))) {
+		return false;
+	}
+	if(!(isDatetime(FormName.crm_tsjl_yqjjsj2, "客户要求解决时间"))) {
+		return false;
+	}
+	if(!(isDatetime(FormName.crm_tsjl_hfsj, "需回访时间"))) {
+		return false;
+	}
+	if(!(isDatetime(FormName.crm_tsjl_hfsj2, "需回访时间"))) {
+		return false;
+	}
+	if(!(isDatetime(FormName.crm_tsjl_slsj, "受理时间"))) {
+		return false;
+	}
+	if(!(isDatetime(FormName.crm_tsjl_slsj2, "受理时间"))) {
+		return false;
+	}
+	if(!(isDatetime(FormName.crm_tsjl_jasj, "结案时间"))) {
+		return false;
+	}
+	if(!(isDatetime(FormName.crm_tsjl_jasj2, "结案时间"))) {
+		return false;
+	}
+	if(!(isDatetime(FormName.crm_khxx_qyrq, "签约日期"))) {
+		return false;
+	}
+
+	if (lx=="cx")
+	{
+		FormName.action="Crm_tsjlCxList.jsp";
+	}
+	else{
+		FormName.action="Crm_tsjlDyList.jsp";
+	}
+
+	FormName.submit();
+	return true;
+}
+//-->
+</SCRIPT>

@@ -1,0 +1,9 @@
+
+
+<html>
+<head>
+<title>修改信息</title>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+</head>
+
+<body bgcolor="#FFFFFF">

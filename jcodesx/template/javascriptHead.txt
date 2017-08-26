@@ -1,0 +1,5 @@
+<SCRIPT language=javascript src="/js/validate.js"></SCRIPT>
+<SCRIPT language=javascript >
+<!--
+function f_do(FormName)//参数FormName:Form的名称
+{

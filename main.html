@@ -1,0 +1,50 @@
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+</head>
+
+<body scroll="no" style="MARGIN: 0px" onbeforeunload="return '系统主界面，请不要随便关闭！'" oncontextmenu="window.event.returnValue=false">
+<noscript><iframe scr="*.htm"></iframe></noscript>
+  <table border="0" cellPadding="0" cellSpacing="0" height="100%" width="100%">
+    <tbody>
+      <tr>
+        <td align="middle" id="menu1" name="menu1" noWrap vAlign="center">
+          <iframe frameBorder="0" id="menu" name="menu" src="menu.jsp" style="HEIGHT: 100%; VISIBILITY: inherit; WIDTH: 230px; Z-INDEX: 2">
+          </iframe>
+        </td>
+        <td width="8">
+          <table border="0" cellPadding="0" cellSpacing="0" height="100%">
+              <tr>
+                <td id="line" align="center" style="width: 8px;HEIGHT: 100%;cursor:hand" bgColor="#588FC7" LANGUAGE="javascript" onclick="return line_onclick()"><img id="pic" src="images/jt_left.gif" value=0 WIDTH="6" HEIGHT="8" title="隐藏"></td>
+              </tr>
+          </table>
+        </td>
+        <td style="WIDTH: 100%">
+          <iframe frameBorder="0" id="main" name="main" scrolling="yes" src="content.jsp" style="HEIGHT: 100%; VISIBILITY: inherit; WIDTH: 100%; Z-INDEX: 1">
+          </iframe>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+
+</html>
+<script language="JavaScript"> 
+
+function line_onclick() {
+    if (pic.value == 0){
+        menu1.style.display = 'none';
+        pic.src = 'images/jt_right.gif';
+        pic.title = '展开';
+        pic.value = 1;
+    }
+    else {
+        menu1.style.display = '';
+        pic.src = 'images/jt_left.gif';
+        pic.title = '隐藏';
+        pic.value = 0;
+    }
+} 
+
+</script> 

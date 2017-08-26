@@ -1,0 +1,130 @@
+          <table width="100%" border="0" style="FONT-SIZE:12" bgcolor="#999999" cellpadding="2" cellspacing="2">
+            <tr bgcolor="#FFFFFF">
+              <td width="18%" align="right"><font color="#0000CC">品牌</font></td>
+              <td width="36%"><%=ppmc%></td>
+              <td width="18%" align="right"><font color="#0000CC">供应商</font></td>
+              <td width="28%"><%=gys%></td>
+            </tr>
+            <tr bgcolor="#FFFFFF"> 
+              <td width="18%" align="right"><font color="#0000CC">主材编码</font></td>
+              <td width="36%"><%=zcbm%></td>
+              <td width="18%" align="right"><font color="#0000CC">主材名称</font></td>
+              <td width="28%"><%=zcmc%></td>
+            </tr>
+            <tr bgcolor="#FFFFFF"> 
+              <td width="18%" align="right"><font color="#0000CC">型号</font></td>
+              <td width="36%"><%=xinghao%></td>
+              <td width="18%" align="right"><font color="#0000CC">规格</font></td>
+              <td width="28%"><%=gg%></td>
+            </tr>
+            <tr bgcolor="#FFFFFF"> 
+              <td width="18%" align="right"><font color="#0000CC">类别/系列</font></td>
+              <td width="36%"><%=zclbbm%> </td>
+              <td width="18%" align="right"><strong><font color="#0000CC">是否推荐产品</font></strong></td>
+              <td width="28%"><%=sftjcp%></td>
+            </tr>
+            <tr bgcolor="#FFFFFF"> 
+              <td width="18%" align="right"><font color="#0000CC">是否包含配件</font></td>
+              <td width="36%"> <%
+	cf.radioToken(out, "sfbhpj","Y+包含&N+不包含",sfbhpj,true);
+%> </td>
+              <td width="18%" align="right"><font color="#0000CC">单套配件数</font></td>
+              <td width="28%"><%=pjts%></td>
+            </tr>
+            <tr bgcolor="#FFFFFF"> 
+              <td width="18%" align="right"><font color="#0000CC">市场标价</font></td>
+              <td width="36%"><%=lsj%></td>
+              <td width="18%" align="right"><font color="#0000CC">销售限价</font></td>
+              <td width="28%"><%=yhj%></td>
+            </tr>
+            <tr bgcolor="#FFFFFF"> 
+              <td width="18%" align="right"><font color="#0000CC">正常计入活动比例</font></td>
+              <td width="36%"><%=bzcxhdbl%>%</td>
+              <td width="18%" align="right"><font color="#0000CC">促销期计入活动比例</font></td>
+              <td width="28%"><%=lscxhdbl%>%</td>
+            </tr>
+            <tr bgcolor="#FFFFFF"> 
+              <td width="18%" align="right"><font color="#0000CC">厂家是否有促销</font></td>
+              <td width="36%"><%
+	cf.radioToken(out, "sfycx","N+没促销&Y+有促销",sfycx,true);
+%></td>
+              <td width="18%" align="right"><font color="#0000CC">促销价</font></td>
+              <td width="28%"><%=cxj%></td>
+            </tr>
+            <tr bgcolor="#FFFFFF"> 
+              <td width="18%" align="right"><font color="#0000CC">促销开始时间</font></td>
+              <td width="36%"><%=cxkssj%></td>
+              <td width="18%" align="right"><font color="#0000CC">促销结束时间</font></td>
+              <td width="28%"><%=cxjzsj%></td>
+            </tr>
+            <tr bgcolor="#FFFFFF"> 
+              <td width="18%" align="right"><font color="#0000CC">备注</font></td>
+              <td colspan="3"><%=bjbz%></td>
+            </tr>
+            <tr bgcolor="#E8E8FF"> 
+              <td width="18%" align="right" bgcolor="#E8E8FF"><font color="#FF0000">*</font>选择价格</td>
+              <td width="36%">&nbsp;</td> 
+              <td width="18%" align="right"><font color="#FF0000">*</font><font color="#0000CC">折前实销单价</font></td>
+              <td width="28%"> 
+                元 </td>
+            </tr>
+            <tr bgcolor="#FFFFCC">
+              <td align="right" bgcolor="#FFFFCC"><font color="#FF0000">*</font>折扣率</td>
+              <td><b><font color="#0000FF">（>0且<=10）</font></b></td>
+              <td align="right"><font color="#FF0000">*</font><font color="#0000CC">折后实销单价</font></td>
+              <td> 元 </td>
+            </tr>
+            <tr bgcolor="#FFFFCC"> 
+              <td width="18%" align="right" bgcolor="#FFFFCC">颜色</td>
+              <td width="36%">&nbsp;</td>
+              <td width="18%" align="right">铺装位置</td>
+              <td width="28%">&nbsp;</td>
+            </tr>
+            <tr bgcolor="#FFFFCC"> 
+              <td width="18%" align="right"><font color="#FF0000">*</font>订货数量</td>
+              <td width="36%">&nbsp;</td>
+              <td width="18%" align="right"><font color="#FF0000">*</font><font color="#0000CC">折前材料费</font></td>
+              <td width="28%"> 元 </td>
+            </tr>
+            <tr bgcolor="#E8E8FF"> 
+              <td width="18%" align="right" bgcolor="#E8E8FF">远程费</td>
+              <td width="36%"> 元</td>
+              <td width="18%" align="right"><font color="#FF0000">*</font><font color="#0000CC">折后材料费</font></td>
+              <td width="28%"> 元 </td>
+            </tr>
+            <tr bgcolor="#E8E8FF"> 
+              <td width="18%" align="right"><font color="#FF0000">*</font>其它费用</td>
+              <td width="36%">&nbsp;</td>
+              <td width="18%" align="right">其它费金额</td>
+              <td width="28%"> 
+                元 </td>
+            </tr>
+            <tr bgcolor="#FFFFCC"> 
+              <td width="18%" align="right"><font color="#FF0000">*</font>参加促销活动标志</td>
+              <td width="36%">&nbsp;</td>
+              <td width="18%" align="right">&nbsp;</td>
+              <td width="28%">&nbsp;</td>
+            </tr>
+            <tr bgcolor="#FFFFCC"> 
+              <td width="18%" align="right"><font color="#000099">计入促销活动比率</font></td>
+              <td width="36%">&nbsp;</td>
+              <td width="18%" align="right"><font color="#0000CC">计入促销活动金额</font></td>
+              <td width="28%">&nbsp;</td>
+            </tr>
+            <tr bgcolor="#E8E8FF"> 
+              <td width="18%" align="right">备注</td>
+              <td colspan="3">&nbsp;</td>
+            </tr>
+            <tr> 
+              <td colspan="4" height="2"> 
+                <div align="center"> 
+				<input type="hidden" name="ddbh"  value="<%=ddbh%>" >
+				<input type="hidden" name="xh"  value="<%=xh%>" >
+                  <input type="button"  value="保存" onClick="f_do(editform)">
+                  <input type="reset"  value="重输">
+                </div>              </td>
+            </tr>
+          </table>
+
+ 请修改主材订单明细（订单编号：<%=ddbh%>） 
+<form method="post" action="SaveEditAllJc_zcddmx.jsp" name="editform">

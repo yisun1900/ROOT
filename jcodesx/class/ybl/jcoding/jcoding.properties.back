@@ -1,0 +1,10 @@
+#Wed Jun 11 11:22:21 CST 2003
+FONT-SIZE=12
+outPath=c\:/tomcat/webapps/ROOT/jcoding/outpath
+TARGET=_blank
+VIEW=Deamvear
+EDIT=EditPlus
+STYLE=FONT-SIZE\:12PX;WIDTH\:162PX
+SIZE=21
+txtPath=c\:/tomcat/webapps/ROOT/jcoding/template
+previewPath=/jcoding/outpath

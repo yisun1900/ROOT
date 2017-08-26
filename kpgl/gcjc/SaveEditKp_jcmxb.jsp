@@ -1,0 +1,99 @@
+<%@ page contentType="text/html;charset=GBK" %>
+<%@ page import='java.sql.*,java.io.*' %>
+<jsp:useBean id="cf" scope="page" class="ybl.common.CommonFunction"/>
+<jsp:setProperty name="cf" property="*" />
+<%@ include file="/getlogin.jsp" %>
+
+<%
+
+String ls=null;
+String kpxmbm=null;
+String kpjg=null;
+kpxmbm=cf.GB2Uni(request.getParameter("kpxmbm"));
+kpjg=cf.GB2Uni(request.getParameter("kpjg"));
+String[] kpcfbm=request.getParameterValues("kpcfbm");
+
+String wherekpxh=null;
+String wherekpxmbm=null;
+wherekpxh=cf.GB2Uni(request.getParameter("wherekpxh"));
+wherekpxmbm=cf.GB2Uni(request.getParameter("wherekpxmbm"));
+
+Connection conn  = null;
+PreparedStatement ps=null;
+ResultSet rs=null;
+String ls_sql=null;
+try {
+	conn=cf.getConnection();
+
+	int count=0;
+	if (!wherekpxmbm.equals(kpxmbm))//改变考评项目
+	{
+		ls_sql="select count(*)";
+		ls_sql+=" from  kp_jcmxb";
+		ls_sql+=" where kpxh='"+wherekpxh+"' and kpxmbm='"+kpxmbm+"' ";
+		ps= conn.prepareStatement(ls_sql);
+		rs =ps.executeQuery(ls_sql);
+		if (rs.next())
+		{
+			count=rs.getInt(1);
+		}
+		ps.close();
+		rs.close();
+		if (count>0)
+		{
+			out.println("存盘失败！该考评项目已录入");
+			return;
+		}
+	}
+	
+	conn.setAutoCommit(false);
+
+	ls_sql="delete  from kp_jcmxb ";
+	ls_sql+=" where  (kpxh='"+wherekpxh+"') and  (kpxmbm='"+wherekpxmbm+"') ";
+	ps= conn.prepareStatement(ls_sql);
+	ps.executeUpdate();
+	ps.close();
+	
+	for (int i=0;i<kpcfbm.length ;i++ )
+	{
+		ls_sql="insert into kp_jcmxb ( kpxh,kpxmbm,kpjg,kpcfbm ) ";
+		ls_sql+=" values ( ?,?,?,? ) ";
+		ps= conn.prepareStatement(ls_sql);
+		ps.setString(1,wherekpxh);
+		ps.setString(2,kpxmbm);
+		ps.setString(3,kpjg);
+		ps.setString(4,kpcfbm[i]);
+		ps.executeUpdate();
+		ps.close();
+	}
+
+
+	conn.commit();
+
+	%>
+	<SCRIPT language=javascript >
+	<!--
+	alert("存盘成功！");
+	parent.window.close();
+	//-->
+	</SCRIPT>
+	<%
+}
+catch (Exception e) {
+	conn.rollback();
+	out.print("Exception: " + e);
+	return;
+}
+finally 
+{
+	conn.setAutoCommit(true);
+	try{
+		if (rs != null) rs.close(); 
+		if (ps!= null) ps.close(); 
+		if (conn != null) cf.close(conn); 
+	}
+	catch (Exception e){
+		if (conn != null) cf.close(conn); 
+	}
+}
+%>

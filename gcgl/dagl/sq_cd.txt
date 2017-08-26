@@ -1,0 +1,14 @@
+0506    	9	工程档案管理		05      	0       	0       	N	
+050601  	1	档案种类编码		0506    	05      	0       	N	
+05060101	1	录入	/gcgl/dagl/dabm/InsertDm_damxbm.jsp	050601  	0506    	05      	Y	
+05060102	2	维护	/gcgl/dagl/dabm/SelectDm_damxbm.jsp	050601  	0506    	05      	Y	
+05060103	3	查询	/gcgl/dagl/dabm/SelectCxDm_damxbm.jsp	050601  	0506    	05      	Y	
+050602  	5	工程档案登记		0506    	05      	0       	N	
+05060201	1	登记档案	/gcgl/dagl/dadj/SelectDjCrm_khxx.jsp	050602  	0506    	05      	Y	
+05060203	4	归档登记	/gcgl/dagl/dadj/SelectGdCrm_khxx.jsp	050602  	0506    	05      	Y	
+05060204	5	删除归档登记	/gcgl/dagl/dadj/SelectXgGdCrm_khxx.jsp	050602  	0506    	05      	Y	
+05060205	3	查询	/gcgl/dagl/dadj/SelectCxCrm_gcda.jsp	050602  	0506    	05      	Y	
+050603  	6	档案出借记录		0506    	05      	0       	N	
+05060301	2	借出	/gcgl/dagl/dayj/SelectJcCrm_khxx.jsp	050603  	0506    	05      	Y	
+05060302	3	归还	/gcgl/dagl/dayj/SelectGhCrm_gcdayjjl.jsp	050603  	0506    	05      	Y	
+05060304	5	查询	/gcgl/dagl/dayj/SelectCxCrm_gcdayjjl.jsp	050603  	0506    	05      	Y	

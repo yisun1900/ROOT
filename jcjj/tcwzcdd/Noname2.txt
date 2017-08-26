@@ -1,0 +1,409 @@
+<%@ page contentType="text/html;charset=GBK" %>
+<%@ page import='java.sql.*,java.io.*' %>
+<jsp:useBean id="cf" scope="page" class="ybl.common.CommonFunction"/>
+<jsp:setProperty name="cf" property="*" />
+<%@ include file="/getlogin.jsp" %>
+
+<%
+
+String ddbh=cf.GB2Uni(request.getParameter("ddbh"));
+String xh=cf.GB2Uni(request.getParameter("xh"));
+
+String zcbm=null;
+double zqdj=0;
+double dpzk=0;
+double dj=0;
+String sl=null;
+double zqje=0;
+double je=0;
+double ycf=0;
+String zcpzwzbm=null;
+String zcysbm=null;
+String cxhdbz=null;
+String bz=null;
+String jldwbm=null;
+String qtfy=null;
+String xzjg=null;
+String zcmc=null;
+String zclbbm=null;
+String xinghao=null;
+String gg=null;
+String sfbhpj=null;
+String pjts=null;
+String lsj=null;
+String yhj=null;
+String sfycx=null;
+String cxj=null;
+String cxkssj=null;
+String cxjzsj=null;
+String bjbz=null;
+String qtfyje=null;
+String cxhdbl=null;
+String cxhdje=null;
+String gys=null;
+String ppmc=null;
+double cbj=0;
+double bzcbj=0;
+double bzcxhdbl=0;
+double cxcbj=0;
+double lscxhdbl=0;
+String sftjcp=null;
+String sxbz=null;
+String sxhtyy=null;
+
+Connection conn  = null;
+PreparedStatement ps=null;
+ResultSet rs=null;
+String ls_sql=null;
+try {
+	conn=cf.getConnection();
+%>
+
+<html>
+<head>
+<title>请修改主材订单明细</title>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+</head>
+<body bgcolor="#ffffff" text="#000000" style='FONT-SIZE: 14px'>
+
+ 请修改主材订单明细（订单编号：<%=ddbh%>） 
+
+
+<DIV onselectstart="return false" style="BORDER-RIGHT: #808080 2px solid; BORDER-TOP: #808080 2px solid; DISPLAY: inline; OVERFLOW: auto; BORDER-LEFT: #808080 2px solid; WIDTH: 100%; CURSOR: default; BORDER-BOTTOM: #808080 2px solid; HEIGHT:95%"> 
+
+
+<TABLE style="DISPLAY: inline; BORDER-COLLAPSE: collapse" cellSpacing=0 cellPadding=2 border=0 width="270%" style='FONT-SIZE: 12px'>
+<form method="post" action="SaveEditAllJc_zcddmx.jsp" name="editform">
+<TR bgcolor="#CCCCCC"  align="center" style="FONT-WEIGHT: bold; Z-INDEX: 5; POSITION: relative;TOP: expression(this.offsetParent.scrollTop)"> 
+	<td  width="1%" style="FONT-WEIGHT: bold;BORDER-RIGHT: #808080 2px solid;BORDER-TOP: black 1px solid; BORDER-BOTTOM: black 1px solid;POSITION: relative; BACKGROUND-COLOR: #CC6600">&nbsp;</td>
+	<td  width="2%" style="FONT-WEIGHT: bold;BORDER-RIGHT: #808080 2px solid;BORDER-TOP: black 1px solid; BORDER-BOTTOM: black 1px solid;POSITION: relative; BACKGROUND-COLOR: #CC6600">主材编码</td>
+	<td  width="5%" style="FONT-WEIGHT: bold;BORDER-RIGHT: #808080 2px solid;BORDER-TOP: black 1px solid; BORDER-BOTTOM: black 1px solid;POSITION: relative; BACKGROUND-COLOR: #CC6600">主材名称</td>
+	<td  width="4%" style="FONT-WEIGHT: bold;BORDER-RIGHT: #808080 2px solid;BORDER-TOP: black 1px solid; BORDER-BOTTOM: black 1px solid;POSITION: relative; BACKGROUND-COLOR: #CC6600">型号</td>
+	<td  width="4%" style="FONT-WEIGHT: bold;BORDER-RIGHT: #808080 2px solid;BORDER-TOP: black 1px solid; BORDER-BOTTOM: black 1px solid;POSITION: relative; BACKGROUND-COLOR: #CC6600">规格</td>
+	<td  width="3%" bgcolor="#CC99FF" style="BORDER-LEFT: #000000 1px solid;BORDER-BOTTOM: #000000 1px solid;POSITION: relative; BACKGROUND-COLOR: #CC6600">选择价格</td>
+	<td  width="4%" style="BORDER-LEFT: #000000 1px solid;BORDER-BOTTOM: #000000 1px solid;POSITION: relative; BACKGROUND-COLOR: #CC6600">折前单价</td>
+	<td  width="3%" style="BORDER-LEFT: #000000 1px solid;BORDER-BOTTOM: #000000 1px solid;POSITION: relative; BACKGROUND-COLOR: #CC6600">折扣</td>
+	<td  width="4%" style="BORDER-LEFT: #000000 1px solid;BORDER-BOTTOM: #000000 1px solid;POSITION: relative; BACKGROUND-COLOR: #CC6600">折后单价</td>
+	<td  width="3%" bgcolor="#CC99FF" style="BORDER-LEFT: #000000 1px solid;BORDER-BOTTOM: #000000 1px solid;POSITION: relative; BACKGROUND-COLOR: #CC6600">颜色</td>
+	<td  width="4%" bgcolor="#CC99FF" style="BORDER-LEFT: #000000 1px solid;BORDER-BOTTOM: #000000 1px solid;POSITION: relative; BACKGROUND-COLOR: #CC6600">铺装位置</td>
+	<td  width="2%" style="BORDER-LEFT: #000000 1px solid;BORDER-BOTTOM: #000000 1px solid;POSITION: relative; BACKGROUND-COLOR: #CC6600">计量单位</td>
+	<td  width="3%" bgcolor="#CC99FF" style="BORDER-LEFT: #000000 1px solid;BORDER-BOTTOM: #000000 1px solid;POSITION: relative; BACKGROUND-COLOR: #CC6600">数量</td>
+	<td  width="4%" style="BORDER-LEFT: #000000 1px solid;BORDER-BOTTOM: #000000 1px solid;POSITION: relative; BACKGROUND-COLOR: #CC6600">折前材料费</td>
+	<td  width="4%" style="BORDER-LEFT: #000000 1px solid;BORDER-BOTTOM: #000000 1px solid;POSITION: relative; BACKGROUND-COLOR: #CC6600">折后材料费</td>
+	<td  width="4%" style="BORDER-LEFT: #000000 1px solid;BORDER-BOTTOM: #000000 1px solid;POSITION: relative; BACKGROUND-COLOR: #CC6600">远程费</td>
+	<td  width="9%" style="BORDER-LEFT: #000000 1px solid;BORDER-BOTTOM: #000000 1px solid;POSITION: relative; BACKGROUND-COLOR: #CC6600">其它费</td>
+	<td  width="4%" style="BORDER-LEFT: #000000 1px solid;BORDER-BOTTOM: #000000 1px solid;POSITION: relative; BACKGROUND-COLOR: #CC6600">其它费金额</td>
+	<td  width="2%" bgcolor="#CC99FF" style="BORDER-LEFT: #000000 1px solid;BORDER-BOTTOM: #000000 1px solid;POSITION: relative; BACKGROUND-COLOR: #CC6600">参加促销活动</td>
+	<td  width="3%" bgcolor="#CC99FF" style="BORDER-LEFT: #000000 1px solid;BORDER-BOTTOM: #000000 1px solid;POSITION: relative; BACKGROUND-COLOR: #CC6600">计入促销活动比率</td>
+	<td  width="4%" style="BORDER-LEFT: #000000 1px solid;BORDER-BOTTOM: #000000 1px solid;POSITION: relative; BACKGROUND-COLOR: #CC6600">计入促销活动金额</td>
+	<td  width="9%" style="BORDER-LEFT: #000000 1px solid;BORDER-BOTTOM: #000000 1px solid;POSITION: relative; BACKGROUND-COLOR: #CC6600">备注</td>
+	<td  width="4%" style="BORDER-LEFT: #000000 1px solid;BORDER-BOTTOM: #000000 1px solid;POSITION: relative; BACKGROUND-COLOR: #CC6600">系列</td>
+	<td  width="2%" style="BORDER-LEFT: #000000 1px solid;BORDER-BOTTOM: #000000 1px solid;POSITION: relative; BACKGROUND-COLOR: #CC6600">是否包含配件</td>
+	<td  width="2%" style="BORDER-LEFT: #000000 1px solid;BORDER-BOTTOM: #000000 1px solid;POSITION: relative; BACKGROUND-COLOR: #CC6600">配件数</td>
+	<td  width="2%" style="BORDER-LEFT: #000000 1px solid;BORDER-BOTTOM: #000000 1px solid;POSITION: relative; BACKGROUND-COLOR: #CC6600">手写标志</td>
+	<td  width="5%" style="BORDER-LEFT: #000000 1px solid;BORDER-BOTTOM: #000000 1px solid;POSITION: relative; BACKGROUND-COLOR: #CC6600">手写合同原因</td>
+</tr>
+
+<%
+	ls_sql="select zcbm,zcmc,zclbbm,xinghao,gg,zqdj,dpzk,dj,sl,zqje,je,ycf,zcpzwzbm,zcysbm,cxhdbz,bz,jldwbm,qtfy,xzjg,sfbhpj,pjts,lsj,yhj";
+	ls_sql+=" ,sfycx,cxj,cxkssj,cxjzsj,qtfyje,cxhdbl,cxhdje,gys,ppmc,cbj,bzcbj,bzcxhdbl,cxcbj,lscxhdbl,DECODE(sftjcp,'Y','是','N','否') sftjcp";
+	ls_sql+=" ,sxbz,sxhtyy ";
+	ls_sql+=" from  jc_zcddmx";
+	ls_sql+=" where ddbh='"+ddbh+"'";
+	ps= conn.prepareStatement(ls_sql);
+	rs =ps.executeQuery();
+	while (rs.next())
+	{
+		sxbz=cf.fillNull(rs.getString("sxbz"));
+		sxhtyy=cf.fillNull(rs.getString("sxhtyy"));
+		zcbm=cf.fillNull(rs.getString("zcbm"));
+		zcmc=cf.fillHtml(rs.getString("zcmc"));
+		zclbbm=cf.fillHtml(rs.getString("zclbbm"));
+		xinghao=cf.fillHtml(rs.getString("xinghao"));
+		gg=cf.fillHtml(rs.getString("gg"));
+		zqdj=rs.getDouble("zqdj");
+		dpzk=rs.getDouble("dpzk");
+		dj=rs.getDouble("dj");
+		sl=cf.fillNull(rs.getString("sl"));
+		zqje=rs.getDouble("zqje");
+		je=rs.getDouble("je");
+		ycf=rs.getDouble("ycf");
+		zcpzwzbm=cf.fillNull(rs.getString("zcpzwzbm"));
+		zcysbm=cf.fillNull(rs.getString("zcysbm"));
+		cxhdbz=cf.fillNull(rs.getString("cxhdbz"));
+		bz=cf.fillNull(rs.getString("bz"));
+		jldwbm=cf.fillNull(rs.getString("jldwbm"));
+		qtfy=cf.fillNull(rs.getString("qtfy"));
+		xzjg=cf.fillNull(rs.getString("xzjg"));
+		sfbhpj=cf.fillNull(rs.getString("sfbhpj"));
+		pjts=cf.fillNull(rs.getString("pjts"));
+		lsj=cf.fillNull(rs.getString("lsj"));
+		yhj=cf.fillNull(rs.getString("yhj"));
+		sfycx=cf.fillNull(rs.getString("sfycx"));
+		cxj=cf.fillNull(rs.getString("cxj"));
+		cxkssj=cf.fillNull(rs.getDate("cxkssj"));
+		cxjzsj=cf.fillNull(rs.getDate("cxjzsj"));
+		qtfyje=cf.fillNull(rs.getString("qtfyje"));
+		cxhdbl=cf.fillNull(rs.getString("cxhdbl"));
+		cxhdje=cf.fillNull(rs.getString("cxhdje"));
+		gys=cf.fillNull(rs.getString("gys"));
+		ppmc=cf.fillNull(rs.getString("ppmc"));
+		cbj=rs.getDouble("cbj");
+		bzcbj=rs.getDouble("bzcbj");
+		bzcxhdbl=rs.getDouble("bzcxhdbl");
+		cxcbj=rs.getDouble("cxcbj");
+		lscxhdbl=rs.getDouble("lscxhdbl");
+		sftjcp=cf.fillNull(rs.getString("sftjcp"));
+
+		%>
+		<tr bgcolor="#FFFFFF"  align="center">
+			<td style="FONT-WEIGHT: bold;BORDER-RIGHT: #808080 2px solid;BORDER-TOP: black 1px solid; BORDER-BOTTOM: black 1px solid; LEFT: expression(this.parentElement.offsetParent.parentElement.scrollLeft); POSITION: relative; BACKGROUND-COLOR: #efe1ff">&nbsp;</td>
+			<td style="FONT-WEIGHT: bold;BORDER-RIGHT: #808080 2px solid;BORDER-TOP: black 1px solid; BORDER-BOTTOM: black 1px solid; LEFT: expression(this.parentElement.offsetParent.parentElement.scrollLeft); POSITION: relative; BACKGROUND-COLOR: #efe1ff"><%=zcbm%></td>
+			<td style="FONT-WEIGHT: bold;BORDER-RIGHT: #808080 2px solid;BORDER-TOP: black 1px solid; BORDER-BOTTOM: black 1px solid; LEFT: expression(this.parentElement.offsetParent.parentElement.scrollLeft); POSITION: relative; BACKGROUND-COLOR: #efe1ff"><%=zcmc%></td>
+			<td style="FONT-WEIGHT: bold;BORDER-RIGHT: #808080 2px solid;BORDER-TOP: black 1px solid; BORDER-BOTTOM: black 1px solid; LEFT: expression(this.parentElement.offsetParent.parentElement.scrollLeft); POSITION: relative; BACKGROUND-COLOR: #efe1ff"><%=xinghao%></td>
+			<td style="FONT-WEIGHT: bold;BORDER-RIGHT: #808080 2px solid;BORDER-TOP: black 1px solid; BORDER-BOTTOM: black 1px solid; LEFT: expression(this.parentElement.offsetParent.parentElement.scrollLeft); POSITION: relative; BACKGROUND-COLOR: #efe1ff"><%=gg%></td>
+			<td style="BORDER-RIGHT: #000 1px solid; BORDER-BOTTOM: #000 1px solid;"><%
+	cf.radioToken(out,"0+手写项目&1+销售限价&2+促销价",xzjg,true);
+%></td>
+			<td style="BORDER-RIGHT: #000 1px solid; BORDER-BOTTOM: #000 1px solid;"><input type="text" name="zqdj" size="9" maxlength="9"  value="<%=zqdj%>" readonly style="border-color: #FFFFFF #FFFFFF #000000;border-style:solid"></td>
+			<td style="BORDER-RIGHT: #000 1px solid; BORDER-BOTTOM: #000 1px solid;"><input type="text" name="dpzk" size="8" maxlength="9"  value="<%=dpzk%>" onChange="f_jsjg(editform)" style="border-color: #FFFFFF #FFFFFF #000000;border-style:solid"></td>
+			<td style="BORDER-RIGHT: #000 1px solid; BORDER-BOTTOM: #000 1px solid;"><input type="text" name="dj" size="9" maxlength="9"  value="<%=dj%>" readonly style="border-color: #FFFFFF #FFFFFF #000000;border-style:solid"></td>
+			<td style="BORDER-RIGHT: #000 1px solid; BORDER-BOTTOM: #000 1px solid;"><input type="text" name="zcysbm" size="12" maxlength="50"  value="<%=zcysbm%>" style="border-color: #FFFFFF #FFFFFF #000000;border-style:solid"></td>
+			<td style="BORDER-RIGHT: #000 1px solid; BORDER-BOTTOM: #000 1px solid;"><select name="zcpzwzbm" style="FONT-SIZE:12PX;WIDTH:100PX" >
+              <option value=""></option>
+              <%
+						cf.selectItem(out,"select pzwz c1,pzwz c2 from jdm_pzwz  order by pzwz",zcpzwzbm);
+					%>
+            </select></td>
+			<td style="BORDER-RIGHT: #000 1px solid; BORDER-BOTTOM: #000 1px solid;"><%
+	cf.selectItem(out,"select jldwbm,jldwmc from jdm_jldwbm where jldwbm='"+jldwbm+"'",jldwbm,true);
+%></td>
+			<td style="BORDER-RIGHT: #000 1px solid; BORDER-BOTTOM: #000 1px solid;"><input type="text" name="sl" size="8" maxlength="8"  value="<%=sl%>" onChange="f_jsjg(editform)" style="border-color: #FFFFFF #FFFFFF #000000;border-style:solid"></td>
+			<td style="BORDER-RIGHT: #000 1px solid; BORDER-BOTTOM: #000 1px solid;"><input type="text" name="zqje" size="9" maxlength="9"  value="<%=zqje%>" readonly style="border-color: #FFFFFF #FFFFFF #000000;border-style:solid"></td>
+			<td style="BORDER-RIGHT: #000 1px solid; BORDER-BOTTOM: #000 1px solid;"><input type="text" name="je" size="9" maxlength="9"  value="<%=je%>" readonly style="border-color: #FFFFFF #FFFFFF #000000;border-style:solid"></td>
+			<td style="BORDER-RIGHT: #000 1px solid; BORDER-BOTTOM: #000 1px solid;"><input type="text" name="ycf" size="9" maxlength="9"  value="<%=ycf%>" style="border-color: #FFFFFF #FFFFFF #000000;border-style:solid"></td>
+			<td style="BORDER-RIGHT: #000 1px solid; BORDER-BOTTOM: #000 1px solid;"><%
+	cf.radioToken(out, "qtfy","1+安装费&2+加工费&3+其它收费&W+无",qtfy);
+%></td>
+			<td style="BORDER-RIGHT: #000 1px solid; BORDER-BOTTOM: #000 1px solid;"><input type="text" name="qtfyje" size="9" maxlength="9"  value="<%=qtfyje%>" style="border-color: #FFFFFF #FFFFFF #000000;border-style:solid"></td>
+			<td bgcolor="#CC99FF" style="BORDER-RIGHT: #000 1px solid; BORDER-BOTTOM: #000 1px solid;"><%
+	cf.radioToken(out, "cxhdbz","Y+参加&N+不参加",cxhdbz,true);
+%></td>
+			<td bgcolor="#CC99FF" style="BORDER-RIGHT: #000 1px solid; BORDER-BOTTOM: #000 1px solid;"><input type="text" name="cxhdbl" size="5" maxlength="9"  value="<%=cxhdbl%>" onChange="f_jsjg(editform)" readonly style="border-color: #FFFFFF #FFFFFF #000000;border-style:solid">
+%</td>
+			<td style="BORDER-RIGHT: #000 1px solid; BORDER-BOTTOM: #000 1px solid;"><input type="text" name="cxhdje" size="9" maxlength="9"  value="<%=cxhdje%>" readonly style="border-color: #FFFFFF #FFFFFF #000000;border-style:solid">
+</td>
+			<td style="BORDER-RIGHT: #000 1px solid; BORDER-BOTTOM: #000 1px solid;"><input name="bz" type="text" value="<%=bz%>" size="30" maxlength="300" style="border-color: #FFFFFF #FFFFFF #000000;border-style:solid"></td>
+			<td style="BORDER-RIGHT: #000 1px solid; BORDER-BOTTOM: #000 1px solid;"><%=zclbbm%></td>
+			<td style="BORDER-RIGHT: #000 1px solid; BORDER-BOTTOM: #000 1px solid;"><%=sfbhpj%></td>
+			<td style="BORDER-RIGHT: #000 1px solid; BORDER-BOTTOM: #000 1px solid;"><%=pjts%></td>
+			<td style="BORDER-RIGHT: #000 1px solid; BORDER-BOTTOM: #000 1px solid;"><%=sxbz%></td>
+			<td style="BORDER-RIGHT: #000 1px solid; BORDER-BOTTOM: #000 1px solid;"><%=sxhtyy%></td>
+		</tr>
+		<%
+	
+	
+	}
+	rs.close();
+	ps.close();
+
+
+	ls_sql="select bz";
+	ls_sql+=" from  jc_zcjgb";
+	ls_sql+=" where zcbm='"+zcbm+"'";
+	ps= conn.prepareStatement(ls_sql);
+	rs =ps.executeQuery(ls_sql);
+	if (rs.next())
+	{
+		bjbz=cf.fillNull(rs.getString("bz"));
+	}
+	rs.close();
+	ps.close();
+
+}
+catch (Exception e) {
+	out.print("Exception: " + e);
+	out.print("<BR>SQL=" + ls_sql);
+	return;
+}
+finally 
+{
+	try{
+		if (rs != null) rs.close(); 
+		if (ps != null) ps.close(); 
+		if (conn != null) cf.close(conn); 
+	}
+	catch (Exception e){
+		if (conn != null) cf.close(conn); 
+	}
+}
+%>
+</form>
+</table>
+  </DIV>
+
+
+
+
+</body>
+</html>
+<SCRIPT language=javascript src="/js/validate.js"></SCRIPT>
+<SCRIPT language=javascript >
+<!--
+
+function f_jsjg(FormName)//参数FormName:Form的名称
+{
+	var dj=FormName.dpzk.value/10.0*FormName.zqdj.value;
+	dj=round(dj,2);
+	FormName.dj.value=dj;
+
+	var zqje=FormName.zqdj.value*FormName.sl.value;
+	zqje=round(zqje,2);
+	FormName.zqje.value=zqje;
+
+	var je=FormName.dj.value*FormName.sl.value;
+	je=round(je,2);
+	FormName.je.value=je;
+
+	var cxhdje=FormName.je.value*FormName.cxhdbl.value/100;
+	cxhdje=round(cxhdje,2);
+	FormName.cxhdje.value=cxhdje;
+}
+
+function f_do(FormName)//参数FormName:Form的名称
+{
+	f_jsjg(FormName);
+
+	if(	javaTrim(FormName.zqdj)=="") {
+		alert("请输入[折前实销单价]！");
+		FormName.zqdj.focus();
+		return false;
+	}
+	if(!(isFloat(FormName.zqdj, "折前实销单价"))) {
+		return false;
+	}
+
+	if(	javaTrim(FormName.dpzk)=="") {
+		alert("请输入[折扣率]！");
+		FormName.dpzk.focus();
+		return false;
+	}
+	if(!(isFloat(FormName.dpzk, "折扣率"))) {
+		return false;
+	}
+	if (FormName.dpzk.value<=0 || FormName.dpzk.value>10)
+	{
+		alert("错误！[折扣率]应该在0和10之间！");
+		FormName.dpzk.select();
+		return false;
+	}
+
+	if(	javaTrim(FormName.dj)=="") {
+		alert("请输入[折后实销单价]！");
+		FormName.dj.focus();
+		return false;
+	}
+	if(!(isFloat(FormName.dj, "折后实销单价"))) {
+		return false;
+	}
+
+	if(	javaTrim(FormName.sl)=="") {
+		alert("请输入[订货数量]！");
+		FormName.sl.focus();
+		return false;
+	}
+	if(!(isFloat(FormName.sl, "订货数量"))) {
+		return false;
+	}
+	if (parseFloat(FormName.sl.value)<=0)
+	{
+		alert("[订货数量]不能<=0！");
+		FormName.sl.select();
+		return false;
+	}
+
+	if(	javaTrim(FormName.zqje)=="") {
+		alert("请输入[折前材料费]！");
+		FormName.zqje.focus();
+		return false;
+	}
+	if(!(isFloat(FormName.zqje, "折前材料费"))) {
+		return false;
+	}
+	if(	javaTrim(FormName.je)=="") {
+		alert("请输入[折后材料费]！");
+		FormName.je.focus();
+		return false;
+	}
+	if(!(isFloat(FormName.je, "折后材料费"))) {
+		return false;
+	}
+
+	if(	javaTrim(FormName.ycf)=="") {
+		alert("请输入[远程费]！");
+		FormName.ycf.focus();
+		return false;
+	}
+	if(!(isFloat(FormName.ycf, "远程费"))) {
+		return false;
+	}
+
+	if(	!radioChecked(FormName.qtfy)) {
+		alert("请选择[其它费用]！");
+		FormName.qtfy[0].focus();
+		return false;
+	}
+	if(FormName.qtfy[0].checked || FormName.qtfy[1].checked || FormName.qtfy[2].checked) {
+		if(	javaTrim(FormName.qtfyje)=="") {
+			alert("请输入[其它费金额]！");
+			FormName.qtfyje.focus();
+			return false;
+		}
+		if(!(isFloat(FormName.qtfyje, "其它费金额"))) {
+			return false;
+		}
+		if (FormName.qtfyje.value=="0")
+		{
+			alert("[其它费金额]不能为0！");
+			FormName.qtfyje.select();
+			return false;
+		}
+	}
+	else{
+		FormName.qtfyje.value="0";
+	}
+
+/*	
+	if(	!radioChecked(FormName.cxhdbz)) {
+		alert("请选择[参加促销活动标志]！");
+		FormName.cxhdbz[0].focus();
+		return false;
+	}
+	if (FormName.cxhdbz[0].checked)
+	{
+		if(	javaTrim(FormName.cxhdbl)=="") {
+			alert("请输入[计入促销活动比率]！");
+			FormName.cxhdbl.focus();
+			return false;
+		}
+		if(!(isFloat(FormName.cxhdbl, "计入促销活动比率"))) {
+			return false;
+		}
+		if (FormName.cxhdbl.value<=0 || FormName.cxhdbl.value>300)
+		{
+			alert("[计入促销活动比率]应在0％和300％之间！");
+			FormName.cxhdbl.select();
+			return false;
+		}
+	}
+	else{
+		FormName.cxhdbl.value="";
+		FormName.cxhdje.value="0";
+	}
+*/
+
+	FormName.submit();
+	return true;
+}
+//-->
+</SCRIPT>

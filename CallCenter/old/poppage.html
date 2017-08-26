@@ -1,0 +1,18 @@
+<HTML>
+<HEAD>
+
+<TITLE></TITLE>
+</HEAD>
+
+<BODY>
+建议不要在弹出网页中，使用HM产品的对象! 如果您一定要使用，可以先删除父页中的对象，之后，再使用一个新创建的HM对象。<br><br>
+或者(<font color="#ff0000">建议使用以下方法</font>)，将父网页的HM对象传递给弹出的新网页，即，不要再新弹出的网页中，再次创建HM对象(因为，新创建的HM对象会与父网页的
+中已经存在的HM对象发生冲突)。建议：再主父网页中，首先定义一个全局的变量g_bHasBeCreateHM；再创建一个全局的HM对象g_hmHandle后，
+设置g_bHasBeCreateHM=true。之后，在其它的网页中，判断g_bHasBeCreateHM是否为true，如果是，则取g_hmHandle直接使用。<br>
+<br>
+另外，在不使用g_hmHandle对象时，请要释放该对象。
+<br>
+注：我们没有编写在本html Demo中传递HM对象的代码，请您自行添加。
+</BODY>
+
+</HTML>

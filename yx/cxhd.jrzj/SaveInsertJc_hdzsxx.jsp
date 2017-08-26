@@ -1,0 +1,119 @@
+<%@ page contentType="text/html;charset=GBK" %>
+<%@ page import='java.sql.*,java.io.*' %>
+<jsp:useBean id="cf" scope="page" class="ybl.common.CommonFunction"/>
+<jsp:setProperty name="cf" property="*" />
+<%@ include file="/getlogin.jsp" %>
+
+<%
+String cxhdbm=cf.GB2Uni(request.getParameter("cxhdbm"));
+
+String[] zsxm=request.getParameterValues("zsxm");
+String[] jldw=request.getParameterValues("jldw");
+String[] cbdjstr=request.getParameterValues("cbdj");
+String[] scdjstr=request.getParameterValues("scdj");
+String[] zsslsxstr=request.getParameterValues("zsslsx");
+String[] zsslxxstr=request.getParameterValues("zsslxx");
+String[] bz=request.getParameterValues("bz");
+double cbdj=0;
+double scdj=0;
+double zsslsx=0;
+double zsslxx=0;
+
+Connection conn  = null;
+PreparedStatement ps=null;
+ResultSet rs=null;
+String ls_sql=null;
+try {
+	conn=cf.getConnection();
+
+	String cxhdmc=null;
+	String fgsbh=null;
+	ls_sql=" SELECT cxhdmc,fgsbh ";
+	ls_sql+=" FROM jc_cxhd ";
+    ls_sql+=" where cxhdbm='"+cxhdbm+"'";
+	ps= conn.prepareStatement(ls_sql);
+	rs =ps.executeQuery();
+	if (rs.next())
+	{
+		cxhdmc=cf.fillNull(rs.getString("cxhdmc"));
+		fgsbh=cf.fillNull(rs.getString("fgsbh"));
+	}
+	else{
+		out.print("错误！促销活动不存在");
+		return;
+	}
+	rs.close();
+	ps.close();
+
+	conn.setAutoCommit(false);
+
+	ls_sql="delete from jc_hdzsxx ";
+	ls_sql+=" where cxhdbm='"+cxhdbm+"'";
+	ps= conn.prepareStatement(ls_sql);
+	ps.executeUpdate();
+	ps.close();
+
+	for (int i=0;i<zsxm.length ;i++ )
+	{
+		
+		if (zsxm[i]==null || zsxm[i].trim().equals(""))
+		{
+			continue;
+		}
+
+		cbdj=Double.parseDouble(cbdjstr[i]);
+		scdj=Double.parseDouble(scdjstr[i]);
+		zsslsx=Double.parseDouble(zsslsxstr[i]);
+		zsslxx=Double.parseDouble(zsslxxstr[i]);
+
+		ls_sql="insert into jc_hdzsxx (cxhdbm,cxhdmc,fgsbh,zsxm,jldw,cbdj,scdj,zsslsx,zsslxx,bz) ";
+		ls_sql+=" values(?,?,?,?,?,?,?,?,?,?)";
+		ps= conn.prepareStatement(ls_sql);
+		ps.setString(1,cxhdbm);
+		ps.setString(2,cxhdmc);
+		ps.setString(3,fgsbh);
+		ps.setString(4,cf.GB2Uni(zsxm[i]));
+		ps.setString(5,cf.GB2Uni(jldw[i]));
+		ps.setDouble(6,cbdj);
+		ps.setDouble(7,scdj);
+		ps.setDouble(8,zsslsx);
+		ps.setDouble(9,zsslxx);
+		ps.setString(10,cf.GB2Uni(bz[i]));
+		ps.executeUpdate();
+		ps.close();
+		
+	}
+
+	conn.commit();
+
+
+
+	%>
+	<SCRIPT language=javascript >
+	<!--
+	alert("存盘成功！");
+	window.close();
+	//-->
+	</SCRIPT>
+	<%
+
+}
+catch (Exception e) {
+	conn.rollback();
+	out.print("Exception: " + e);
+	return;
+}
+finally 
+{
+	conn.setAutoCommit(true);
+
+	try{
+		if (rs!= null) rs.close(); 
+		if (ps!= null) ps.close(); 
+		if (conn != null) cf.close(conn); 
+	}
+	catch (Exception e){
+		if (conn != null) cf.close(conn); 
+	}
+}
+%>

@@ -1,0 +1,74 @@
+<%@ page contentType="text/html;charset=GBK" %>
+<%@ page import='java.sql.*,java.io.*' %>
+<jsp:useBean id="cf" scope="page" class="ybl.common.CommonFunction"/>
+<jsp:setProperty name="cf" property="*" />
+
+<%
+if (cf.check((String)session.getAttribute("yhdlm"),request.getRemoteHost(),"010124")==0) 
+{
+	out.print(new String("系统闲置时间过长，请重新登录！"));
+	return;
+}
+%>
+
+<%
+
+String ls=null;
+String ssfgs=request.getParameter("ssfgs");
+String[] dwbh=request.getParameterValues("dwbh");
+
+Connection conn  = null;
+PreparedStatement ps=null;
+String ls_sql=null;
+try {
+	conn=cf.getConnection();
+
+	conn.setAutoCommit(false);
+
+	ls_sql="delete from sq_tsclbm";
+	ls_sql+=" where ssfgs='"+ssfgs+"' ";
+	ps= conn.prepareStatement(ls_sql);
+	ps.executeUpdate();
+	ps.close();
+
+	for (int i=0;i<dwbh.length ;i++ )
+	{
+		ls_sql="insert into sq_tsclbm (ssfgs,dwbh ) ";
+		ls_sql+=" values ( ?,? ) ";
+		ps= conn.prepareStatement(ls_sql);
+		ps.setString(1,ssfgs);
+		ps.setString(2,dwbh[i]);
+		ps.executeUpdate();
+		ps.close();
+	}
+
+		
+	conn.commit();
+
+	%>
+	<SCRIPT language=javascript >
+	<!--
+	alert("存盘成功！");
+	window.close();
+	//-->
+	</SCRIPT>
+	<%
+
+}
+catch (Exception e) {
+	conn.rollback();
+	out.print("存盘失败,发生意外: " + e);
+	return;
+}
+finally 
+{
+	conn.setAutoCommit(true);
+	try{
+		if (ps!= null) ps.close(); 
+		if (conn != null) cf.close(conn); 
+	}
+	catch (Exception e){
+		if (conn != null) cf.close(conn); 
+	}
+}
+%>

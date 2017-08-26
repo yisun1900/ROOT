@@ -1,0 +1,10 @@
+0611    	11	客户赔付		06      	0       	0       	N	
+061101  	1	赔付单录入	/khpfgl/SelectCrm_tsjl.jsp	0611    	06      	0       	Y	
+061102  	2	赔付单维护	/khpfgl/SelectCrm_khpfd.jsp	0611    	06      	0       	Y	
+061103  	3	审核	/khpfgl/SelectShCrm_khpfd.jsp	0611    	06      	0       	Y	
+061104  	4	审核－维护	/khpfgl/SelectXgShCrm_khpfd.jsp	0611    	06      	0       	Y	
+061105  	5	财务接收	/khpfgl/SelectJsCrm_khpfd.jsp	0611    	06      	0       	Y	
+061106  	6	财务接收－维护	/khpfgl/SelectXgJsCrm_khpfd.jsp	0611    	06      	0       	Y	
+061107  	7	赔付	/khpfgl/SelectPfCrm_khpfd.jsp	0611    	06      	0       	Y	
+061108  	8	赔付－维护	/khpfgl/SelectXgPfCrm_khpfd.jsp	0611    	06      	0       	Y	
+061109  	9	赔付单查询	/khpfgl/SelectCxCrm_khpfd.jsp	0611    	06      	0       	Y	

@@ -1,0 +1,299 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<!--平面效果 <html xmlns:v="urrn:schemas-microsoft-com:vml" xmlnds:o="urn:schemas-microsoft-com:office:office">-->
+
+<body bgcolor="#CACACA">
+<head>
+
+<!-- 样式表 -->
+<STYLE>
+v\:* { Behavior: url(#default#VML) }
+o\:* { behavior: url(#default#VML) }
+</STYLE>
+
+</head>
+
+<body>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+onit=true
+num=0
+function moveup(iteam,top,txt,rec)
+{
+temp=eval(iteam)
+tempat=eval(top)
+temptxt=eval(txt)
+temprec=eval(rec)
+at=parseInt(temp.style.top)
+temprec.style.display = "";
+if (num>27)
+	{
+		temptxt.style.display = "";
+	}
+if(at>(tempat-28)&&onit)
+	{
+		num++
+		temp.style.top=at-1
+		Stop=setTimeout("moveup(temp,tempat,temptxt,temprec)",10)
+	}
+else
+	{
+		return
+	}
+}
+function movedown(iteam,top,txt,rec)
+{
+temp=eval(iteam)
+temptxt=eval(txt)
+temprec=eval(rec)
+clearTimeout(Stop)
+temp.style.top=top
+num=0
+temptxt.style.display = "none";
+temprec.style.display = "none";
+}
+function ontxt(iteam,top,txt,rec)
+{
+temp = eval(iteam);
+temptxt = eval(txt);
+temprec = eval(rec)
+if (onit)
+	{
+		temp.style.top = top-28;
+		temptxt.style.display = "";
+		temprec.style.display = "";
+	}
+}
+function movereset(over)
+{
+if (over==1)
+	{
+		onit=false
+	}
+else
+	{
+		onit=true
+	}
+}
+-->
+</script>
+<!-- vml -->
+<v:shapetype id='Cake_3D' coordsize='21600,21600' o:spt='95' adj='11796480,5400' path='al10800,10800@0@0@2@14,10800,10800,10800,10800@3@15xe'>
+</v:shapetype>
+<v:shapetype id='3dtxt' coordsize='21600,21600' o:spt='136' adj='10800' path='m@7,l@8,m@5,21600l@6,21600e'> 
+<v:path textpathok='t' o:connecttype='custom' o:connectlocs='@9,0;@10,10800;@11,21600;@12,10800' o:connectangles='270,180,90,0'/>
+<v:textpath on='t' fitshape='t'/> 
+<o:lock v:ext='edit' text='t' shapetype='t'/></v:shapetype>
+<v:rect id='background' style='position:absolute;left:240px;top:200px;WIDTH:700px;HEIGHT:400px;' fillcolor='#EFEFEF' strokecolor='gray'> 
+<v:shadow on='t' type='single' color='silver' offset='4pt,4pt'/></v:rect>
+<v:group ID='table' style='position:absolute;left:240px;top:200px;WIDTH:700px;HEIGHT:400px;' coordsize = '21000,11500'>  
+<v:Rect style='position:relative;left:500;top:200;width:20000;height:800'filled='false' stroked='false'>   <v:TextBox inset='0pt,0pt,0pt,0pt'>  
+<table width='100%' border='0' align='center' cellspacing='0'>  
+<tr>   
+<td align='center' valign='middle'>
+<div style='font-size:15pt; font-family:黑体;'>
+<B>三维饼状图DEMO</B>
+</div>
+</td>  
+</tr> 
+</table> 
+</v:TextBox>  
+</v:Rect> 
+<v:rect id='back' style='position:relative;left:500;top:1000;width:20000; height:10000;' onmouseover='movereset(1)' onmouseout='movereset(0)' fillcolor='#9cf' strokecolor='#888888'> 
+<v:fill rotate='t' angle='-45' focus='100%' type='gradient'/> </v:rect> 
+<v:rect id='back' style='position:relative;left:15000;top:1400;width:5000; height:9200;' fillcolor='#9cf' stroked='t' strokecolor='#0099ff'> 
+<v:fill rotate='t' angle='-175' focus='100%' type='gradient'/> 
+<v:shadow on='t' type='single' color='silver' offset='3pt,3pt'/> </v:rect>  
+<v:Rect style='position:relative;left:15500;top:1500;width:4000;height:700' fillcolor='#000000' stroked='f' strokecolor='#000000'>   
+<v:TextBox inset='8pt,4pt,3pt,3pt' style='font-size:11pt;'>
+<div align='left'><font color='#ffffff'><B>总数:12422元</B></font></div>
+</v:TextBox>  
+</v:Rect>   
+<v:Rect id='rec1' style='position:relative;left:15400;top:2268.18181818182;width:4300;height:800;display:none' fillcolor='#efefef' strokecolor='#ff1919'> <v:fill opacity='.6' color2='fill darken(118)' o:opacity2='.6' rotate='t' method='linear sigma' focus='100%' type='gradient'/> 
+</v:Rect> 
+<v:Rect style='position:relative;left:15500;top:2318.18181818182;width:600;height:700' fillcolor='#ff1919' stroked='f'/>  
+<v:Rect style='position:relative;left:16300;top:2318.18181818182;width:3400;height:700' filled='f' stroked='f'> 
+<v:TextBox inset='0pt,5pt,0pt,0pt' style='font-size:9pt;'>
+<div align='left'>项目1:2000元</div>
+</v:TextBox> 
+</v:Rect>   
+<v:Rect id='rec2' style='position:relative;left:15400;top:3086.36363636364;width:4300;height:800;display:none' fillcolor='#efefef' strokecolor='#ffff19'> 
+<v:fill opacity='.6' color2='fill darken(118)' o:opacity2='.6' rotate='t' method='linear sigma' focus='100%' type='gradient'/>
+</v:Rect>  
+<v:Rect style='position:relative;left:15500;top:3136.36363636364;width:600;height:700' fillcolor='#ffff19' stroked='f'/>  
+<v:Rect style='position:relative;left:16300;top:3136.36363636364;width:3400;height:700' filled='f' stroked='f'> 
+<v:TextBox inset='0pt,5pt,0pt,0pt' style='font-size:9pt;'><div align='left'>项目2:1800元</div>
+</v:TextBox>  
+</v:Rect>  
+<v:Rect id='rec3' style='position:relative;left:15400;top:3904.54545454545;width:4300;height:800;display:none' fillcolor='#efefef' strokecolor='#1919ff'> 
+<v:fill opacity='.6' color2='fill darken(118)' o:opacity2='.6' rotate='t' method='linear sigma' focus='100%' type='gradient'/> 
+</v:Rect>  
+<v:Rect style='position:relative;left:15500;top:3954.54545454545;width:600;height:700' fillcolor='#1919ff' stroked='f'/> 
+<v:Rect style='position:relative;left:16300;top:3954.54545454545;width:3400;height:700' filled='f' stroked='f'> <v:TextBox inset='0pt,5pt,0pt,0pt' style='font-size:9pt;'><div align='left'>项目3:1700元</div>
+</v:TextBox>  
+</v:Rect>   
+<v:Rect id='rec4' style='position:relative;left:15400;top:4722.72727272727;width:4300;height:800;display:none' fillcolor='#efefef' strokecolor='#19ff19'>
+<v:fill opacity='.6' color2='fill darken(118)' o:opacity2='.6' rotate='t' method='linear sigma' focus='100%' type='gradient'/> 
+</v:Rect>  
+<v:Rect style='position:relative;left:15500;top:4772.72727272727;width:600;height:700' fillcolor='#19ff19' stroked='f'/>  
+<v:Rect style='position:relative;left:16300;top:4772.72727272727;width:3400;height:700' filled='f' stroked='f'> 
+<v:TextBox inset='0pt,5pt,0pt,0pt' style='font-size:9pt;'><div align='left'>项目4:1500元</div>
+</v:TextBox> 
+</v:Rect>   
+<v:Rect id='rec5' style='position:relative;left:15400;top:5540.90909090909;width:4300;height:800;display:none' fillcolor='#efefef' strokecolor='#fc0'>
+<v:fill opacity='.6' color2='fill darken(118)' o:opacity2='.6' rotate='t' method='linear sigma' focus='100%' type='gradient'/> 
+</v:Rect>  
+<v:Rect style='position:relative;left:15500;top:5590.90909090909;width:600;height:700' fillcolor='#fc0' stroked='f'/>  
+<v:Rect style='position:relative;left:16300;top:5590.90909090909;width:3400;height:700' filled='f' stroked='f'> 
+<v:TextBox inset='0pt,5pt,0pt,0pt' style='font-size:9pt;'><div align='left'>项目5:1222元</div>
+</v:TextBox> 
+</v:Rect>  
+<v:Rect id='rec6' style='position:relative;left:15400;top:6359.09090909091;width:4300;height:800;display:none' fillcolor='#efefef' strokecolor='#3cc'> 
+<v:fill opacity='.6' color2='fill darken(118)' o:opacity2='.6' rotate='t' method='linear sigma' focus='100%' type='gradient'/> 
+</v:Rect>  
+<v:Rect style='position:relative;left:15500;top:6409.09090909091;width:600;height:700' fillcolor='#3cc' stroked='f'/>  
+<v:Rect style='position:relative;left:16300;top:6409.09090909091;width:3400;height:700' filled='f' stroked='f'> 
+<v:TextBox inset='0pt,5pt,0pt,0pt' style='font-size:9pt;'><div align='left'>项目6:1100元</div>
+</v:TextBox>  
+</v:Rect>   
+<v:Rect id='rec7' style='position:relative;left:15400;top:7177.27272727273;width:4300;height:800;display:none' fillcolor='#efefef' strokecolor='#ff19ff'> <v:fill opacity='.6' color2='fill darken(118)' o:opacity2='.6' rotate='t' method='linear sigma' focus='100%' type='gradient'/> 
+</v:Rect>  
+<v:Rect style='position:relative;left:15500;top:7227.27272727273;width:600;height:700' fillcolor='#ff19ff' stroked='f'/>  
+<v:Rect style='position:relative;left:16300;top:7227.27272727273;width:3400;height:700' filled='f' stroked='f'> 
+<v:TextBox inset='0pt,5pt,0pt,0pt' style='font-size:9pt;'><div align='left'>项目7:1000元</div>
+</v:TextBox>  
+</v:Rect>   
+<v:Rect id='rec8' style='position:relative;left:15400;top:7995.45454545455;width:4300;height:800;display:none' fillcolor='#efefef' strokecolor='#993300'> 
+<v:fill opacity='.6' color2='fill darken(118)' o:opacity2='.6' rotate='t' method='linear sigma' focus='100%' type='gradient'/>
+</v:Rect>  
+<v:Rect style='position:relative;left:15500;top:8045.45454545455;width:600;height:700' fillcolor='#993300' stroked='f'/>  
+<v:Rect style='position:relative;left:16300;top:8045.45454545455;width:3400;height:700' filled='f' stroked='f'> 
+<v:TextBox inset='0pt,5pt,0pt,0pt' style='font-size:9pt;'><div align='left'>项目8:800元</div>
+</v:TextBox>  
+</v:Rect> 
+<v:Rect id='rec9' style='position:relative;left:15400;top:8813.63636363636;width:4300;height:800;display:none' fillcolor='#efefef' strokecolor='#f60'> 
+<v:fill opacity='.6' color2='fill darken(118)' o:opacity2='.6' rotate='t' method='linear sigma' focus='100%' type='gradient'/> 
+</v:Rect> 
+<v:Rect style='position:relative;left:15500;top:8863.63636363636;width:600;height:700' fillcolor='#f60' stroked='f'/> 
+<v:Rect style='position:relative;left:16300;top:8863.63636363636;width:3400;height:700' filled='f' stroked='f'> 
+<v:TextBox inset='0pt,5pt,0pt,0pt' style='font-size:9pt;'><div align='left'>项目9:700元</div>
+</v:TextBox> 
+</v:Rect>   
+<v:Rect id='rec10' style='position:relative;left:15400;top:9631.81818181818;width:4300;height:800;display:none' fillcolor='#efefef' strokecolor='#ff8c19'> 
+<v:fill opacity='.6' color2='fill darken(118)' o:opacity2='.6' rotate='t' method='linear sigma' focus='100%' type='gradient'/> 
+</v:Rect>  
+<v:Rect style='position:relative;left:15500;top:9681.81818181818;width:600;height:700' fillcolor='#ff8c19' stroked='f'/> 
+<v:Rect style='position:relative;left:16300;top:9681.81818181818;width:3400;height:700' filled='f' stroked='f'> 
+<v:TextBox inset='0pt,5pt,0pt,0pt' style='font-size:9pt;'><div align='left'>项目10:600元</div>
+</v:TextBox>  
+</v:Rect> 
+</v:group> <div style='cursor:hand;'> 
+<v:shape id='cake1' type='#Cake_3D' title='&nbsp;名&nbsp;&nbsp;称：项目1&#13;&#10;&nbsp;数&nbsp;&nbsp;值：2000元&#13;&#10;&nbsp;所占比例：16.1%&nbsp;&nbsp;' style='position:absolute;left:290px;top:228.571428571429px;WIDTH:400px;HEIGHT:400px;rotation:208.98;z-index:10' adj='3999006.72,0' fillcolor='#ff1919' onmouseover='moveup(cake1,228.571428571429,txt1,rec1)'; onmouseout='movedown(cake1,228.571428571429,txt1,rec1);'>
+<v:fill opacity='60293f' color2='fill lighten(120)' o:opacity2='60293f' rotate='t' angle='-135' method='linear sigma' focus='100%' type='gradient'/> 
+<o:extrusion v:ext='view' on='t'backdepth='25' rotationangle='60' viewpoint='0,0'viewpointorigin='0,0' skewamt='0' lightposition='-50000,-50000' lightposition2='50000'/> 
+</v:shape> 
+<v:shape id='txt1' type='#3dtxt' style='position:absolute;left:527.840881255942px;top:328.339053902433px;z-index:20;display:none;width:50; height:18;' fillcolor='#ffffff' onmouseover='ontxt(cake1,228.571428571429,txt1,rec1)'> 
+<v:fill opacity='60293f' color2='fill lighten(120)' o:opacity2='60293f' rotate='t' angle='-135' method='linear sigma' focus='100%' type='gradient'/> 
+<v:textpath style='font-family:'宋体';v-text-kern:t' trim='t' fitpath='t' string='16.1%'/> 
+<o:extrusion v:ext='view' backdepth='8pt' on='t' lightposition='0,0' lightposition2='0,0'/>
+</v:shape> 
+</div>
+<div style='cursor:hand;'> 
+<v:shape id='cake2' type='#Cake_3D' title='&nbsp;名&nbsp;&nbsp;称：项目2&#13;&#10;&nbsp;数&nbsp;&nbsp;值：1800元&#13;&#10;&nbsp;所占比例：14.49%&nbsp;&nbsp;' style='position:absolute;left:290px;top:228.571428571429px;WIDTH:400px;HEIGHT:400px;rotation:264.042;z-index:11' adj='4188930.048,0' fillcolor='#ffff19' onmouseover='moveup(cake2,228.571428571429,txt2,rec2)'; onmouseout='movedown(cake2,228.571428571429,txt2,rec2);'> 
+<v:fill opacity='60293f' color2='fill lighten(120)' o:opacity2='60293f' rotate='t' angle='-135' method='linear sigma' focus='100%' type='gradient'/> 
+<o:extrusion v:ext='view' on='t'backdepth='25' rotationangle='60' viewpoint='0,0'viewpointorigin='0,0' skewamt='0' lightposition='-50000,-50000' lightposition2='50000'/>
+</v:shape>
+<v:shape id='txt2' type='#3dtxt' style='position:absolute;left:599.244530127289px;top:382.309183229413px;z-index:20;display:none;width:50; height:18;' fillcolor='#ffffff' onmouseover='ontxt(cake2,228.571428571429,txt2,rec2)'>
+<v:fill opacity='60293f' color2='fill lighten(120)' o:opacity2='60293f' rotate='t' angle='-135' method='linear sigma' focus='100%' type='gradient'/>
+<v:textpath style='font-family:'宋体';v-text-kern:t' trim='t' fitpath='t' string='14.49%'/> 
+<o:extrusion v:ext='view' backdepth='8pt' on='t' lightposition='0,0' lightposition2='0,0'/> 
+</v:shape>
+</div> 
+<div style='cursor:hand;'>
+<v:shape id='cake3' type='#Cake_3D' title='&nbsp;名&nbsp;&nbsp;称：项目3&#13;&#10;&nbsp;数&nbsp;&nbsp;值：1700元&#13;&#10;&nbsp;所占比例：13.69%&nbsp;&nbsp;' style='position:absolute;left:290px;top:228.571428571429px;WIDTH:400px;HEIGHT:400px;rotation:314.766;z-index:12' adj='4283301.888,0' fillcolor='#1919ff' onmouseover='moveup(cake3,228.571428571429,txt3,rec3)'; onmouseout='movedown(cake3,228.571428571429,txt3,rec3);'>
+<v:fill opacity='60293f' color2='fill lighten(120)' o:opacity2='60293f' rotate='t' angle='-135' method='linear sigma' focus='100%' type='gradient'/> 
+<o:extrusion v:ext='view' on='t'backdepth='25' rotationangle='60' viewpoint='0,0'viewpointorigin='0,0' skewamt='0' lightposition='-50000,-50000' lightposition2='50000'/>
+</v:shape>
+<v:shape id='txt3' type='#3dtxt' style='position:absolute;left:559.395946069687px;top:438.867589438457px;z-index:20;display:none;width:50; height:18;' fillcolor='#ffffff' onmouseover='ontxt(cake3,228.571428571429,txt3,rec3)'> 
+<v:fill opacity='60293f' color2='fill lighten(120)' o:opacity2='60293f' rotate='t' angle='-135' method='linear sigma' focus='100%' type='gradient'/> 
+<v:textpath style='font-family:'宋体';v-text-kern:t' trim='t' fitpath='t' string='13.69%'/> 
+<o:extrusion v:ext='view' backdepth='8pt' on='t' lightposition='0,0' lightposition2='0,0'/>
+</v:shape> 
+</div> 
+<div style='cursor:hand;'> 
+<v:shape id='cake4' type='#Cake_3D' title='&nbsp;名&nbsp;&nbsp;称：项目4&#13;&#10;&nbsp;数&nbsp;&nbsp;值：1500元&#13;&#10;&nbsp;所占比例：12.08%&nbsp;&nbsp;' style='position:absolute;left:290px;top:228.571428571429px;WIDTH:400px;HEIGHT:400px;rotation:1.15200000000004;z-index:13' adj='4473225.216,0' fillcolor='#19ff19' onmouseover='moveup(cake4,228.571428571429,txt4,rec4)'; onmouseout='movedown(cake4,228.571428571429,txt4,rec4);'> 
+<v:fill opacity='60293f' color2='fill lighten(120)' o:opacity2='60293f' rotate='t' angle='-135' method='linear sigma' focus='100%' type='gradient'/>
+<o:extrusion v:ext='view' on='t'backdepth='25' rotationangle='60' viewpoint='0,0'viewpointorigin='0,0' skewamt='0' lightposition='-50000,-50000' lightposition2='50000'/>
+</v:shape> 
+<v:shape id='txt4' type='#3dtxt' style='position:absolute;left:457.157402977837px;top:459.556997873553px;z-index:20;display:none;width:50; height:18;' fillcolor='#ffffff' onmouseover='ontxt(cake4,228.571428571429,txt4,rec4)'>
+<v:fill opacity='60293f' color2='fill lighten(120)' o:opacity2='60293f' rotate='t' angle='-135' method='linear sigma' focus='100%' type='gradient'/>
+<v:textpath style='font-family:'宋体';v-text-kern:t' trim='t' fitpath='t' string='12.08%'/>
+<o:extrusion v:ext='view' backdepth='8pt' on='t' lightposition='0,0' lightposition2='0,0'/>
+</v:shape>
+</div> 
+<div style='cursor:hand;'> 
+<v:shape id='cake5' type='#Cake_3D' title='&nbsp;名&nbsp;&nbsp;称：项目5&#13;&#10;&nbsp;数&nbsp;&nbsp;值：1222元&#13;&#10;&nbsp;所占比例：9.84%&nbsp;&nbsp;' style='position:absolute;left:290px;top:228.571428571429px;WIDTH:400px;HEIGHT:400px;rotation:40.608;z-index:12' adj='4737466.368,0' fillcolor='#fc0' onmouseover='moveup(cake5,228.571428571429,txt5,rec5)'; onmouseout='movedown(cake5,228.571428571429,txt5,rec5);'> 
+<v:fill opacity='60293f' color2='fill lighten(120)' o:opacity2='60293f' rotate='t' angle='-135' method='linear sigma' focus='100%' type='gradient'/>
+<o:extrusion v:ext='view' on='t'backdepth='25' rotationangle='60' viewpoint='0,0'viewpointorigin='0,0' skewamt='0' lightposition='-50000,-50000' lightposition2='50000'/> 
+</v:shape>
+<v:shape id='txt5' type='#3dtxt' style='position:absolute;left:368.857900545414px;top:442.705969378258px;z-index:20;display:none;width:50; height:18;' fillcolor='#ffffff' onmouseover='ontxt(cake5,228.571428571429,txt5,rec5)'> 
+<v:fill opacity='60293f' color2='fill lighten(120)' o:opacity2='60293f' rotate='t' angle='-135' method='linear sigma' focus='100%' type='gradient'/>
+<v:textpath style='font-family:'宋体';v-text-kern:t' trim='t' fitpath='t' string='9.84%'/> 
+<o:extrusion v:ext='view' backdepth='8pt' on='t' lightposition='0,0' lightposition2='0,0'/> 
+</v:shape>
+</div> 
+<div style='cursor:hand;'> 
+<v:shape id='cake6' type='#Cake_3D' title='&nbsp;名&nbsp;&nbsp;称：项目6&#13;&#10;&nbsp;数&nbsp;&nbsp;值：1100元&#13;&#10;&nbsp;所占比例：8.86%&nbsp;&nbsp;' style='position:absolute;left:290px;top:228.571428571429px;WIDTH:400px;HEIGHT:400px;rotation:74.268;z-index:11' adj='4853071.872,0' fillcolor='#3cc' onmouseover='moveup(cake6,228.571428571429,txt6,rec6)'; onmouseout='movedown(cake6,228.571428571429,txt6,rec6);'> 
+<v:fill opacity='60293f' color2='fill lighten(120)' o:opacity2='60293f' rotate='t' angle='-135' method='linear sigma' focus='100%' type='gradient'/> 
+<o:extrusion v:ext='view' on='t'backdepth='25' rotationangle='60' viewpoint='0,0'viewpointorigin='0,0' skewamt='0' lightposition='-50000,-50000' lightposition2='50000'/>
+</v:shape> 
+<v:shape id='txt6' type='#3dtxt' style='position:absolute;left:325.238307777953px;top:408.540392100377px;z-index:20;display:none;width:50; height:18;' fillcolor='#ffffff' onmouseover='ontxt(cake6,228.571428571429,txt6,rec6)'> 
+<v:fill opacity='60293f' color2='fill lighten(120)' o:opacity2='60293f' rotate='t' angle='-135' method='linear sigma' focus='100%' type='gradient'/> 
+<v:textpath style='font-family:'宋体';v-text-kern:t' trim='t' fitpath='t' string='8.86%'/>
+<o:extrusion v:ext='view' backdepth='8pt' on='t' lightposition='0,0' lightposition2='0,0'/>
+</v:shape>
+</div> 
+<div style='cursor:hand;'> 
+<v:shape id='cake7' type='#Cake_3D' title='&nbsp;名&nbsp;&nbsp;称：项目7&#13;&#10;&nbsp;数&nbsp;&nbsp;值：1000元&#13;&#10;&nbsp;所占比例：8.05%&nbsp;&nbsp;' style='position:absolute;left:290px;top:228.571428571429px;WIDTH:400px;HEIGHT:400px;rotation:104.706;z-index:10' adj='4948623.36,0' fillcolor='#ff19ff' onmouseover='moveup(cake7,228.571428571429,txt7,rec7)'; onmouseout='movedown(cake7,228.571428571429,txt7,rec7);'>
+<v:fill opacity='60293f' color2='fill lighten(120)' o:opacity2='60293f' rotate='t' angle='-135' method='linear sigma' focus='100%' type='gradient'/> 
+<o:extrusion v:ext='view' on='t'backdepth='25' rotationangle='60' viewpoint='0,0'viewpointorigin='0,0' skewamt='0' lightposition='-50000,-50000' lightposition2='50000'/>
+</v:shape>
+<v:shape id='txt7' type='#3dtxt' style='position:absolute;left:324.591280384109px;top:371.791674270645px;z-index:20;display:none;width:50; height:18;' fillcolor='#ffffff' onmouseover='ontxt(cake7,228.571428571429,txt7,rec7)'>
+<v:fill opacity='60293f' color2='fill lighten(120)' o:opacity2='60293f' rotate='t' angle='-135' method='linear sigma' focus='100%' type='gradient'/> 
+<v:textpath style='font-family:'宋体';v-text-kern:t' trim='t' fitpath='t' string='8.05%'/>
+<o:extrusion v:ext='view' backdepth='8pt' on='t' lightposition='0,0' lightposition2='0,0'/> 
+</v:shape>
+</div> 
+<div style='cursor:hand;'> 
+<v:shape id='cake8' type='#Cake_3D' title='&nbsp;名&nbsp;&nbsp;称：项目8&#13;&#10;&nbsp;数&nbsp;&nbsp;值：800元&#13;&#10;&nbsp;所占比例：6.44%&nbsp;&nbsp;' style='position:absolute;left:290px;top:228.571428571429px;WIDTH:400px;HEIGHT:400px;rotation:130.788;z-index:9' adj='5138546.688,0' fillcolor='#993300' onmouseover='moveup(cake8,228.571428571429,txt8,rec8)'; onmouseout='movedown(cake8,228.571428571429,txt8,rec8);'> 
+<v:fill opacity='60293f' color2='fill lighten(120)' o:opacity2='60293f' rotate='t' angle='-135' method='linear sigma' focus='100%' type='gradient'/>
+<o:extrusion v:ext='view' on='t'backdepth='25' rotationangle='60' viewpoint='0,0'viewpointorigin='0,0' skewamt='0' lightposition='-50000,-50000' lightposition2='50000'/> 
+</v:shape> 
+<v:shape id='txt8' type='#3dtxt' style='position:absolute;left:354.01318843635px;top:343.836333254562px;z-index:20;display:none;width:50; height:18;' fillcolor='#ffffff' onmouseover='ontxt(cake8,228.571428571429,txt8,rec8)'> 
+<v:fill opacity='60293f' color2='fill lighten(120)' o:opacity2='60293f' rotate='t' angle='-135' method='linear sigma' focus='100%' type='gradient'/>
+<v:textpath style='font-family:'宋体';v-text-kern:t' trim='t' fitpath='t' string='6.44%'/>
+<o:extrusion v:ext='view' backdepth='8pt' on='t' lightposition='0,0' lightposition2='0,0'/> 
+</v:shape>
+</div> 
+<div style='cursor:hand;'> 
+<v:shape id='cake9' type='#Cake_3D' title='&nbsp;名&nbsp;&nbsp;称：项目9&#13;&#10;&nbsp;数&nbsp;&nbsp;值：700元&#13;&#10;&nbsp;所占比例：5.64%&nbsp;&nbsp;' style='position:absolute;left:290px;top:228.571428571429px;WIDTH:400px;HEIGHT:400px;rotation:152.532;z-index:8' adj='5232918.528,0' fillcolor='#f60' onmouseover='moveup(cake9,228.571428571429,txt9,rec9)'; onmouseout='movedown(cake9,228.571428571429,txt9,rec9);'>
+<v:fill opacity='60293f' color2='fill lighten(120)' o:opacity2='60293f' rotate='t' angle='-135' method='linear sigma' focus='100%' type='gradient'/> 
+<o:extrusion v:ext='view' on='t'backdepth='25' rotationangle='60' viewpoint='0,0'viewpointorigin='0,0' skewamt='0' lightposition='-50000,-50000' lightposition2='50000'/>
+</v:shape> 
+<v:shape id='txt9' type='#3dtxt' style='position:absolute;left:395.438885691264px;top:327.458904634596px;z-index:20;display:none;width:50; height:18;' fillcolor='#ffffff' onmouseover='ontxt(cake9,228.571428571429,txt9,rec9)'> 
+<v:fill opacity='60293f' color2='fill lighten(120)' o:opacity2='60293f' rotate='t' angle='-135' method='linear sigma' focus='100%' type='gradient'/>
+<v:textpath style='font-family:'宋体';v-text-kern:t' trim='t' fitpath='t' string='5.64%'/>
+<o:extrusion v:ext='view' backdepth='8pt' on='t' lightposition='0,0' lightposition2='0,0'/>
+</v:shape> </div> <div style='cursor:hand;'>
+<v:shape id='cake10' type='#Cake_3D' title='&nbsp;名&nbsp;&nbsp;称：项目10&#13;&#10;&nbsp;数&nbsp;&nbsp;值：600元&#13;&#10;&nbsp;所占比例：4.81%&nbsp;&nbsp;' style='position:absolute;left:290px;top:228.571428571429px;WIDTH:400px;HEIGHT:400px;rotation:171.342;z-index:7' adj='5330829.312,0' fillcolor='#ff8c19' onmouseover='moveup(cake10,228.571428571429,txt10,rec10)'; onmouseout='movedown(cake10,228.571428571429,txt10,rec10);'> 
+<v:fill opacity='60293f' color2='fill lighten(120)' o:opacity2='60293f' rotate='t' angle='-135' method='linear sigma' focus='100%' type='gradient'/> 
+<o:extrusion v:ext='view' on='t'backdepth='25' rotationangle='60' viewpoint='0,0'viewpointorigin='0,0' skewamt='0' lightposition='-50000,-50000' lightposition2='50000'/>
+</v:shape> 
+<v:shape id='txt10' type='#3dtxt' style='position:absolute;left:438.939449465839px;top:320.368008838011px;z-index:20;display:none;width:50; height:18;' fillcolor='#ffffff' onmouseover='ontxt(cake10,228.571428571429,txt10,rec10)'> 
+<v:fill opacity='60293f' color2='fill lighten(120)' o:opacity2='60293f' rotate='t' angle='-135' method='linear sigma' focus='100%' type='gradient'/>
+<v:textpath style='font-family:'宋体';v-text-kern:t' trim='t' fitpath='t' string='4.81%'/> 
+<o:extrusion v:ext='view' backdepth='8pt' on='t' lightposition='0,0' lightposition2='0,0'/>
+</v:shape> 
+</div>
+
+</body>
+</html> 

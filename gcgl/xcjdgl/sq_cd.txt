@@ -1,0 +1,19 @@
+0532    	32	现场交底管理		05      	0       	0       	N	
+053201  	1	交底类型编码－录入	/gcgl/xcjdgl/dm/InsertDm_jdlxbm.jsp	0532    	05      	0       	Y	
+053202  	2	交底类型编码－修改	/gcgl/xcjdgl/dm/SelectDm_jdlxbm.jsp	0532    	05      	0       	Y	
+053203  	3	交底确认类型－录入	/gcgl/xcjdgl/dm/InsertDm_jdqrlx.jsp	0532    	05      	0       	Y	
+053204  	4	交底确认类型－修改	/gcgl/xcjdgl/dm/SelectDm_jdqrlx.jsp	0532    	05      	0       	Y	
+053205  	5	交底项目编码－录入	/gcgl/xcjdgl/dm/InsertDm_jdxmbm.jsp	0532    	05      	0       	Y	
+053206  	6	交底项目编码－修改	/gcgl/xcjdgl/dm/SelectDm_jdxmbm.jsp	0532    	05      	0       	Y	
+053231  	31	交底申请－录入	/gcgl/xcjdgl/SelectCxCrm_khxx.jsp	0532    	05      	0       	Y	
+053232  	32	交底申请－维护	/gcgl/xcjdgl/SelectCrm_xcjdjl.jsp	0532    	05      	0       	Y	
+053233  	33	交底确认失败信息	/gcgl/xcjdgl/SelectQrSbCrm_xcjdjl.jsp	0532    	05      	0       	Y	
+053235  	35	交底确认	/gcgl/xcjdgl/SelectQrCrm_xcjdjl.jsp	0532    	05      	0       	Y	
+053236  	36	交底确认－修改	/gcgl/xcjdgl/SelectXgQrCrm_xcjdjl.jsp	0532    	05      	0       	Y	
+053239  	39	特批审核	/gcgl/xcjdgl/SelectTpCrm_xcjdjl.jsp	0532    	05      	0       	Y	
+053240  	40	特批审核－修改	/gcgl/xcjdgl/SelectXgTpCrm_xcjdjl.jsp	0532    	05      	0       	Y	
+053243  	43	发布交底时间	/gcgl/xcjdgl/SelectFbCrm_xcjdjl.jsp	0532    	05      	0       	Y	
+053244  	44	发布交底时间－修改	/gcgl/xcjdgl/SelectXgFbCrm_xcjdjl.jsp	0532    	05      	0       	Y	
+053247  	47	实际交底录入	/gcgl/xcjdgl/SelectJdCrm_xcjdjl.jsp	0532    	05      	0       	Y	
+053248  	48	实际交底录入－修改	/gcgl/xcjdgl/SelectXgJdCrm_xcjdjl.jsp	0532    	05      	0       	Y	
+053251  	51	交底记录－查询	/gcgl/xcjdgl/SelectCxCrm_xcjdjl.jsp	0532    	05      	0       	Y	

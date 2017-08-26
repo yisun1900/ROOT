@@ -1,0 +1,486 @@
+<%@ page contentType="text/html;charset=GBK" %>
+<%@ page import='ybl.common.*,java.sql.*,java.util.*' %>
+<jsp:useBean id="cf" scope="page" class="ybl.common.CommonFunction"/>
+<jsp:useBean id="so" scope="page" class="ybl.common.StatObject"/>
+<%@ include file="/getlogin.jsp" %>
+
+<%
+//定义变量,获取参数
+	ybl.common.PageObject pageObj=new ybl.common.PageObject();
+	String xsfg=request.getParameter("xsfg");
+	if (xsfg.equals("2"))
+	{
+		pageObj.setType("EXCEL",response);
+	}
+
+	String ls_sql=null;
+	String sjfw=null;
+	String sjfw2=null;
+
+	sjfw=request.getParameter("sjfw");
+	sjfw2=request.getParameter("sjfw2");
+
+	String px=request.getParameter("px");
+
+	String fgs=request.getParameter("fgs");
+
+%>
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<style type="text/css">
+<!--
+.STYLE1 {
+	FONT-WEIGHT: bold;
+	BORDER-RIGHT: #808080 2px solid;
+	BORDER-TOP: black 1px solid;
+	BORDER-BOTTOM: black 1px solid;
+	POSITION: relative;
+	BACKGROUND-COLOR: #CC6600;
+}
+.STYLE2 {
+	BORDER-LEFT: #000000 1px solid;
+	BORDER-BOTTOM: #000000 1px solid;
+	POSITION: relative;
+	BACKGROUND-COLOR: #CC6600;
+}
+.STYLE3 {
+	FONT-WEIGHT: bold;
+	BORDER-RIGHT: #808080 2px solid;
+	BORDER-TOP: black 1px solid;
+	BORDER-BOTTOM: black 1px solid;
+	LEFT: expression(this.parentElement.offsetParent.parentElement.scrollLeft);
+	POSITION: relative;
+	BACKGROUND-COLOR: #efe1ff;
+}
+.STYLE4 {
+	BORDER-RIGHT: #000 1px solid;
+	BORDER-BOTTOM: #000 1px solid;
+}
+.STYLE_TR {
+	FONT-WEIGHT: bold;
+	Z-INDEX: 5; 
+	POSITION: relative;
+	TOP: expression(this.offsetParent.scrollTop)
+}
+.STYLE_TAB {
+	DISPLAY: inline;
+	BORDER-COLLAPSE: collapse;
+}
+.STYLE_DIV {
+	BORDER-RIGHT: #808080 2px solid;
+	BORDER-TOP: #808080 2px solid;
+	DISPLAY: inline;
+	OVERFLOW: auto;
+	BORDER-LEFT: #808080 2px solid;
+	WIDTH: 100%;
+	CURSOR: default;
+	BORDER-BOTTOM: #808080 2px solid;
+	HEIGHT:95%;
+}
+-->
+</style>
+</head>
+
+<body bgcolor="#ffffff" text="#000000" style='FONT-SIZE: 14px'>
+<CENTER >
+  <B>回单统计
+  <BR>(签约时间：<%=sjfw%>--<%=sjfw2%>)</B> 
+</CENTER>
+<DIV onselectstart="return false" class="STYLE_DIV">
+<table width="100%" border="0" style='FONT-SIZE: 14px' class="STYLE_TAB">
+  <tr>
+    <td>
+      <table border="1" width="100%" cellspacing="0" cellpadding="1"  style='FONT-SIZE: 14px' class="STYLE_TAB">
+        <tr bgcolor="#CCCCCC"  align="center" class="STYLE_TR"> 
+          <td  width="6%">名次</td>
+          <td  width="12%">回单人</td>
+          <td  width="9%">回单总数</td>
+          <td  width="10%">回单总金额</td>
+          <td  width="8%">折扣率</td>
+          <td  width="9%">平均单额</td>
+          <td  width="8%">设计费</td>
+          <td  width="34%">回单总金额</td>
+        </tr>
+<%
+int maxsl=0;
+int maxsl1=0;
+int sjssl=0;//设计师回单数量
+int sgdsl=0;//施工队回单数量
+int qtsl=0;//其他回单数量
+double maxje=0;
+String dwmc=null;
+String sgd=null;
+double wdzgce=0;//未打折工程额
+double zkl=0;//折扣率
+
+int allsl=0;
+int allje=0;
+int allbzsl=0;
+double sjf=0;
+double allsjf=0;
+double sjssjf=0;//设计师回单设计费
+double sgdsjf=0;//施工队回单设计费
+double qtsjf=0;//设计师回单设计费
+double allwdzgce=0;//未打折工程额
+double sjswdzgce=0;//设计师未打折工程额
+double sgdwdzgce=0;//施工队未打折工程额
+double allzkl=0;//折扣率
+
+Connection conn  = null;
+PreparedStatement ps=null;
+ResultSet rs=null;
+PreparedStatement ps1=null;
+ResultSet rs1=null;
+try {
+	conn=cf.getConnection();
+
+
+	//获取最大值   ty 把回单标志 =3 改成 !=1
+	ls_sql="select NVL(max(count(*)),0)";
+	ls_sql+=" from crm_khxx";
+	ls_sql+=" where qyrq>=TO_DATE('"+sjfw+"','YYYY-MM-DD')";
+	ls_sql+=" and qyrq<=TO_DATE('"+sjfw2+" 23:59:59','YYYY-MM-DD HH24:MI:SS') and hdbz!='1' and zt='2'";//1：非回单； 2：设计师回单；3：施工队回单
+	if (fgs!=null)
+	{
+		if (!(fgs.equals("")))	ls_sql+=" and  (crm_khxx.fgsbh='"+fgs+"')";
+	}
+	ls_sql+=" group by hdr";
+	maxsl1=Integer.parseInt(cf.executeQuery(ls_sql));
+	if (maxsl1==0)
+	{
+		return;
+	}
+
+	//获取最大数量   ty 把回单标志 =3 改成 !=1
+	ls_sql="select count(*)";
+	ls_sql+=" from crm_khxx";
+	ls_sql+=" where qyrq>=TO_DATE('"+sjfw+"','YYYY-MM-DD')";
+	ls_sql+=" and qyrq<=TO_DATE('"+sjfw2+" 23:59:59','YYYY-MM-DD HH24:MI:SS') and hdbz!='1' and zt='2'";//1：非回单； 2：设计师回单；3：施工队回单
+	if (fgs!=null)
+	{
+		if (!(fgs.equals("")))	ls_sql+=" and  (crm_khxx.fgsbh='"+fgs+"')";
+	}
+	maxsl=Integer.parseInt(cf.executeQuery(ls_sql));
+
+	//获取设计师回单最大值 ty
+	ls_sql="select count(*)";
+	ls_sql+=" from crm_khxx";
+	ls_sql+=" where qyrq>=TO_DATE('"+sjfw+"','YYYY-MM-DD')";
+	ls_sql+=" and qyrq<=TO_DATE('"+sjfw2+" 23:59:59','YYYY-MM-DD HH24:MI:SS') and hdbz='2' and zt='2'";//1：非回单； 2：设计师回单；3：施工队回单
+	if (fgs!=null)
+	{
+		if (!(fgs.equals("")))	ls_sql+=" and  (crm_khxx.fgsbh='"+fgs+"')";
+	}
+	sjssl=Integer.parseInt(cf.executeQuery(ls_sql));
+	//获取施工队回单最大值 ty
+	ls_sql="select count(*)";
+	ls_sql+=" from crm_khxx";
+	ls_sql+=" where qyrq>=TO_DATE('"+sjfw+"','YYYY-MM-DD')";
+	ls_sql+=" and qyrq<=TO_DATE('"+sjfw2+" 23:59:59','YYYY-MM-DD HH24:MI:SS') and hdbz='3' and zt='2'";//1：非回单； 2：设计师回单；3：施工队回单
+	if (fgs!=null)
+	{
+		if (!(fgs.equals("")))	ls_sql+=" and  (crm_khxx.fgsbh='"+fgs+"')";
+	}
+	sgdsl=Integer.parseInt(cf.executeQuery(ls_sql));
+
+	qtsl=maxsl-sgdsl-sjssl;//其他回单数量等于回单总数减去施工队回单数加上设计师回单数
+//回单总金额 ty 把回单标志 =3 改成 !=1
+	ls_sql="select sum(qye) qye,sum(wdzgce) wdzgce";
+	ls_sql+=" from crm_khxx";
+	ls_sql+=" where qyrq>=TO_DATE('"+sjfw+"','YYYY-MM-DD')";
+	ls_sql+=" and qyrq<=TO_DATE('"+sjfw2+" 23:59:59','YYYY-MM-DD HH24:MI:SS') and hdbz!='1' and zt='2'";
+	if (fgs!=null)
+	{
+		if (!(fgs.equals("")))	ls_sql+=" and  (crm_khxx.fgsbh='"+fgs+"')";
+	}
+	ps= conn.prepareStatement(ls_sql);
+	rs =ps.executeQuery(ls_sql);
+	if (rs.next())
+	{
+		maxje=rs.getDouble("qye");
+		allwdzgce=rs.getDouble("wdzgce");
+
+	}
+	rs.close();
+	ps.close();
+
+	int sjsje=0;
+//设计师回单总金额 
+	ls_sql="select sum(qye) qye,sum(wdzgce) wdzgce,sum(sjf) sjf";
+	ls_sql+=" from crm_khxx";
+	ls_sql+=" where qyrq>=TO_DATE('"+sjfw+"','YYYY-MM-DD')";
+	ls_sql+=" and qyrq<=TO_DATE('"+sjfw2+" 23:59:59','YYYY-MM-DD HH24:MI:SS') and hdbz='2' and zt='2'";
+	if (fgs!=null)
+	{
+		if (!(fgs.equals("")))	ls_sql+=" and  (crm_khxx.fgsbh='"+fgs+"')";
+	}
+	ps= conn.prepareStatement(ls_sql);
+	rs =ps.executeQuery(ls_sql);
+	if (rs.next())
+	{
+		sjsje=rs.getInt("qye");
+		sjswdzgce=rs.getDouble("wdzgce");
+		sjssjf=rs.getDouble("sjf");
+	}
+	rs.close();
+	ps.close();
+
+	int sgdje=0;
+//施工队回单总金额 
+	ls_sql="select sum(qye) qye,sum(wdzgce) wdzgce,sum(sjf) sjf";
+	ls_sql+=" from crm_khxx";
+	ls_sql+=" where qyrq>=TO_DATE('"+sjfw+"','YYYY-MM-DD')";
+	ls_sql+=" and qyrq<=TO_DATE('"+sjfw2+" 23:59:59','YYYY-MM-DD HH24:MI:SS') and hdbz='3' and zt='2'";
+	if (fgs!=null)
+	{
+		if (!(fgs.equals("")))	ls_sql+=" and  (crm_khxx.fgsbh='"+fgs+"')";
+	}
+	ps= conn.prepareStatement(ls_sql);
+	rs =ps.executeQuery(ls_sql);
+	if (rs.next())
+	{
+		sgdje=rs.getInt("qye");
+		sgdwdzgce=rs.getDouble("wdzgce");
+		sgdsjf=rs.getDouble("sjf");
+	}
+	rs.close();
+	ps.close();
+
+	int pm=0;
+	int oldpm=0;
+	int sl=0;
+	int je=0;
+	int qtje=0;
+	int bzsl=0;
+	int pjje=0;
+	int sjspjje=0;//设计师回单平均价格
+	int sgdpjje=0;//施工队回单平均价格
+	int qtpjje=0;//其他回单平均价格
+
+//ty 把回单标志 =3 改成 !=1
+	ls_sql=" select hdr,count(*) sl,sum(qye) je,sum(sjf) sjf,sum(wdzgce) wdzgce";
+	ls_sql+=" from crm_khxx";
+	ls_sql+=" where qyrq>=TO_DATE('"+sjfw+"','YYYY-MM-DD') ";
+	ls_sql+=" and qyrq<=TO_DATE('"+sjfw2+" 23:59:59','YYYY-MM-DD HH24:MI:SS') and hdbz!='1' and zt='2'";
+	if (fgs!=null)
+	{
+		if (!(fgs.equals("")))	ls_sql+=" and  (crm_khxx.dwbh in(select dwbh from sq_dwxx where dwlx='F2' and ssdw='"+fgs+"'))";
+	}
+	ls_sql+=" group by hdr";
+
+
+	ls_sql+=" order by sum(qye) desc";
+	//out.println(ls_sql);
+
+	ps= conn.prepareStatement(ls_sql);
+	rs =ps.executeQuery(ls_sql);
+	while (rs.next())
+	{
+		dwmc=rs.getString("hdr");
+		sl=rs.getInt(2);
+		je=rs.getInt(3);
+		sjf=rs.getDouble("sjf");
+		wdzgce=rs.getDouble("wdzgce");
+
+
+		
+		allsl+=sl;
+		allje+=je;
+		allsjf+=sjf;
+		if (sl!=0)
+		{
+			pjje=je/sl;
+		}
+		else{
+			pjje=0;
+		}
+//ty 计算折扣率
+		if (wdzgce==0)
+		{
+			zkl=0;
+		}
+		else{
+			zkl=je*10/wdzgce;
+		}
+		
+		if (oldpm!=je)
+		{
+			pm++;
+			oldpm=je;
+		}
+
+		if (pm%2==0)
+		{
+			out.println("        <tr align=\"center\" bgcolor=\"#E8E8FF\">\r\n");
+		}
+		else{
+			out.println("        <tr align=\"center\">\r\n");
+		}
+
+%>
+          <td><%=pm%></td>
+          <td><%=dwmc%></td>
+          <td align="right"><%=sl%></td>
+          <td align="right"><%=cf.formatDouble(je)%></td>
+		  <td  align="right"><%=cf.round(zkl,1)%></td>
+          <td align="right"><%=cf.formatDouble(pjje)%></td>
+          <td align="right"><%=cf.formatDouble(sjf)%></td>
+          <td align="left"><A HREF="ViewHdtj.jsp?hdr=<%=dwmc%>&sjfw=<%=sjfw%>&sjfw2=<%=sjfw2%>" target="_blank"><img src="/images/ColuGif.gif" width="<%=je*200/maxje%>" height="14"></A></td>
+        </tr>
+<%
+
+	}
+	ps.close();
+	rs.close();
+
+
+	if (allsl!=0)
+	{
+		pjje=allje/allsl;
+	}
+	else{
+		pjje=0;
+	}
+//设计师平均金额
+	if (sjssl!=0)
+	{
+		sjspjje=sjsje/sjssl;
+	}
+	else{
+		sjspjje=0;
+	}
+//施工队平均金额
+	if (sgdsl!=0)
+	{
+		sgdpjje=sgdje/sgdsl;
+	}
+	else{
+		sgdpjje=0;
+	}
+
+//折扣率
+	if (allwdzgce==0)
+	{
+		allzkl=0;
+	}
+	else{
+		allzkl=allje*10/allwdzgce;
+	}
+double sjszkl=0;//折扣率
+//设计师回单折扣率
+	if (sjswdzgce==0)
+	{
+		sjszkl=0;
+	}
+	else{
+		sjszkl=sjsje*10/sjswdzgce;
+	}
+double sgdzkl=0;//折扣率
+//施工队回单折扣率
+	if (sgdwdzgce==0)
+	{
+		sgdzkl=0;
+	}
+	else{
+		sgdzkl=sgdje*10/sgdwdzgce;
+	}
+double qtwdzgce=0;
+	qtje=allje-sjsje-sgdje;
+	qtsjf=allsjf-sjssjf-sgdsjf;
+	qtwdzgce=allwdzgce-sjswdzgce-sgdwdzgce;
+//其他平均金额
+	if (qtsl!=0)
+	{
+		qtpjje=qtje/qtsl;
+	}
+	else{
+		qtpjje=0;
+	}
+
+double qtzkl=0;//折扣率
+//其他回单折扣率
+	if (qtwdzgce==0)
+	{
+		qtzkl=0;
+	}
+	else{
+		qtzkl=qtje*10/qtwdzgce;
+	}
+
+
+%>
+
+        <tr align="center" >
+          <td>合计</td>
+          <td>&nbsp;</td>
+          <td align="right"><%=allsl%></td>
+          <td align="right"><%=cf.formatDouble(allje)%></td>
+		  <td  align="right"><%=cf.round(allzkl,1)%></td>
+          <td align="right"><%=cf.formatDouble(pjje)%></td>
+          <td align="right"><%=cf.formatDouble(allsjf)%></td>
+          <td align="left">&nbsp;</td>
+        </tr>
+
+        <tr align="center" >
+          <td colspan="2">设计师回单合计</td>
+          <td align="right"><%=sjssl%></td>
+          <td align="right"><%=cf.formatDouble(sjsje)%></td>
+		  <td align="right"><%=cf.round(sjszkl,1)%></td>
+          <td align="right"><%=cf.formatDouble(sjspjje)%></td>
+          <td align="right"><%=cf.formatDouble(sjssjf)%></td>
+          <td align="left">&nbsp;</td>
+        </tr>
+
+        <tr align="center" >
+          <td colspan="2">施工队回单合计</td>
+          <td align="right"><%=sgdsl%></td>
+          <td align="right"><%=cf.formatDouble(sgdje)%></td>
+		  <td  align="right"><%=cf.round(sgdzkl,1)%></td>
+          <td align="right"><%=cf.formatDouble(sgdpjje)%></td>
+          <td align="right"><%=cf.formatDouble(sgdsjf)%></td>
+          <td align="left">&nbsp;</td>
+        </tr>
+
+        <tr align="center" >
+          <td colspan="2">其他合计</td>
+          <td align="right"><%=qtsl%></td>
+          <td align="right"><%=cf.formatDouble(qtje)%></td>
+		  <td  align="right"><%=cf.round(qtzkl,1)%></td>
+          <td align="right"><%=cf.formatDouble(qtpjje)%></td>
+          <td align="right"><%=cf.formatDouble(qtsjf)%></td>
+          <td align="left">&nbsp;</td>
+        </tr>
+
+<%
+
+}
+catch (Exception e) {
+	conn.rollback();
+	out.print("存盘失败,发生意外: " + e+ls_sql);
+	return;
+}
+finally 
+{
+	conn.setAutoCommit(true);
+	try{
+		if (rs!= null) rs.close(); 
+		if (ps!= null) ps.close(); 
+		if (rs1!= null) rs1.close(); 
+		if (ps1!= null) ps1.close(); 
+		if (conn != null) cf.close(conn); 
+	}
+	catch (Exception e){
+		if (conn != null) cf.close(conn); 
+	}
+}
+
+%> 
+      </table>
+    </td>
+  </tr>
+</table>
+</DIV>
+</body>
+</html>

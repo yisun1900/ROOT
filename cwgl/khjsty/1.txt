@@ -1,0 +1,10 @@
+1678    	78	客户结算(TY)		16      	0       	0       	N	
+167803  	3	结算	/cwgl/khjsty/SelectCxCrm_khxx.jsp	1678    	16      	0       	Y	
+167804  	4	结算－修改	/cwgl/khjsty/SelectCw_khjsty.jsp	1678    	16      	0       	Y	
+167805  	5	结算审核	/cwgl/khjsty/SelectSpCw_khjsty.jsp	1678    	16      	0       	Y	
+167806  	6	结算审核－修改	/cwgl/khjsty/SelectXgSpCw_khjsty.jsp	1678    	16      	0       	Y	
+167807  	7	查询	/cwgl/khjsty/SelectCxCw_khjsty.jsp	1678    	16      	0       	Y	
+1697    	97	客户结算参数表		16      	0       	0       	N	
+169701  	1	录入	/cwgl/csbkhjs/InsertDm_khjscsb.jsp	1697    	16      	0       	Y	
+169702  	2	维护	/cwgl/csbkhjs/SelectDm_khjscsb.jsp	1697    	16      	0       	Y	
+169703  	3	查询	/cwgl/csbkhjs/SelectCxDm_khjscsb.jsp	1697    	16      	0       	Y	

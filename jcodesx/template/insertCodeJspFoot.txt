@@ -1,0 +1,32 @@
+	if (ps.executeUpdate()!=1)
+	{
+		out.println("<BR>存盘失败！");
+	}
+	else
+	{
+		%>
+		<SCRIPT language=javascript >
+		<!--
+		alert("存盘成功！");
+		window.close();
+		//-->
+		</SCRIPT>
+		<%
+	}
+}
+catch (Exception e) {
+	out.print("<BR>存盘失败,发生意外: " + e);
+	out.print("<BR>SQL=" + ls_sql);
+	return;
+}
+finally 
+{
+	try{
+		if (ps!= null) ps.close(); 
+		if (conn != null) cf.close(conn); 
+	}
+	catch (Exception e){
+		if (conn != null) cf.close(conn); 
+	}
+}
+%>

@@ -1,0 +1,174 @@
+ERP系统接口文档
+
+
+一 客户资料由ERP同步至家装管理软件
+家装管理软件取ERP系统的客户编号、姓名、性别、地址、移动电话。
+ 
+客户资料同步接口（由ERP提供）
+服务名： BoloniForYblService
+方法名：getCustomer
+输入：客户编号(custId  String  not null)
+输出：返回Customer customer，
+struct Customer{
+String custId ;  //客户编号
+String custName;// 姓名
+String address;// 地址
+String cellphone;// 移动电话
+}
+
+ 
+
+
+ 
+二 产品订单信息由ERP同步至家装管理软件
+
+ 
+ERP系统在录入或更新订单的时候同步家装系统中的订单信息（订单编号、订单状态）
+1订单同步接口（由家装管理软件提供）
+服务名：YblForBoloniService
+方法：newOrUpdateOrder
+输入：订单编号(orderId String not null)、订单状态(orderState String not null)
+输出：String (yes,同步成功；no ，同步失败)
+
+2 订单查询接口（由ERP提供）
+2.1服务名： BoloniForYblService
+
+方法名：listOrderByCustId
+输入：客户编号(custId  String  not null)
+输出：Order [ ] order
+
+struct Order{
+String orderId ;  //订单编号
+String orderState;// 订单状态
+String orderType;// 订单类型
+Customer customer;// 客户对象
+String store;//销售店面
+String OrderAmount;//订单金额
+}
+
+
+2.2服务名： BoloniForYblService
+方法名：listOrderByOrderId
+输入：订单编号(orderId  String  not null)
+输出：Order order
+
+struct Order{
+String orderId ;  //订单编号
+String orderState;// 订单状态
+String orderType;// 订单类型
+Customer customer;// 客户对象
+String store;//销售店面
+String orderAmount;//订单金额
+}
+
+
+
+
+
+三 收款信息由家装管理软件至ERP同步
+ 
+1付款计划同步接口（由ERP提供）
+服务名： BoloniForYblService
+方法名：newOrUpdatePayPlan
+输入：付款序号（payId String not null）合同编号(contractId , String  ,not null)、计划类型(type , String , not null)、计划金额(amout , double , not null)、计划时间(planTime , date ,not null)、计划描述(plan_remark, String,yes)、录入人员(person,String,not null)。
+输出：String (yes,同步成功；no ，同步失败)
+
+字段	类型	可否为空	长度	说明
+付款序号	字符	No	10	
+合同编号	字符	No	20	
+计划付款类型	字符	No	50	
+计划付款金额	字符	No	15,2	
+计划日期	日期	No		
+计划描述	字符	Yes	200	
+录入人员	字符	No	50	
+
+2付款计划查询接口（由ERP提供）
+服务名： BoloniForYblService
+方法名：listPay PlanByContractId
+输入：合同编号(contractId , String  ,not null)
+输出： PayPlan[ ] payPlan
+struct PayPlan{
+		String id;//收款序号
+String contractId  ;  //合同编号
+Double amont;// 计划付款金额
+Date payTime;// 计划付款日期
+String payForUse;// 计划付款类型
+String remark;// 计划描述
+String person;// 录入人
+String time;// 录入时间
+}
+
+3付款计划查询接口2（由ERP提供）
+服务名： BoloniForYblService
+方法名：listPay PlanById
+输入：付款序号(Id , String  ,not null)
+输出： PayPlan payPlan
+struct PayPlan{
+		String id;//收款序号
+String contractId  ;  //合同编号
+Double amont;// 计划付款金额
+Date payTime;// 计划付款日期
+String payForUse;// 计划付款类型
+String remark;// 计划描述
+String person;// 录入人
+String time;// 录入时间
+}
+
+4收款查询接口（由ERP提供）
+服务名： BoloniForYblService
+方法名：listPayByContractId
+输入：合同编号(contractId , String  ,not null)
+输出： Pay[ ] pay
+struct Pay{
+		String id;//收款序号
+String contractId  ;  //合同编号
+Double amont;// 收款金额
+Date payTime;// 收款日期
+String payType;// 付款方式
+String billNo;// 票据编号
+String payForUse;// 款项用途
+String remark;// 备注信息
+String person;// 录入人
+String time;// 录入时间
+}
+
+三 家装辅料信息接口
+1、	家装辅料信息查询接口，由（ERP提供）
+服务名： BoloniForYblService
+方法名：listMtrInfoByDecType
+输入：装修类型(decType, String  ,not null)
+输出： MtrInfo[ ] mtrs
+struct MtrInfo{
+String mtrId;//物料编号
+String mtrName  ;  //物料名称
+String mtrSpec;// 物料规格
+String mtrUnit;// 物料单位
+Double mtrCose;// 对工结算价
+String decType;// 装修类型
+String mtrStatus;//物料状态
+}
+
+2、	增加家装要货计划接口，由（ERP提供）
+3、	服务名： BoloniForYblService
+方法名：newMtrRequest
+输入：合同编号(mtrRequest, MtrRequest  ,not null)
+输出： mtrReqId	long，ERP中的要货计划ID（等于0表示增加不成功）
+struct mtrRequest {
+long mrqId;//要货编号
+String contractId;  //订单编号
+Date planDate ;// 要货日期
+Date delvDate ;// 要求交付日期
+String reqUser;// 要货人员
+String contactUser;// 联系人员
+String contactPhone;//联系电话
+String delvAddr;	//送货地址
+String remark;	//要货描述
+MtrRequestDetail[] mrds;	//要货明细
+}
+struct MtrRequestDetail {
+String mtrId;//物料编号
+Double mrqNum;	//要货数量
+String remark;  //备注信息
+}
+
+

@@ -1,0 +1,1 @@
+java -classpath "C:\jdk1.6.0_07\jre\lib;C:\jdk1.6.0_07\jre\lib\rt.jar;axis-1.4.jar;axis-ant.jar;commons-discovery.jar;commons-logging.jar;jaxrpc.jar;log4j-1.2.6.jar;saaj.jar;wsdl4j.jar" org.apache.axis.wsdl.WSDL2Java -o "G:\jindie\lib\EASLogin" http://192.168.137.231:6888/ormrpc/services/EASLogin?wsdl

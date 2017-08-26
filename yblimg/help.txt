@@ -1,0 +1,11 @@
+gcys:工程验收
+ggb:公告板
+grsh:工人审核
+grxx：工人信息
+gw：公文
+mail：邮件
+xcl：选材料
+xjgd：巡检工地
+zccl：主材测量
+yfgl:验房管理
+

@@ -1,0 +1,396 @@
+<html xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:x="urn:schemas-microsoft-com:office:excel"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<meta name=ProgId content=Excel.Sheet>
+<meta name=Generator content="Microsoft Excel 11">
+<link rel=File-List href="Bj_jzbjbExpList.files/filelist.xml">
+<link rel=Edit-Time-Data href="Bj_jzbjbExpList.files/editdata.mso">
+<link rel=OLE-Object-Data href="Bj_jzbjbExpList.files/oledata.mso">
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:LastAuthor>wql</o:LastAuthor>
+  <o:LastSaved>2010-08-11T16:17:12Z</o:LastSaved>
+  <o:Version>11.5606</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]-->
+<style>
+<!--table
+	{mso-displayed-decimal-separator:"\.";
+	mso-displayed-thousand-separator:"\,";}
+@page
+	{margin:1.0in .75in 1.0in .75in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;}
+tr
+	{mso-height-source:auto;
+	mso-ruby-visibility:none;}
+col
+	{mso-width-source:auto;
+	mso-ruby-visibility:none;}
+br
+	{mso-data-placement:same-cell;}
+.style0
+	{mso-number-format:General;
+	text-align:general;
+	vertical-align:middle;
+	white-space:nowrap;
+	mso-rotate:0;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	color:windowtext;
+	font-size:12.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:宋体;
+	mso-generic-font-family:auto;
+	mso-font-charset:134;
+	border:none;
+	mso-protection:locked visible;
+	mso-style-name:常规;
+	mso-style-id:0;}
+td
+	{mso-style-parent:style0;
+	padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:windowtext;
+	font-size:12.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:宋体;
+	mso-generic-font-family:auto;
+	mso-font-charset:134;
+	mso-number-format:General;
+	text-align:general;
+	vertical-align:middle;
+	border:none;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	mso-protection:locked visible;
+	white-space:nowrap;
+	mso-rotate:0;}
+.xl24
+	{mso-style-parent:style0;
+	color:black;
+	font-size:9.0pt;
+	background:white;
+	mso-pattern:auto none;}
+.xl25
+	{mso-style-parent:style0;
+	color:black;
+	font-size:9.0pt;
+	text-align:center;
+	background:silver;
+	mso-pattern:auto none;}
+.xl26
+	{mso-style-parent:style0;
+	color:black;
+	font-size:9.0pt;
+	text-align:center;
+	border:.5pt solid black;
+	background:silver;
+	mso-pattern:auto none;
+	white-space:normal;}
+.xl27
+	{mso-style-parent:style0;
+	color:black;
+	font-size:9.0pt;
+	text-align:center;
+	background:white;
+	mso-pattern:auto none;}
+.xl28
+	{mso-style-parent:style0;
+	color:black;
+	font-size:9.0pt;
+	text-align:center;
+	border:.5pt solid black;
+	background:white;
+	mso-pattern:auto none;
+	white-space:normal;}
+.xl29
+	{mso-style-parent:style0;
+	color:black;
+	font-size:9.0pt;
+	text-align:left;
+	border:.5pt solid black;
+	background:white;
+	mso-pattern:auto none;
+	white-space:normal;}
+ruby
+	{ruby-align:left;}
+rt
+	{color:windowtext;
+	font-size:9.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:宋体;
+	mso-generic-font-family:auto;
+	mso-font-charset:134;
+	mso-char-type:none;
+	display:none;}
+-->
+</style>
+<!--[if gte mso 9]><xml>
+ <x:ExcelWorkbook>
+  <x:ExcelWorksheets>
+   <x:ExcelWorksheet>
+    <x:Name>Bj_jzbjbExpList</x:Name>
+    <x:WorksheetOptions>
+     <x:DefaultRowHeight>225</x:DefaultRowHeight>
+     <x:Selected/>
+     <x:DoNotDisplayGridlines/>
+     <x:ProtectContents>False</x:ProtectContents>
+     <x:ProtectObjects>False</x:ProtectObjects>
+     <x:ProtectScenarios>False</x:ProtectScenarios>
+    </x:WorksheetOptions>
+   </x:ExcelWorksheet>
+  </x:ExcelWorksheets>
+  <x:WindowHeight>8805</x:WindowHeight>
+  <x:WindowWidth>14700</x:WindowWidth>
+  <x:WindowTopX>480</x:WindowTopX>
+  <x:WindowTopY>225</x:WindowTopY>
+  <x:ProtectStructure>False</x:ProtectStructure>
+  <x:ProtectWindows>False</x:ProtectWindows>
+ </x:ExcelWorkbook>
+</xml><![endif]-->
+</head>
+
+<body link=blue vlink=purple class=xl24>
+
+<table x:str border=0 cellpadding=0 cellspacing=0 width=2870 style='border-collapse:
+ collapse;table-layout:fixed;width:2154pt'>
+ <col class=xl24 width=95 span=2 style='mso-width-source:userset;mso-width-alt:
+ 3040;width:71pt'>
+ <col class=xl24 width=114 style='mso-width-source:userset;mso-width-alt:3648;
+ width:86pt'>
+ <col class=xl24 width=95 style='mso-width-source:userset;mso-width-alt:3040;
+ width:71pt'>
+ <col class=xl24 width=155 style='mso-width-source:userset;mso-width-alt:4960;
+ width:116pt'>
+ <col class=xl24 width=114 span=2 style='mso-width-source:userset;mso-width-alt:
+ 3648;width:86pt'>
+ <col class=xl24 width=95 style='mso-width-source:userset;mso-width-alt:3040;
+ width:71pt'>
+ <col class=xl24 width=114 style='mso-width-source:userset;mso-width-alt:3648;
+ width:86pt'>
+ <col class=xl24 width=95 style='mso-width-source:userset;mso-width-alt:3040;
+ width:71pt'>
+ <col class=xl24 width=76 span=7 style='mso-width-source:userset;mso-width-alt:
+ 2432;width:57pt'>
+ <col class=xl24 width=133 span=2 style='mso-width-source:userset;mso-width-alt:
+ 4256;width:100pt'>
+ <col class=xl24 width=95 style='mso-width-source:userset;mso-width-alt:3040;
+ width:71pt'>
+ <col class=xl24 width=197 style='mso-width-source:userset;mso-width-alt:6304;
+ width:148pt'>
+ <col class=xl24 width=133 style='mso-width-source:userset;mso-width-alt:4256;
+ width:100pt'>
+ <col class=xl24 width=57 style='mso-width-source:userset;mso-width-alt:1824;
+ width:43pt'>
+ <col class=xl24 width=133 style='mso-width-source:userset;mso-width-alt:4256;
+ width:100pt'>
+ <col class=xl24 width=95 style='mso-width-source:userset;mso-width-alt:3040;
+ width:71pt'>
+ <col class=xl24 width=133 style='mso-width-source:userset;mso-width-alt:4256;
+ width:100pt'>
+ <col class=xl24 width=143 style='mso-width-source:userset;mso-width-alt:4576;
+ width:107pt'>
+ <tr class=xl25 height=15 style='height:11.25pt'>
+  <td height=15 class=xl26 width=95 style='height:11.25pt;width:71pt'>项目大类</td>
+  <td class=xl26 width=95 style='border-left:none;width:71pt'>项目小类</td>
+  <td class=xl26 width=114 style='border-left:none;width:86pt'>项目分类</td>
+  <td class=xl26 width=95 style='border-left:none;width:71pt'>项目编号</td>
+  <td class=xl26 width=155 style='border-left:none;width:116pt'>项目名称</td>
+  <td class=xl26 width=114 style='border-left:none;width:86pt'>是否必选项</td>
+  <td class=xl26 width=114 style='border-left:none;width:86pt'>饰面</td>
+  <td class=xl26 width=95 style='border-left:none;width:71pt'>计量单位</td>
+  <td class=xl26 width=114 style='border-left:none;width:86pt'>施工成本价</td>
+  <td class=xl26 width=95 style='border-left:none;width:71pt'>客户报价</td>
+  <td class=xl26 width=76 style='border-left:none;width:57pt'>辅材费</td>
+  <td class=xl26 width=76 style='border-left:none;width:57pt'>主材费</td>
+  <td class=xl26 width=76 style='border-left:none;width:57pt'>人工费</td>
+  <td class=xl26 width=76 style='border-left:none;width:57pt'>运输费</td>
+  <td class=xl26 width=76 style='border-left:none;width:57pt'>机械费</td>
+  <td class=xl26 width=76 style='border-left:none;width:57pt'>损耗费</td>
+  <td class=xl26 width=76 style='border-left:none;width:57pt'>其它费</td>
+  <td class=xl26 width=133 style='border-left:none;width:100pt'>工程基础报价</td>
+  <td class=xl26 width=133 style='border-left:none;width:100pt'>是否允许打折</td>
+  <td class=xl26 width=95 style='border-left:none;width:71pt'>最低折扣</td>
+  <td class=xl26 width=197 style='border-left:none;width:148pt'>工艺做法及材料说明</td>
+  <td class=xl26 width=133 style='border-left:none;width:100pt'>辅料名称规格</td>
+  <td class=xl26 width=57 style='border-left:none;width:43pt'>备注</td>
+  <td class=xl26 width=133 style='border-left:none;width:100pt'>关联项目编号</td>
+  <td class=xl26 width=95 style='border-left:none;width:71pt'>排序序号</td>
+  <td class=xl26 width=133 style='border-left:none;width:100pt'>是否需要材料</td>
+  <td class=xl26 width=143 style='border-left:none;width:107pt'>是否需预交底</td>
+ </tr>
+ <tr class=xl27 height=15 style='height:11.25pt'>
+  <td height=15 class=xl28 width=95 style='height:11.25pt;border-top:none;
+  width:71pt'>基础部分</td>
+  <td class=xl28 width=95 style='border-top:none;border-left:none;width:71pt'>水电部分</td>
+  <td class=xl28 width=114 style='border-top:none;border-left:none;width:86pt'>乳胶漆部分</td>
+  <td class=xl28 width=95 style='border-top:none;border-left:none;width:71pt'>Xm012</td>
+  <td class=xl28 width=155 style='border-top:none;border-left:none;width:116pt'>项目名称Xm012</td>
+  <td class=xl28 width=114 style='border-top:none;border-left:none;width:86pt'>可选项</td>
+  <td class=xl28 width=114 style='border-top:none;border-left:none;width:86pt'>　</td>
+  <td class=xl28 width=95 style='border-top:none;border-left:none;width:71pt'>米</td>
+  <td class=xl28 width=114 style='border-top:none;border-left:none;width:86pt'
+  x:num>2.23</td>
+  <td class=xl28 width=95 style='border-top:none;border-left:none;width:71pt'
+  x:num>42</td>
+  <td class=xl28 width=76 style='border-top:none;border-left:none;width:57pt'
+  x:num>3</td>
+  <td class=xl28 width=76 style='border-top:none;border-left:none;width:57pt'
+  x:num>7</td>
+  <td class=xl28 width=76 style='border-top:none;border-left:none;width:57pt'
+  x:num>4</td>
+  <td class=xl28 width=76 style='border-top:none;border-left:none;width:57pt'
+  x:num>8</td>
+  <td class=xl28 width=76 style='border-top:none;border-left:none;width:57pt'
+  x:num>5</td>
+  <td class=xl28 width=76 style='border-top:none;border-left:none;width:57pt'
+  x:num>9</td>
+  <td class=xl28 width=76 style='border-top:none;border-left:none;width:57pt'
+  x:num>6</td>
+  <td class=xl28 width=133 style='border-top:none;border-left:none;width:100pt'
+  x:num>11.13</td>
+  <td class=xl28 width=133 style='border-top:none;border-left:none;width:100pt'>允许</td>
+  <td class=xl28 width=95 style='border-top:none;border-left:none;width:71pt'
+  x:num>4.3</td>
+  <td class=xl29 width=197 style='border-top:none;border-left:none;width:148pt'>工艺材料简介</td>
+  <td class=xl28 width=133 style='border-top:none;border-left:none;width:100pt'>　</td>
+  <td class=xl28 width=57 style='border-top:none;border-left:none;width:43pt'>　</td>
+  <td class=xl28 width=133 style='border-top:none;border-left:none;width:100pt'>　</td>
+  <td class=xl28 width=95 style='border-top:none;border-left:none;width:71pt'
+  x:num>1</td>
+  <td class=xl28 width=133 style='border-top:none;border-left:none;width:100pt'>需要</td>
+  <td class=xl28 width=143 style='border-top:none;border-left:none;width:107pt'>否</td>
+ </tr>
+ <tr class=xl27 height=15 style='height:11.25pt'>
+  <td height=15 class=xl28 width=95 style='height:11.25pt;border-top:none;
+  width:71pt'>基础部分</td>
+  <td class=xl28 width=95 style='border-top:none;border-left:none;width:71pt'>水电部分</td>
+  <td class=xl28 width=114 style='border-top:none;border-left:none;width:86pt'>　</td>
+  <td class=xl28 width=95 style='border-top:none;border-left:none;width:71pt'>xm02</td>
+  <td class=xl28 width=155 style='border-top:none;border-left:none;width:116pt'>项目名称xm02</td>
+  <td class=xl28 width=114 style='border-top:none;border-left:none;width:86pt'>可选项</td>
+  <td class=xl28 width=114 style='border-top:none;border-left:none;width:86pt'>　</td>
+  <td class=xl28 width=95 style='border-top:none;border-left:none;width:71pt'>个</td>
+  <td class=xl28 width=114 style='border-top:none;border-left:none;width:86pt'
+  x:num>0</td>
+  <td class=xl28 width=95 style='border-top:none;border-left:none;width:71pt'
+  x:num>19.3</td>
+  <td class=xl28 width=76 style='border-top:none;border-left:none;width:57pt'
+  x:num>1</td>
+  <td class=xl28 width=76 style='border-top:none;border-left:none;width:57pt'
+  x:num>2</td>
+  <td class=xl28 width=76 style='border-top:none;border-left:none;width:57pt'
+  x:num>3.3</td>
+  <td class=xl28 width=76 style='border-top:none;border-left:none;width:57pt'
+  x:num>2</td>
+  <td class=xl28 width=76 style='border-top:none;border-left:none;width:57pt'
+  x:num>4</td>
+  <td class=xl28 width=76 style='border-top:none;border-left:none;width:57pt'
+  x:num>3</td>
+  <td class=xl28 width=76 style='border-top:none;border-left:none;width:57pt'
+  x:num>4</td>
+  <td class=xl28 width=133 style='border-top:none;border-left:none;width:100pt'
+  x:num>0</td>
+  <td class=xl28 width=133 style='border-top:none;border-left:none;width:100pt'>否</td>
+  <td class=xl28 width=95 style='border-top:none;border-left:none;width:71pt'
+  x:num>10</td>
+  <td class=xl29 width=197 style='border-top:none;border-left:none;width:148pt'>请修改家装报价表</td>
+  <td class=xl28 width=133 style='border-top:none;border-left:none;width:100pt'>辅料名称规格</td>
+  <td class=xl28 width=57 style='border-top:none;border-left:none;width:43pt'>备注</td>
+  <td class=xl28 width=133 style='border-top:none;border-left:none;width:100pt'>　</td>
+  <td class=xl28 width=95 style='border-top:none;border-left:none;width:71pt'
+  x:num>2</td>
+  <td class=xl28 width=133 style='border-top:none;border-left:none;width:100pt'>需要</td>
+  <td class=xl28 width=143 style='border-top:none;border-left:none;width:107pt'>否</td>
+ </tr>
+ <tr class=xl27 height=15 style='height:11.25pt'>
+  <td height=15 class=xl28 width=95 style='height:11.25pt;border-top:none;
+  width:71pt'>基础部分</td>
+  <td class=xl28 width=95 style='border-top:none;border-left:none;width:71pt'>水电部分</td>
+  <td class=xl28 width=114 style='border-top:none;border-left:none;width:86pt'>水电部分</td>
+  <td class=xl28 width=95 style='border-top:none;border-left:none;width:71pt'>xmbh01</td>
+  <td class=xl28 width=155 style='border-top:none;border-left:none;width:116pt'>项目名称xmbh01</td>
+  <td class=xl28 width=114 style='border-top:none;border-left:none;width:86pt'>可选项</td>
+  <td class=xl28 width=114 style='border-top:none;border-left:none;width:86pt'>胡桃木饰面</td>
+  <td class=xl28 width=95 style='border-top:none;border-left:none;width:71pt'>㎡</td>
+  <td class=xl28 width=114 style='border-top:none;border-left:none;width:86pt'
+  x:num>0</td>
+  <td class=xl28 width=95 style='border-top:none;border-left:none;width:71pt'
+  x:num>28.1</td>
+  <td class=xl28 width=76 style='border-top:none;border-left:none;width:57pt'
+  x:num>1</td>
+  <td class=xl28 width=76 style='border-top:none;border-left:none;width:57pt'
+  x:num>2</td>
+  <td class=xl28 width=76 style='border-top:none;border-left:none;width:57pt'
+  x:num>3</td>
+  <td class=xl28 width=76 style='border-top:none;border-left:none;width:57pt'
+  x:num>4</td>
+  <td class=xl28 width=76 style='border-top:none;border-left:none;width:57pt'
+  x:num>5</td>
+  <td class=xl28 width=76 style='border-top:none;border-left:none;width:57pt'
+  x:num>6</td>
+  <td class=xl28 width=76 style='border-top:none;border-left:none;width:57pt'
+  x:num>7.1</td>
+  <td class=xl28 width=133 style='border-top:none;border-left:none;width:100pt'
+  x:num>0</td>
+  <td class=xl28 width=133 style='border-top:none;border-left:none;width:100pt'>允许</td>
+  <td class=xl28 width=95 style='border-top:none;border-left:none;width:71pt'
+  x:num>5.21</td>
+  <td class=xl29 width=197 style='border-top:none;border-left:none;width:148pt'>　</td>
+  <td class=xl28 width=133 style='border-top:none;border-left:none;width:100pt'>　</td>
+  <td class=xl28 width=57 style='border-top:none;border-left:none;width:43pt'>　</td>
+  <td class=xl28 width=133 style='border-top:none;border-left:none;width:100pt'>　</td>
+  <td class=xl28 width=95 style='border-top:none;border-left:none;width:71pt'
+  x:num>3</td>
+  <td class=xl28 width=133 style='border-top:none;border-left:none;width:100pt'>需要</td>
+  <td class=xl28 width=143 style='border-top:none;border-left:none;width:107pt'>否</td>
+ </tr>
+ <![if supportMisalignedColumns]>
+ <tr height=0 style='display:none'>
+  <td width=95 style='width:71pt'></td>
+  <td width=95 style='width:71pt'></td>
+  <td width=114 style='width:86pt'></td>
+  <td width=95 style='width:71pt'></td>
+  <td width=155 style='width:116pt'></td>
+  <td width=114 style='width:86pt'></td>
+  <td width=114 style='width:86pt'></td>
+  <td width=95 style='width:71pt'></td>
+  <td width=114 style='width:86pt'></td>
+  <td width=95 style='width:71pt'></td>
+  <td width=76 style='width:57pt'></td>
+  <td width=76 style='width:57pt'></td>
+  <td width=76 style='width:57pt'></td>
+  <td width=76 style='width:57pt'></td>
+  <td width=76 style='width:57pt'></td>
+  <td width=76 style='width:57pt'></td>
+  <td width=76 style='width:57pt'></td>
+  <td width=133 style='width:100pt'></td>
+  <td width=133 style='width:100pt'></td>
+  <td width=95 style='width:71pt'></td>
+  <td width=197 style='width:148pt'></td>
+  <td width=133 style='width:100pt'></td>
+  <td width=57 style='width:43pt'></td>
+  <td width=133 style='width:100pt'></td>
+  <td width=95 style='width:71pt'></td>
+  <td width=133 style='width:100pt'></td>
+  <td width=143 style='width:107pt'></td>
+ </tr>
+ <![endif]>
+</table>
+
+</body>
+
+</html>
+

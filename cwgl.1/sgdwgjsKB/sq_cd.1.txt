@@ -1,0 +1,46 @@
+1651    	51	施工队中期结算		16      	0       	0       	N	
+165101  	1	松下亿达中期结算		1651    	16      	0       	N	
+16510101	1	已交齐结算资料	/cwgl/sgdzqjsKB/bln/SelectCxZlCrm_khxx.jsp	165101  	1651    	16      	Y	
+16510102	2	交齐结算资料－修改	/cwgl/sgdzqjsKB/bln/SelectXgZlCrm_khxx.jsp	165101  	1651    	16      	Y	
+16510106	6	结算	/cwgl/sgdzqjsKB/bln/SelectCxCrm_khxx.jsp	165101  	1651    	16      	Y	
+16510107	7	修改结算	/cwgl/sgdzqjsKB/bln/SelectCw_sgdzqjsjlkb.jsp	165101  	1651    	16      	Y	
+16510108	8	查询结算	/cwgl/sgdzqjsKB/bln/SelectCxCw_sgdzqjsjlkb.jsp	165101  	1651    	16      	Y	
+16510112	12	已交发票	/cwgl/sgdzqjsKB/bln/SelectCxFpCrm_khxx.jsp	165101  	1651    	16      	Y	
+16510113	13	交发票－修改	/cwgl/sgdzqjsKB/bln/SelectXgFpCrm_khxx.jsp	165101  	1651    	16      	Y	
+16510119	19	结算汇总单	/cwgl/sgdzqjsKB/bln/SelectJsHzCw_sgdzqjsjlkb.jsp	165101  	1651    	16      	Y	
+165102  	2	钛马赫首次结算		1651    	16      	0       	N	
+16510201	1	已交齐结算资料	/cwgl/sgdzqjsKB/tmhyc/SelectCxZlCrm_khxx.jsp	165102  	1651    	16      	Y	
+16510202	2	交齐结算资料－修改	/cwgl/sgdzqjsKB/tmhyc/SelectXgZlCrm_khxx.jsp	165102  	1651    	16      	Y	
+16510206	6	结算	/cwgl/sgdzqjsKB/tmhyc/SelectCxCrm_khxx.jsp	165102  	1651    	16      	Y	
+16510207	7	修改结算	/cwgl/sgdzqjsKB/tmhyc/SelectCw_sgdzqjsjlkb.jsp	165102  	1651    	16      	Y	
+16510208	8	查询结算	/cwgl/sgdzqjsKB/tmhyc/SelectCxCw_sgdzqjsjlkb.jsp	165102  	1651    	16      	Y	
+16510212	12	已交发票	/cwgl/sgdzqjsKB/tmhyc/SelectCxFpCrm_khxx.jsp	165102  	1651    	16      	Y	
+16510213	13	交发票－修改	/cwgl/sgdzqjsKB/tmhyc/SelectXgFpCrm_khxx.jsp	165102  	1651    	16      	Y	
+16510219	19	结算汇总单	/cwgl/sgdzqjsKB/tmhyc/SelectJsHzCw_sgdzqjsjlkb.jsp	165102  	1651    	16      	Y	
+165103  	3	钛马赫二次结算		1651    	16      	0       	N	
+16510301	1	已交齐结算资料	/cwgl/sgdzqjsKB/tmhec/SelectCxZlCrm_khxx.jsp	165103  	1651    	16      	Y	
+16510302	2	交齐结算资料－修改	/cwgl/sgdzqjsKB/tmhec/SelectXgZlCrm_khxx.jsp	165103  	1651    	16      	Y	
+16510306	6	结算	/cwgl/sgdzqjsKB/tmhec/SelectCxCrm_khxx.jsp	165103  	1651    	16      	Y	
+16510307	7	修改结算	/cwgl/sgdzqjsKB/tmhec/SelectCw_sgdzqjsjlkb.jsp	165103  	1651    	16      	Y	
+16510308	8	查询结算	/cwgl/sgdzqjsKB/tmhec/SelectCxCw_sgdzqjsjlkb.jsp	165103  	1651    	16      	Y	
+16510312	12	已交发票	/cwgl/sgdzqjsKB/tmhec/SelectCxFpCrm_khxx.jsp	165103  	1651    	16      	Y	
+16510313	13	交发票－修改	/cwgl/sgdzqjsKB/tmhec/SelectXgFpCrm_khxx.jsp	165103  	1651    	16      	Y	
+16510319	19	结算汇总单	/cwgl/sgdzqjsKB/tmhec/SelectJsHzCw_sgdzqjsjlkb.jsp	165103  	1651    	16      	Y	
+165104  	4	钛马赫三次结算		1651    	16      	0       	N	
+16510401	1	已交齐结算资料	/cwgl/sgdzqjsKB/tmhsc/SelectCxZlCrm_khxx.jsp	165104  	1651    	16      	Y	
+16510402	2	交齐结算资料－修改	/cwgl/sgdzqjsKB/tmhsc/SelectXgZlCrm_khxx.jsp	165104  	1651    	16      	Y	
+16510406	6	结算	/cwgl/sgdzqjsKB/tmhsc/SelectCxCrm_khxx.jsp	165104  	1651    	16      	Y	
+16510407	7	修改结算	/cwgl/sgdzqjsKB/tmhsc/SelectCw_sgdzqjsjlkb.jsp	165104  	1651    	16      	Y	
+16510408	8	查询结算	/cwgl/sgdzqjsKB/tmhsc/SelectCxCw_sgdzqjsjlkb.jsp	165104  	1651    	16      	Y	
+16510412	12	已交发票	/cwgl/sgdzqjsKB/tmhsc/SelectCxFpCrm_khxx.jsp	165104  	1651    	16      	Y	
+16510413	13	交发票－修改	/cwgl/sgdzqjsKB/tmhsc/SelectXgFpCrm_khxx.jsp	165104  	1651    	16      	Y	
+16510419	19	结算汇总单	/cwgl/sgdzqjsKB/tmhsc/SelectJsHzCw_sgdzqjsjlkb.jsp	165104  	1651    	16      	Y	
+1652    	52	施工队完工结算		16      	0       	0       	N	
+165201  	1	已交齐结算资料	/cwgl/sgdwgjsKB/SelectCxZlCrm_khxx.jsp	1652    	16      	0       	Y	
+165202  	2	交齐结算资料－修改	/cwgl/sgdwgjsKB/SelectXgZlCrm_khxx.jsp	1652    	16      	0       	Y	
+165206  	6	结算	/cwgl/sgdwgjsKB/SelectCxCrm_khxx.jsp	1652    	16      	0       	Y	
+165207  	7	修改结算	/cwgl/sgdwgjsKB/SelectCw_sgdwgjsjlkb.jsp	1652    	16      	0       	Y	
+165208  	8	查询结算	/cwgl/sgdwgjsKB/SelectCxCw_sgdwgjsjlkb.jsp	1652    	16      	0       	Y	
+165212  	12	已交发票	/cwgl/sgdwgjsKB/SelectCxFpCrm_khxx.jsp	1652    	16      	0       	Y	
+165213  	13	交发票－修改	/cwgl/sgdwgjsKB/SelectXgFpCrm_khxx.jsp	1652    	16      	0       	Y	
+165219  	19	结算汇总单	/cwgl/sgdwgjsKB/SelectJsHzCw_sgdzqjsjlkb.jsp	1652    	16      	0       	Y	

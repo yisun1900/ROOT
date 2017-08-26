@@ -1,0 +1,87 @@
+BODY {
+	BACKGROUND-COLOR: #ffffff
+}
+.dahangtiao {
+	FONT-WEIGHT: normal; FONT-SIZE: 12px; FILTER: DropShadow(Color=#999999, OffX=1, OffY=1, Positive=1); FONT-STYLE: normal; FONT-FAMILY: "宋体"; TEXT-DECORATION: none
+}
+TD {
+	FONT-SIZE: 9pt; FONT-FAMILY: "宋体"
+}
+P {
+	FONT-SIZE: 9pt; FONT-FAMILY: "宋体"
+}
+LI {
+	FONT-SIZE: 9pt; FONT-FAMILY: "宋体"
+}
+TD {
+	FONT-SIZE: 9pt; COLOR: #000000
+}
+BODY {
+	FONT-SIZE: 9pt; COLOR: #000000
+}
+.blktitle {
+	FONT-WEIGHT: bold; FONT-SIZE: 12pt; COLOR: #000000
+}
+.navytitle {
+	FONT-WEIGHT: bold; FONT-SIZE: 12pt; COLOR: #000000
+}
+.blksub {
+	FONT-WEIGHT: bold; FONT-SIZE: 9pt; COLOR: #ffffff
+}
+.navysub {
+	FONT-WEIGHT: bold; FONT-SIZE: 9pt; COLOR: #000000
+}
+.redhilite {
+	FONT-WEIGHT: bold; FONT-SIZE: 9pt; COLOR: #ff6600
+}
+.engtxt1 {
+	FONT-SIZE: 9pt; FONT-FAMILY: ""宋体""
+}
+.engtxt2 {
+	FONT-SIZE: 9pt; FONT-FAMILY: "Tahoma"
+}
+A:link {
+	FONT-SIZE: 9pt; COLOR: #000000; TEXT-DECORATION: none
+}
+A:visited {
+	FONT-SIZE: 9pt; COLOR: #000000; TEXT-DECORATION: none
+}
+A:active {
+	FONT-SIZE: 9pt; TEXT-DECORATION: none
+}
+A:hover {
+	FONT-SIZE: 9pt; COLOR: #ff0000; TEXT-DECORATION: none
+}
+A.a:link {
+	FONT-SIZE: 9pt; COLOR: #ffffff; TEXT-DECORATION: none
+}
+A.a:visited {
+	FONT-SIZE: 9pt; COLOR: #ffffff; TEXT-DECORATION: none
+}
+A.a:active {
+	FONT-SIZE: 9pt; TEXT-DECORATION: none
+}
+A.a:hover {
+	FONT-SIZE: 9pt; COLOR: #ffcc00; TEXT-DECORATION: none
+}
+.leftbt {
+	FONT-WEIGHT: bold; FONT-SIZE: 11pt; FILTER: DropShadow(Color=#999999, OffX=2, OffY=2, Positive=1); FONT-STYLE: normal; FONT-FAMILY: "宋体"; TEXT-DECORATION: none
+}
+.leftbg {
+	BORDER-RIGHT: #669999 0px dotted; BORDER-TOP: #669999 0px dotted; BORDER-LEFT: #669999 0px dotted; BORDER-BOTTOM: #669999 1px dotted
+}
+.left A:link {
+	BORDER-RIGHT: 0px; BORDER-TOP: 0px; PADDING-LEFT: 5px; FONT-SIZE: 9pt; BORDER-LEFT: 0px; WIDTH: 120px; COLOR: #000000; LINE-HEIGHT: 20pt; BORDER-BOTTOM: #999999 1px outset; FONT-FAMILY: "Verdana"; TEXT-DECORATION: none
+}
+.left A:visited {
+	BORDER-RIGHT: #999999 0px outset; BORDER-TOP: #999999 0px outset; PADDING-LEFT: 5px; FONT-SIZE: 9pt; BORDER-LEFT: #999999 0px outset; WIDTH: 120px; COLOR: #000000; LINE-HEIGHT: 20pt; BORDER-BOTTOM: #999999 1px outset; FONT-FAMILY: "Verdana"; TEXT-DECORATION: none
+}
+.left A:hover {
+	CLEAR: both; BORDER-RIGHT: 0px outset; BORDER-TOP: 0px outset; FONT-WEIGHT: bold; FONT-SIZE: 11pt; FLOAT: right; MARGIN: 0px; BORDER-LEFT: 0px outset; WIDTH: 172px; COLOR: #ffffff; BORDER-BOTTOM: #999999 1px outset; FONT-FAMILY: "宋体"; HEIGHT: 20px; BACKGROUND-COLOR: #6699cc; TEXT-DECORATION: none
+}
+.zhengwen {
+	LINE-HEIGHT: 18pt
+}
+.bt {
+	FONT-WEIGHT: normal; FONT-SIZE: 14px; COLOR: #ffffff
+}

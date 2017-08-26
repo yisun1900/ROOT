@@ -1,0 +1,138 @@
+<%@ page contentType="text/html;charset=GBK" %>
+<%@ page import='ybl.common.*,java.sql.*,java.util.*' %>
+<jsp:useBean id="cf" scope="page" class="ybl.common.CommonFunction"/>
+<jsp:useBean id="pageObj" scope="session" class="ybl.common.PageObject"/>
+<%@ include file="/getlogin.jsp" %>
+
+<html>
+<head>
+<title>招聘审核</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+</head>
+
+<body bgcolor="#FFFFFF">
+<div align="center">招聘审核</div>
+<table border="1" width="150%" cellspacing="0" cellpadding="1"  bgcolor="#000000" style='FONT-SIZE: 12px'>
+  <tr bgcolor="#CCCCCC" align="center"> 
+	<td  width="4%">&nbsp;</td>
+	<td  width="8%">申请编号</td>
+	<td  width="5%">申请分公司</td>
+	<td  width="6%">申请部门</td>
+	<td  width="7%">增补职务</td>
+	<td  width="6%">招聘人数</td>
+	<td  width="6%">招聘费用</td>
+	<td  width="6%">招聘理由</td>
+	<td  width="8%">希望到岗时间</td>
+	<td  width="13%">工作职责</td>
+	<td  width="8%">审核状态</td>
+	<td  width="5%">录入人</td>
+	<td  width="7%">录入人分公司</td>
+	<td  width="7%">录入时间</td>
+  </tr>
+<%
+
+String[] ztbm=request.getParameterValues("ztbm");
+
+Connection conn  = null;
+PreparedStatement ps=null;
+ResultSet rs=null;
+String ls_sql=null;
+
+String zpsqbh=null;
+String fgs=null;
+String sqbm=null;
+String zbzw=null;
+int zprs=0;
+double zpfy=0;
+String zbly=null;
+String xwdgsj=null;
+String rygznr=null;
+String ztbm_o=null;
+String lrr=null;
+String ssfgs=null;
+String lrsj=null;
+
+
+String ys=null;
+
+try {
+	conn=cf.getConnection();
+
+	int row=0;
+	for(int i=0;i<ztbm.length;i++){
+	ls_sql="SELECT rs_zpsq.zpsqbh zpsqbh,a.dwmc fgs,b.dwmc sqbm,dm_xzzwbm.xzzwmc zbzw,zprs,zpfy,DECODE(zbly,'0','其他','1','缺员补充','2','扩大编制','3','储备人力'),TO_CHAR(xwdgsj,'YYYY-MM-DD') xwdgsj,rygznr,rs_ztbm.ztmc ztbm,lrr,c.dwmc ssfgs,TO_CHAR(lrsj,'YYYY-MM-DD') lrsj ";
+	ls_sql+=" FROM rs_zpsq,sq_dwxx a,sq_dwxx b,sq_dwxx c,rs_ztbm,dm_xzzwbm  ";
+    ls_sql+=" where rs_zpsq.zbzw=dm_xzzwbm.xzzwbm and a.dwbh=rs_zpsq.fgs and b.dwbh=rs_zpsq.sqbm and c.dwbh=rs_zpsq.ssfgs and jhzt in ('01','02') and rs_ztbm.ztbm=rs_zpsq.ztbm and rs_zpsq.ztbm='"+ztbm[i]+"'";
+	ls_sql+=" order by rs_zpsq.zpsqbh";
+//	out.print(ls_sql);
+	ps= conn.prepareStatement(ls_sql);
+	rs =ps.executeQuery(ls_sql);
+	while (rs.next())
+	{
+		zpsqbh=rs.getString("zpsqbh");
+		zprs=rs.getInt("zprs");
+		zpfy=rs.getDouble("zpfy");
+		fgs=rs.getString("fgs");
+		jhzt=rs.getString("jhzt");
+		ztbm_o=rs.getString("ztbm");
+		shjl=rs.getString("shjl");
+		jhkssj=cf.fillHtml(rs.getString("jhkssj"));
+		jhjssj=cf.fillHtml(rs.getString("jhjssj"));
+		lrr=rs.getString("lrr");
+		ssfgs=rs.getString("ssfgs");
+		lrsj=rs.getString("lrsj");
+		bz=cf.fillHtml(rs.getString("bz"));
+
+		row++;
+
+		if (row%2==0)
+		{
+			ys="#E8E8FF";
+		}
+		else{
+			ys="#FFFFFF";
+		}
+%> 
+  <tr align="center" bgcolor="<%=ys%>">
+	<td><A HREF="InsertRs_zpsh.jsp?zpsqbh=<%=zpsqbh%>" target="_blank">审核</A></td>
+    <td><A HREF="viewzpjhmx.jsp?zpsqbh=<%=zpsqbh%>" target="_blank"><%=zpsqbh%></A></td>
+    <td><%=zprs%></td>
+    <td><%=zpfy%></td>
+    <td><%=fgs%></td>
+    <td><%=jhzt%></td>
+    <td><%=ztbm_o%></td>
+    <td><%=shjl%></td>
+    <td><%=jhkssj%></td>
+    <td><%=jhjssj%></td>
+    <td><%=lrr%></td>
+    <td><%=ssfgs%></td>
+    <td><%=lrsj%></td>
+    <td><%=bz%></td>
+  </tr>
+  <%
+		}
+		rs.close();
+		ps.close();
+	}
+
+}
+catch (Exception e) {
+	out.print("Exception: " + e+"<br>");
+	out.print("<font color=red>请选择可审核状态!</font>");
+	return;
+}
+finally 
+{
+	try{
+		if (rs != null) rs.close(); 
+		if (ps != null) ps.close(); 
+		if (conn != null) cf.close(conn); 
+	}
+	catch (Exception e){
+		if (conn != null) cf.close(conn); 
+	}
+}
+%> 
+</table>
+</body>
+</html>

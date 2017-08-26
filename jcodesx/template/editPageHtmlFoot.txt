@@ -1,0 +1,12 @@
+    <tr> 
+      <td colspan="4" >
+	<div align="center">
+	  <input type="button"  value="±£´æ" onClick="f_do(editform)">
+	  <input type="reset"  value="ÖØÊä">
+	</div>
+      </td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>

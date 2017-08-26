@@ -1,0 +1,5 @@
+	FormName.submit();
+	return true;
+}
+//-->
+</SCRIPT>

@@ -1,0 +1,35 @@
+<HTML>
+<HEAD>
+
+<TITLE></TITLE>
+<SCRIPT LANGUAGE="JavaScript">
+function PickUp()
+{
+     PhoneOcx.PickUp();
+}
+function DialNmbCStr()
+{
+     PhoneOcx.DialNmbCStr("486735316");
+}
+function PutDown()
+{
+     PhoneOcx.PutDown();
+}
+</SCRIPT>
+</HEAD>
+
+<BODY>
+<OBJECT 
+     classid=clsid:780A40C6-C224-11DA-AD88-0080C75D8B26
+     width="0" 
+     height="0" 
+     id=PhoneOcx>
+</OBJECT>
+
+拨号过程 <br>
+  <INPUT id=PickUp type=button value=摘机 name=PickUp onclick="PickUp()">
+  <INPUT id=DialNmbCStr type=button value=拨号 name=DialNmbCStr onclick="DialNmbCStr()">
+  <INPUT id=HandUp type=button value=挂机 name=HandUp onclick="PutDown()">
+
+</BODY>
+</HTML>

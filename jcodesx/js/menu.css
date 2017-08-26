@@ -1,0 +1,143 @@
+<STYLE>
+<!-- Netscape does NOT accept underscore -->
+<!--
+A { TEXT-DECORATION : none }
+A:hover { COLOR : #996600;
+	TEXT-DECORATION : underline; }
+BODY { BACKGROUND-COLOR : white;
+	FONT-FAMILY : arial,verdana,helvetica;
+	FONT-SIZE : 10pt; }
+BODY.nav { BACKGROUND-COLOR : #e1e8c8;
+	FONT-FAMILY : arial,verdana,helvetica;
+	FONT-SIZE : 10pt; }
+.allaire,P  {
+   	FONT-SIZE : 9pt;
+   	FONT-FAMILY : arial,sans-serif;
+   	FONT-WEIGHT : normal;
+   	FONT-STYLE : normal;
+   	TEXT-INDENT : 0px;
+   	LINE-HEIGHT : 17px; }
+.blueBG { BACKGROUND-COLOR : #006043; }
+.header  { FONT-SIZE : 9pt;
+   	FONT-FAMILY : arial,sans-serif;
+   	FONT-WEIGHT : normal;
+   	FONT-STYLE : normal;
+   	TEXT-INDENT : 0px;
+   	LINE-HEIGHT : 10pt; }
+H2 { FONT-SIZE : 13pt;
+	FONT-FAMILY : arial, geneva,helvetica,sans-serif;
+	FONT-WEIGHT : bold;
+	LINE-HEIGHT : 20px; }
+.spacer10pt { FONT-SIZE : 10pt }
+.copyright  { COLOR : black;
+   	FONT-SIZE : 8pt;
+   	FONT-FAMILY : arial,verdana,helvetica; }
+.inverseText { COLOR : #ffffee; }
+.small { FONT-SIZE : 8pt;
+   	FONT-FAMILY : arial,sans-serif;
+   	FONT-WEIGHT : normal;
+   	FONT-STYLE : normal;
+   	TEXT-INDENT : 0px;
+   	LINE-HEIGHT : 15px; }
+.infoHeader { COLOR :#006043;
+	FONT-FAMILY : verdana, arial, helvetica;
+	FONT-SIZE : 20pt; }
+.leftInfoArea { FONT-FAMILY : verdana, arial, helvetica;
+	FONT-SIZE : 9pt; }
+#currentUser  { COLOR : #996633;
+   	FONT-SIZE : 9pt;
+   	FONT-FAMILY : arial,sans-serif;
+   	FONT-WEIGHT : bold; }
+#brandingLogin { COLOR : 006043;
+	FONT-FAMILY : courier,verdana,arial,helvetica;
+	FONT-SIZE : 8pt; }
+#sectHead { COLOR : white;
+	FONT-FAMILY : arial,verdana,helvetica;
+	FONT-SIZE : 10pt;
+	FONT-WEIGHT : bold; }
+#sectDesc { COLOR : black;
+	FONT-FAMILY : verdana,arial,helvetica;
+	FONT-SIZE : 8pt; }
+	
+<!-- Field Heading -->
+.field { BACKGROUND-COLOR : silver;
+	FONT-FAMILY : verdana,arial,helvetica;
+	FONT-SIZE : 8pt; }
+	
+<!-- Property List/Edit -->
+.contentList { COLOR : #006043;
+	FONT-FAMILY : verdana,arial,helvetica;
+	FONT-SIZE : 8pt; }
+.contentEdit { COLOR : #6B8E23;
+	FONT-FAMILY : times,verdana,arial,helvetica;
+	FONT-SIZE : 9pt;  }
+.inputStatic { WIDTH:265px;
+   	FONT-SIZE : 9pt;
+   	FONT-FAMILY : arial,sans-serif;
+   	FONT-WEIGHT : normal;
+   	FONT-STYLE : normal;
+   	TEXT-INDENT : 0px;
+   	LINE-HEIGHT : 17px;}
+.inputShort { WIDTH:165px;
+   	FONT-SIZE : 9pt;
+   	FONT-FAMILY : arial,sans-serif;
+   	FONT-WEIGHT : normal;
+   	FONT-STYLE : normal;
+   	TEXT-INDENT : 0px;
+   	LINE-HEIGHT : 17px;}
+	
+<!-- Key Search -->
+.contentListBlack { COLOR : black;
+	FONT-FAMILY : verdana,arial,helvetica;
+	FONT-SIZE : 8pt; }
+.contentListWhite { COLOR : white;
+	FONT-FAMILY : verdana,arial,helvetica;
+	FONT-SIZE : 8pt; }
+
+<!-- Nav Page Body -->
+.nav { COLOR : blue;
+	FONT-FAMILY : verdana,arial,helvetica;
+	FONT-SIZE : 8pt;  }
+	
+<!-- Green Button : Key Search, Dir Reader, etc. -->
+.button { BACKGROUND : #006043;
+	COLOR : white;
+	FONT-SIZE : 9pt;
+	FONT-WEIGHT : bold; }
+
+.highlight { COLOR : #ffffee;}
+
+<!-- Left area error msg for wizards & tools -->
+.errorMsg { FONT-FAMILY : verdana,arial,helvetica;
+	TEXT-ALIGN : left;
+	COLOR : red;
+	FONT-WEIGHT : normal; }
+
+<!-- Connector Wizard -->
+.conFonts { FONT-FAMILY : arial,verdana,helvetica;
+	FONT-SIZE : 9pt;
+	FONT-WEIGHT : normal; }
+.conWhiteFonts { COLOR : white;
+	FONT-FAMILY : arial,verdana,helvetica;
+	FONT-SIZE : 9pt; }
+.conSteps { FONT-FAMILY : arial,verdana,helvetica;
+	FONT-SIZE : 7pt;
+	TEXT-INDENT : 0px;
+	LINE-HEIGHT : 15px; }
+.buttons  {	WIDTH :70px;
+   	FONT-SIZE : 9pt;
+   	FONT-FAMILY : arial,sans-serif;
+   	FONT-WEIGHT : normal;
+   	FONT-STYLE : normal;
+   	TEXT-INDENT : 0px;
+   	LINE-HEIGHT : 17px; }
+.buttonsWide  { WIDTH : 200px;
+	FONT-SIZE : 9pt;
+   	FONT-FAMILY : arial,sans-serif;
+   	FONT-WEIGHT : normal;
+   	FONT-STYLE : normal;
+   	TEXT-INDENT : 0px;
+   	LINE-HEIGHT : 17px; }
+-->
+</STYLE>
+

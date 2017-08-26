@@ -1,0 +1,9 @@
+a {  font-family: "宋体"; text-decoration: none}
+A:visited { font-family: "宋体"; color: #3366ff; text-decoration: none }
+A:active { font-family: "宋体"; color: #00ff00; text-decoration: none }
+A:hover { font-family: "宋体"; color: #0000a5; text-decoration: underline }
+td {  font-family: "宋体"; font-size: 9pt}
+body {bgcolor:ffffff; font-family: "宋体"; font-size: 9pt}
+body { margin-top: 0px; margin-right: 0px; margin-bottom: 0px; font-family: "宋体"; font-size: 9pt}
+img {  border-style: none}
+input{font-size:9pt;}

@@ -1,0 +1,46 @@
+A:link { 
+	COLOR: #000098; 
+	FONT-FAMILY: "ËÎÌו", "Arial", "Arial", "Times New Roman"; 
+	TEXT-DECORATION: none} 
+A:visited { 
+	COLOR: #000098; 
+	FONT-FAMILY:"Times New Roman";
+	TEXT-DECORATION: none} 
+A:hover { 
+	COLOR: #ff0033; 
+	FONT-FAMILY: "ËÎÌו", "Arial", "Arial", "Times New Roman"; 
+	TEXT-DECORATION: underline } 
+.p4 { 
+	FONT-SIZE: 9pt; 
+	line-height:12pt; } 
+.p5 { 
+	FONT-SIZE: 14.8px; 
+	line-height:14pt; } 
+a:active { 
+	color: #0099ff; 
+	text-decoration: underline} 
+.Stitle {  
+	font-size: 12pt; 
+	color: #285400}
+.Stitlezhshi {  
+	font-size: 9pt; 
+	line-height: 12pt; 
+	color: #000099}
+.Scontentzhshi {  
+	font-size: 9pt; 
+	line-height: 12pt; 
+	color: #0066cc}
+.Rtitle {  
+	font-size: 12pt; 
+	color: #cc6633}
+.Rtitlezhshi {  
+	font-size: 9pt; 
+	line-height: 12pt; 
+	color: #000000}
+.Rcontentzhushi {  
+	font-size: 9pt; line-height: 12pt; 
+	color: #003300}
+.content {  
+	font-size: 9pt; 
+	color: #3399CC}
+

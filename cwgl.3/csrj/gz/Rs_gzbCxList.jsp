@@ -1,0 +1,171 @@
+<%@ page contentType="text/html;charset=GBK" %>
+<%@ page import='ybl.common.*,java.sql.*,java.util.*' %>
+<jsp:useBean id="cf" scope="page" class="ybl.common.CommonFunction"/>
+<jsp:useBean id="pageObj" scope="session" class="ybl.common.PageObject"/>
+<%@ include file="/getlogin.jsp" %>
+
+<%
+String yhjs=(String)session.getAttribute("yhjs");
+String ygbh=(String)session.getAttribute("ygbh");
+String kfgssq=(String)session.getAttribute("kfgssq");//1：按分公司授权；2：按店面授权；3：不授权
+
+int curPage=0;//当前需要显示的页序号
+String pageStr=request.getParameter("curPage");//获取当前页号
+if (pageObj.needInit(pageStr))//判断是否需要初始化，若第一次进入此页，则需要初始化
+{
+	curPage=1;
+	String ls_sql=null;
+	String wheresql="";
+	String rs_gzb_khzq=null;
+	String rs_gzb_ssfgs=null;
+	String rs_gzb_fxrq=null;
+	String rs_gzb_ksrq=null;
+	String rs_gzb_zzrq=null;
+	String rs_gzb_qqts=null;
+	String rs_gzb_lrr=null;
+	String rs_gzb_lrsj=null;
+	String rs_gzb_lrbm=null;
+	rs_gzb_khzq=request.getParameter("rs_gzb_khzq");
+	if (rs_gzb_khzq!=null)
+	{
+		rs_gzb_khzq=cf.GB2Uni(rs_gzb_khzq);
+		if (!(rs_gzb_khzq.equals("")))	wheresql+=" and  (rs_gzb.khzq='"+rs_gzb_khzq+"')";
+	}
+	rs_gzb_ssfgs=request.getParameter("rs_gzb_ssfgs");
+	if (rs_gzb_ssfgs!=null)
+	{
+		rs_gzb_ssfgs=cf.GB2Uni(rs_gzb_ssfgs);
+		if (!(rs_gzb_ssfgs.equals("")))	wheresql+=" and  (rs_gzb.ssfgs='"+rs_gzb_ssfgs+"')";
+	}
+	rs_gzb_fxrq=request.getParameter("rs_gzb_fxrq");
+	if (rs_gzb_fxrq!=null)
+	{
+		rs_gzb_fxrq=rs_gzb_fxrq.trim();
+		if (!(rs_gzb_fxrq.equals("")))	wheresql+="  and (rs_gzb.fxrq=TO_DATE('"+rs_gzb_fxrq+"','YYYY/MM/DD'))";
+	}
+	rs_gzb_ksrq=request.getParameter("rs_gzb_ksrq");
+	if (rs_gzb_ksrq!=null)
+	{
+		rs_gzb_ksrq=rs_gzb_ksrq.trim();
+		if (!(rs_gzb_ksrq.equals("")))	wheresql+="  and (rs_gzb.ksrq=TO_DATE('"+rs_gzb_ksrq+"','YYYY/MM/DD'))";
+	}
+	rs_gzb_zzrq=request.getParameter("rs_gzb_zzrq");
+	if (rs_gzb_zzrq!=null)
+	{
+		rs_gzb_zzrq=rs_gzb_zzrq.trim();
+		if (!(rs_gzb_zzrq.equals("")))	wheresql+="  and (rs_gzb.zzrq=TO_DATE('"+rs_gzb_zzrq+"','YYYY/MM/DD'))";
+	}
+	rs_gzb_qqts=request.getParameter("rs_gzb_qqts");
+	if (rs_gzb_qqts!=null)
+	{
+		rs_gzb_qqts=rs_gzb_qqts.trim();
+		if (!(rs_gzb_qqts.equals("")))	wheresql+=" and  (rs_gzb.qqts="+rs_gzb_qqts+") ";
+	}
+	rs_gzb_lrr=request.getParameter("rs_gzb_lrr");
+	if (rs_gzb_lrr!=null)
+	{
+		rs_gzb_lrr=cf.GB2Uni(rs_gzb_lrr);
+		if (!(rs_gzb_lrr.equals("")))	wheresql+=" and  (rs_gzb.lrr='"+rs_gzb_lrr+"')";
+	}
+	rs_gzb_lrsj=request.getParameter("rs_gzb_lrsj");
+	if (rs_gzb_lrsj!=null)
+	{
+		rs_gzb_lrsj=rs_gzb_lrsj.trim();
+		if (!(rs_gzb_lrsj.equals("")))	wheresql+="  and (rs_gzb.lrsj=TO_DATE('"+rs_gzb_lrsj+"','YYYY/MM/DD'))";
+	}
+	rs_gzb_lrbm=request.getParameter("rs_gzb_lrbm");
+	if (rs_gzb_lrbm!=null)
+	{
+		rs_gzb_lrbm=cf.GB2Uni(rs_gzb_lrbm);
+		if (!(rs_gzb_lrbm.equals("")))	wheresql+=" and  (rs_gzb.lrbm='"+rs_gzb_lrbm+"')";
+	}
+	ls_sql="SELECT rs_gzb.khzq,rs_gzb.ssfgs,a.dwmc,rs_gzb.fxrq,rs_gzb.ksrq,rs_gzb.zzrq,rs_gzb.qqts,DECODE(rs_gzb.sfksb,'Y','扣社保','N','不扣社保'),DECODE(rs_gzb.sfkywx,'Y','扣除','N','不扣除'),rs_gzb.lrr,rs_gzb.lrsj,b.dwmc lrbm,rs_gzb.bz  ";
+	ls_sql+=" FROM sq_dwxx a,rs_gzb,sq_dwxx b ";
+    ls_sql+=" where rs_gzb.ssfgs=a.dwbh(+)";
+    ls_sql+=" and rs_gzb.lrbm=b.dwbh(+)";
+	if (kfgssq.equals("1") || kfgssq.equals("2"))//0：不授权；1：授权单个分公司；2：授权多个分公司；3：授权单个店面；4：授权某一分公司多个店面；5：授权多个分公司多个店面
+	{
+		ls_sql+=" and rs_gzb.ssfgs in(select ssfgs from sq_sqfgs where ygbh='"+ygbh+"' )";
+	}
+	else
+	{
+		ls_sql+=" and rs_gzb.ssfgs in(select ssfgs from sq_sqbm where ygbh='"+ygbh+"' )";
+	}
+    ls_sql+=wheresql;
+    ls_sql+=" order by rs_gzb.khzq,rs_gzb.ssfgs";
+    pageObj.sql=ls_sql;
+//进行对象初始化
+	pageObj.initPage("Rs_gzbCxList.jsp","","","");
+//	pageObj.setPageRow(10);//设置每页显示记录数
+/*
+//设置显示列
+	String[] disColName={"khzq","ssfgs","sq_dwxx_dwmc","rs_gzb_fxrq","rs_gzb_ksrq","rs_gzb_zzrq","rs_gzb_qqts","rs_gzb_lrr","rs_gzb_lrsj","rs_gzb_lrbm","rs_gzb_bz"};
+	pageObj.setDisColName(disColName);
+*/
+
+//设置主键
+	String[] keyName={"khzq","ssfgs"};
+	pageObj.setKey(keyName);
+//设置列超级连接
+	Hashtable coluParmHash=new Hashtable();
+	ColuParm coluParm=null;
+
+	coluParm=new ColuParm();//生成一个列参数对象
+	String[] coluKey={"khzq","ssfgs"};//设置列参数：coluParm.key的主键
+	coluParm.key=coluKey;//设置列参数：coluParm.key的主键
+	coluParm.link="ViewRs_gzb.jsp";//为列参数：coluParm.link设置超级链接
+	coluParm.bolt="target='_blank'";//为列参数：coluParm.link设置超级链接
+	coluParmHash.put("khzq",coluParm);//列参数对象加入Hash表
+	pageObj.setColuLink(coluParmHash);//列参数对象加入Hash表
+/*
+//设置主键的显示方式
+	pageObj.setKeyMark("SQL");//SQL：主键以SQL的方式显示；PARAM：主键以"123*we*4455"的方式显示
+*/
+}
+else//非第一次进入此页，不需要初始化
+{
+	curPage=Integer.parseInt(pageStr);
+}
+%>
+
+<html>
+<head>
+</head>
+<body bgcolor="#ffffff" text="#000000" style='FONT-SIZE: 12px'>
+<CENTER >
+  <B><font size="3">查询结果</font></B>
+</CENTER>
+<%
+	pageObj.out=out;
+	pageObj.getDate(curPage);
+	pageObj.printPageLink(140);
+%>
+<tr bgcolor="#CCCCCC"  align="center">
+	<td  width="6%">考核周期</td>
+	<td  width="6%">分公司</td>
+	<td  width="9%">分公司</td>
+	<td  width="7%">发薪日期</td>
+	<td  width="7%">工资开始日期</td>
+	<td  width="7%">工资终止日期</td>
+	<td  width="5%">全勤天数</td>
+	<td  width="6%">是否扣社保</td>
+	<td  width="6%">是否扣意外险</td>
+	<td  width="5%">录入人</td>
+	<td  width="7%">录入时间</td>
+	<td  width="8%">录入部门</td>
+	<td  width="78%">备注</td>
+</tr>
+<%
+	pageObj.printDate();
+	pageObj.printFoot();
+%> 
+
+</body>
+<script  LANGUAGE="javascript">
+<!--
+<%
+	pageObj.printScript();
+%> 
+//-->
+</script>
+</html>

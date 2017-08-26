@@ -1,0 +1,6 @@
+041631  	31	厂商结算		0416    	04      	0       	N	
+04163101	1	结算	/jcjj/zccl/js/SelectJsJc_zcdd.jsp	041631  	0416    	04      	Y	
+04163102	2	修改结算	/jcjj/zccl/js/SelectXgJsJc_zcdd.jsp	041631  	0416    	04      	Y	
+04163107	7	厂商批量结算 	/jcjj/zccl/js/SelectPlJsJc_zcdd.jsp	041631  	0416    	04      	Y	
+04163108	8	批量结算－修改	/jcjj/zccl/js/SelectJc_gysjs.jsp	041631  	0416    	04      	Y	
+04163109	9	批量结算－查询	/jcjj/zccl/js/SelectCxJc_gysjs.jsp	041631  	0416    	04      	Y	

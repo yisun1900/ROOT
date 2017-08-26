@@ -1,0 +1,70 @@
+<%@ page contentType="text/html;charset=gb2312" %>
+<%@page import="java.util.*,java.sql.*,java.text.*"%>
+<%@ include file="/getlogin.jsp" %>
+
+
+<%
+ybl.common.CommonFunction cf=new ybl.common.CommonFunction();
+
+String yhmc=(String)session.getAttribute("yhmc");
+String lrbm=(String)session.getAttribute("dwbh");
+String ssfgs=(String)session.getAttribute("ssfgs");
+
+String dqbm = request.getParameter("dqbm");
+
+
+String[] xuhao =request.getParameterValues("xuhao");
+String[] cldlbm =request.getParameterValues("cldlbm");
+String[] clxlbm =request.getParameterValues("clxlbm");
+String[] scsmc =request.getParameterValues("scsmc");
+String[] ppmc =request.getParameterValues("ppmc");
+String[] gysmc =request.getParameterValues("gysmc");
+String[] cllbbm =request.getParameterValues("cllbbm");
+
+//String[] clbm =request.getParameterValues("clbm");
+
+String[] clmc =request.getParameterValues("clmc");
+String[] xh =request.getParameterValues("xh");
+String[] gg =request.getParameterValues("gg");
+String[] clysbm =request.getParameterValues("clysbm");
+String[] jldwbm =request.getParameterValues("jldwbm");
+String[] lsjstr =request.getParameterValues("lsj");
+String[] xsjstr =request.getParameterValues("xsj");
+String[] zdxsjstr =request.getParameterValues("zdxsj");
+String[] yjjrblstr =request.getParameterValues("yjjrbl");
+
+String[] jsfs =request.getParameterValues("jsfs");
+String[] cbjstr =request.getParameterValues("cbj");
+String[] jsblstr =request.getParameterValues("jsbl");
+String[] cxhdblstr =request.getParameterValues("cxhdbl");
+String[] sfycx =request.getParameterValues("sfycx");
+String[] cxkssjstr =request.getParameterValues("cxkssj");
+String[] cxjzsjstr =request.getParameterValues("cxjzsj");
+String[] cxjstr =request.getParameterValues("cxj");
+String[] cxjsblstr =request.getParameterValues("cxjsbl");
+String[] cxcbjstr =request.getParameterValues("cxcbj");
+String[] lscxhdblstr =request.getParameterValues("lscxhdbl");
+String[] cxyjjrblstr =request.getParameterValues("cxyjjrbl");
+
+
+String[] sfbhpj =request.getParameterValues("sfbhpj");
+String[] pjtsstr =request.getParameterValues("pjts");
+String[] sfyh =request.getParameterValues("sfyh");
+
+String[] cpjb =request.getParameterValues("cpjb");
+String[] fgsx =request.getParameterValues("fgsx");
+String[] cpsm =request.getParameterValues("cpsm");
+String[] cd =request.getParameterValues("cd");
+String[] sftjcp =request.getParameterValues("sftjcp");
+String[] zp =request.getParameterValues("zp");
+String[] bz =request.getParameterValues("bz");
+String[] xsfs =request.getParameterValues("xsfs");
+
+out.println(xuhao);
+
+  
+//////////////////////////////////////////////////////  
+
+
+
+%>              
